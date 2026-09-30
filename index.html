@@ -12,10 +12,8 @@
 <style>
 /* ============================================================
    AHMED HUSSEIN — PORTFOLIO
-   Design System · Reset · Layout · Components
    ============================================================ */
 
-/* ---------- RESET ---------- */
 *,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
 html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
 img,svg,iframe{display:block;max-width:100%}
@@ -23,9 +21,7 @@ button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
 a{color:inherit;text-decoration:none}
 ul{list-style:none}
 
-/* ---------- TOKENS ---------- */
 :root{
-  /* palette */
   --bg:#080a0f;
   --surface:#10131a;
   --surface-2:#151923;
@@ -41,12 +37,10 @@ ul{list-style:none}
   --mint:#55e6a5;
   --warn:#ffb84d;
 
-  /* type */
   --sans:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
   --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
   --arabic:"Tajawal","Cairo","Inter",system-ui,sans-serif;
 
-  /* metrics */
   --gutter:clamp(16px,4vw,32px);
   --radius:24px;
   --radius-sm:16px;
@@ -54,14 +48,12 @@ ul{list-style:none}
   --ease:cubic-bezier(.22,.61,.36,1);
   --ease-out:cubic-bezier(.16,1,.3,1);
 
-  /* shadows */
   --shadow-sm:0 4px 12px rgba(0,0,0,.18);
   --shadow-md:0 12px 40px rgba(0,0,0,.24);
   --shadow-lg:0 25px 80px rgba(0,0,0,.42);
   --shadow-glow:0 20px 60px rgba(124,92,255,.22);
 }
 
-/* ---------- BASE ---------- */
 body{
   font-family:var(--sans);
   background:
@@ -77,7 +69,6 @@ body{
   text-rendering:optimizeLegibility;
 }
 
-/* dot grid overlay */
 body::before{
   content:"";
   position:fixed;inset:0;pointer-events:none;z-index:0;
@@ -88,7 +79,6 @@ body::before{
   mask-image:linear-gradient(to bottom,#000 0%,transparent 75%);
 }
 
-/* reading progress bar */
 .progress{
   position:fixed;top:0;left:0;height:2px;width:0;z-index:50;
   background:linear-gradient(90deg,var(--accent),var(--accent-2));
@@ -103,7 +93,6 @@ body::before{
   z-index:1;
 }
 
-/* ---------- HELPERS ---------- */
 .kicker{
   color:#a595ff;
   text-transform:uppercase;
@@ -181,7 +170,6 @@ body::before{
 }
 .nav__link:hover::before{transform:scaleX(1)}
 
-/* ---------- LANGUAGE TOGGLE ---------- */
 .lang{
   display:inline-flex;align-items:center;gap:7px;
   padding:8px 14px;
@@ -401,14 +389,31 @@ body::before{
 }
 .card:hover::before{opacity:1}
 
+/* ---------- PREVIEW (Enhanced) ---------- */
 .preview{
   position:relative;
   height:clamp(210px,32vw,330px);
   border-radius:var(--radius-sm);
   overflow:hidden;
-  background:#0c0f15;
+  background:
+    linear-gradient(135deg,#0c0f15 0%,#131826 100%);
   border:1px solid rgba(255,255,255,.06);
+  isolation:isolate;
 }
+
+/* shimmer loading state */
+.preview::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 30%,rgba(124,92,255,.12) 50%,transparent 70%);
+  background-size:200% 100%;
+  animation:shimmer 2s linear infinite;
+  z-index:1;
+  pointer-events:none;
+  transition:opacity .5s var(--ease);
+}
+.preview.is-loaded::before{opacity:0;animation:none}
+
 .preview iframe,
 .preview img{
   width:100%;height:100%;
@@ -416,25 +421,33 @@ body::before{
   background:#fff;
   pointer-events:none;
   object-fit:cover;
-  transition:transform .6s var(--ease-out);
+  position:relative;
+  z-index:2;
+  opacity:0;
+  transition:transform .6s var(--ease-out),opacity .5s var(--ease);
 }
+.preview.is-loaded iframe,
+.preview.is-loaded img{opacity:1}
+
 .card:hover .preview img,
 .card:hover .preview iframe{transform:scale(1.04)}
 
+/* gradient fade at bottom */
 .preview::after{
   content:"";
   position:absolute;inset:0;
-  background:linear-gradient(to bottom,transparent 55%,rgba(8,10,15,.65));
+  background:linear-gradient(to bottom,transparent 55%,rgba(8,10,15,.75));
   pointer-events:none;
+  z-index:3;
 }
 
 /* project number badge */
 .preview__num{
-  position:absolute;top:12px;left:12px;z-index:2;
+  position:absolute;top:12px;left:12px;z-index:5;
   font-family:var(--mono);
   font-size:10px;
   letter-spacing:.2em;
-  color:rgba(255,255,255,.75);
+  color:rgba(255,255,255,.85);
   padding:5px 10px;
   border-radius:8px;
   background:rgba(8,10,15,.72);
@@ -443,6 +456,72 @@ body::before{
   -webkit-backdrop-filter:blur(8px);
 }
 
+/* live indicator */
+.preview__live{
+  position:absolute;top:12px;right:12px;z-index:5;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:.14em;
+  color:#b8f5d6;
+  padding:5px 9px;
+  border-radius:8px;
+  background:rgba(8,20,15,.78);
+  border:1px solid rgba(85,230,165,.35);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  text-transform:uppercase;
+}
+.preview__live i{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--mint);
+  box-shadow:0 0 8px rgba(85,230,165,.9);
+  animation:pulseDot 1.6s ease-in-out infinite;
+}
+
+/* hover open badge */
+.preview__open{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.85);
+  z-index:6;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(8,10,15,.85);
+  border:1px solid rgba(124,92,255,.5);
+  color:#fff;
+  font-size:12px;font-weight:700;
+  letter-spacing:.02em;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease),transform .35s var(--ease-out);
+  box-shadow:0 14px 40px rgba(124,92,255,.4);
+}
+.card:hover .preview__open{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+.preview__open svg{width:13px;height:13px}
+
+/* fallback for blocked embeds */
+.preview__fallback{
+  position:absolute;inset:0;
+  z-index:4;
+  display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:10px;
+  padding:24px;text-align:center;
+  background:linear-gradient(135deg,#0e1220,#151a2b);
+  color:var(--muted);
+}
+.preview__fallback.is-active{display:flex}
+.preview__fallback svg{width:38px;height:38px;opacity:.5}
+.preview__fallback span{font-size:12.5px;line-height:1.6;max-width:240px}
+.preview__fallback strong{color:#c9bcff;display:block;margin-bottom:4px;font-size:13px}
+
+/* ---------- CARD BODY ---------- */
 .card__body{
   display:flex;flex-direction:column;flex:1;
   padding:20px 14px 14px;
@@ -484,39 +563,7 @@ body::before{
   display:inline-block;
   transition:transform .28s var(--ease);
 }
-.open:hover .arrow{transform:translate(3px,-3px)}
-
-/* ---------- EMPTY STATE CARD ---------- */
-.empty{
-  grid-column:1 / -1;
-  min-height:240px;
-  padding:44px 22px;
-  display:grid;place-items:center;
-  text-align:center;
-  border:1px dashed rgba(255,255,255,.14);
-  border-radius:var(--radius);
-  background:rgba(255,255,255,.012);
-  transition:border-color .35s var(--ease),background .35s var(--ease);
-}
-.empty:hover{
-  border-color:rgba(124,92,255,.35);
-  background:rgba(124,92,255,.03);
-}
-.empty__icon{
-  width:56px;height:56px;
-  margin:0 auto 14px;
-  display:flex;align-items:center;justify-content:center;
-  border-radius:16px;
-  background:linear-gradient(135deg,rgba(124,92,255,.15),rgba(33,212,253,.10));
-  border:1px solid rgba(124,92,255,.28);
-  color:var(--accent-3);
-}
-.empty__icon svg{width:26px;height:26px}
-.empty__title{color:#cfd3dc;font-size:15px;font-weight:700;margin-bottom:8px}
-.empty__hint{
-  color:var(--muted);font-size:13px;
-  max-width:440px;margin:0 auto;line-height:1.75;
-}
+.card:hover .open .arrow{transform:translate(3px,-3px)}
 
 /* ---------- SKILLS ---------- */
 .skills{display:flex;flex-wrap:wrap;gap:10px}
@@ -615,7 +662,6 @@ body::before{
   border-color:rgba(225,48,108,.5);
   box-shadow:0 14px 34px rgba(225,48,108,.28);
 }
-.footer__text{color:#5e6574;font-size:12px}
 
 /* ---------- REVEAL ---------- */
 .reveal{
@@ -643,13 +689,22 @@ body::before{
   70%{box-shadow:0 0 0 10px rgba(85,230,165,0)}
   100%{box-shadow:0 0 0 0 rgba(85,230,165,0)}
 }
+@keyframes pulseDot{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(.85)}
+}
+@keyframes shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
 
-/* ---------- RTL SUPPORT ---------- */
+/* ---------- RTL ---------- */
 html[dir="rtl"] body{font-family:var(--arabic)}
 html[dir="rtl"] .section__head{flex-direction:row-reverse}
 html[dir="rtl"] .section__head p{text-align:left}
 html[dir="rtl"] .ad-label{left:auto;right:12px}
 html[dir="rtl"] .preview__num{left:auto;right:12px}
+html[dir="rtl"] .preview__live{right:auto;left:12px}
 html[dir="rtl"] .arrow{transform:scaleX(-1)}
 html[dir="rtl"] .open:hover .arrow,
 html[dir="rtl"] .btn:hover .arrow{transform:scaleX(-1) translateX(3px)}
@@ -678,6 +733,7 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
   .card{border-radius:20px;padding:8px}
   .card__body{padding:16px 10px 10px}
   .ad-banner img{max-height:100px}
+  .preview__open{padding:9px 14px;font-size:11px}
 }
 @media (max-width:400px){
   h1{font-size:2.3rem}
@@ -685,7 +741,7 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
   .cta{padding:44px 18px}
 }
 
-/* ---------- ACCESSIBILITY ---------- */
+/* ---------- A11Y ---------- */
 :focus-visible{
   outline:2px solid var(--accent);
   outline-offset:3px;
@@ -710,16 +766,11 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
 
 <body>
 
-<!-- reading progress -->
 <div class="progress" id="progress" aria-hidden="true"></div>
 
 <!-- ============ NAV ============ -->
 <nav class="nav" id="nav">
   <div class="nav__left">
-    <!--
-      🖼️ Your logo — replace "images/logo.png" with your own file.
-      If the image fails to load, the text fallback appears automatically.
-    -->
     <a href="#" class="nav__brand" aria-label="Home">
       <img class="logo-img" src="images/logo.png" alt="AH logo"
            onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
@@ -779,9 +830,7 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
   </div>
 </header>
 
-<!-- =========================================================
-     📢 Ad banner — replace "images/ad.jpg" and the href.
-     ========================================================= -->
+<!-- ============ AD BANNER ============ -->
 <div class="ad-banner" id="adBanner">
   <span class="ad-label" data-i18n="ad.label">Ad</span>
   <a class="ad-link" href="images/ad.jpg" target="_blank" rel="noopener">
@@ -809,14 +858,30 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
 
     <div class="projects" id="clientProjects">
 
-      <!-- ADD NEW PROJECTS HERE: copy the <a class="card"> block below and edit. -->
+      <!-- 01 · Med-Lab (LIVE external) -->
       <a class="card reveal"
          href="https://med-lab-beta.vercel.app/"
          target="_blank" rel="noopener noreferrer"
          aria-label="Open Med-Lab website">
-        <div class="preview">
+        <div class="preview" data-live-src="https://med-lab-beta.vercel.app/">
           <span class="preview__num">01 / MED-LAB</span>
-          
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Live site</strong>
+              Preview blocked by the site. Click to open it in a new tab.
+            </span>
+          </div>
         </div>
         <div class="card__body">
           <div class="card__title">Med-Lab</div>
@@ -855,21 +920,29 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
 
     <div class="projects" id="labProjects">
 
-      <!-- =============================================================
-           LAB PROJECTS
-           All files live inside the "my-projects" folder.
-           ============================================================= -->
-
-      <!-- 01 · Lumière — Fine Dining -->
       <a class="card reveal"
          href="my-projects/Lumière_Restaurant.html"
          target="_blank" rel="noopener noreferrer"
          aria-label="Open Lumière restaurant website">
-        <div class="preview">
+        <div class="preview" data-live-src="my-projects/Lumière_Restaurant.html">
           <span class="preview__num">01 / LUMIÈRE</span>
-          <iframe src="my-projects/Lumière_Restaurant.html"
-                  title="Lumière restaurant preview"
-                  loading="lazy" tabindex="-1"></iframe>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
         </div>
         <div class="card__body">
           <div class="card__title">Lumière</div>
@@ -889,16 +962,29 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
         </div>
       </a>
 
-      <!-- 02 · Nova Dental -->
       <a class="card reveal"
          href="my-projects/Nova_Dental.html"
          target="_blank" rel="noopener noreferrer"
          aria-label="Open Nova Dental website">
-        <div class="preview">
+        <div class="preview" data-live-src="my-projects/Nova_Dental.html">
           <span class="preview__num">02 / NOVA DENTAL</span>
-          <iframe src="my-projects/Nova_Dental.html"
-                  title="Nova Dental preview"
-                  loading="lazy" tabindex="-1"></iframe>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
         </div>
         <div class="card__body">
           <div class="card__title">Nova Dental</div>
@@ -918,16 +1004,29 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
         </div>
       </a>
 
-      <!-- 03 · PulseFit Gym -->
       <a class="card reveal"
          href="my-projects/PulseFit_Gym.html"
          target="_blank" rel="noopener noreferrer"
          aria-label="Open PulseFit gym website">
-        <div class="preview">
+        <div class="preview" data-live-src="my-projects/PulseFit_Gym.html">
           <span class="preview__num">03 / PULSEFIT</span>
-          <iframe src="my-projects/PulseFit_Gym.html"
-                  title="PulseFit gym preview"
-                  loading="lazy" tabindex="-1"></iframe>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
         </div>
         <div class="card__body">
           <div class="card__title">PulseFit Gym</div>
@@ -947,16 +1046,29 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
         </div>
       </a>
 
-      <!-- 04 · Birthday Surprise -->
       <a class="card reveal"
          href="my-projects/Birthday_Surprise.html"
          target="_blank" rel="noopener noreferrer"
          aria-label="Open Birthday Surprise page">
-        <div class="preview">
+        <div class="preview" data-live-src="my-projects/Birthday_Surprise.html">
           <span class="preview__num">04 / BIRTHDAY</span>
-          <iframe src="my-projects/Birthday_Surprise.html"
-                  title="Birthday Surprise preview"
-                  loading="lazy" tabindex="-1"></iframe>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
         </div>
         <div class="card__body">
           <div class="card__title">Birthday Surprise</div>
@@ -976,16 +1088,29 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
         </div>
       </a>
 
-      <!-- 05 · Gift Box -->
       <a class="card reveal"
          href="my-projects/gift-box.html"
          target="_blank" rel="noopener noreferrer"
          aria-label="Open Gift Box page">
-        <div class="preview">
+        <div class="preview" data-live-src="my-projects/gift-box.html">
           <span class="preview__num">05 / GIFT BOX</span>
-          <iframe src="my-projects/gift-box.html"
-                  title="Gift Box preview"
-                  loading="lazy" tabindex="-1"></iframe>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
         </div>
         <div class="card__body">
           <div class="card__title">Gift Box</div>
@@ -1005,16 +1130,29 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
         </div>
       </a>
 
-      <!-- 06 · Love Notes -->
       <a class="card reveal"
          href="my-projects/LoveLink.html"
          target="_blank" rel="noopener noreferrer"
          aria-label="Open Love Notes page">
-        <div class="preview">
+        <div class="preview" data-live-src="my-projects/LoveLink.html">
           <span class="preview__num">06 / LOVE NOTES</span>
-          <iframe src="my-projects/LoveLink.html"
-                  title="Love Notes preview"
-                  loading="lazy" tabindex="-1"></iframe>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
         </div>
         <div class="card__body">
           <div class="card__title">Love Notes</div>
@@ -1094,7 +1232,6 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
 
 </main>
 
-<!-- ============ FOOTER ============ -->
 <footer class="footer">
   <div class="footer__social">
     <a href="https://wa.me/201070293453" target="_blank" rel="noopener" aria-label="WhatsApp" class="social social--wa">
@@ -1123,7 +1260,7 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
   const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
 
   /* ============================================================
-     NAV SHRINK ON SCROLL
+     NAV SHRINK
      ============================================================ */
   const nav = $("#nav");
   const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 30);
@@ -1145,7 +1282,7 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
   window.addEventListener("resize", updateProgress);
 
   /* ============================================================
-     REVEAL ON SCROLL (with stagger)
+     REVEAL ON SCROLL
      ============================================================ */
   const reveals = $$(".reveal");
   if ("IntersectionObserver" in window) {
@@ -1168,6 +1305,82 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
   } else {
     reveals.forEach((el) => el.classList.add("is-visible"));
   }
+
+  /* ============================================================
+     LAZY IFRAME PREVIEWS
+     - Loads preview on first hover / tap / keyboard focus
+     - Falls back to a friendly message if blocked or slow
+     ============================================================ */
+  const LOAD_TIMEOUT = 4500; // ms before showing fallback
+
+  function loadPreview(previewEl) {
+    if (previewEl.dataset.loaded === "1") return;
+    const src = previewEl.dataset.liveSrc;
+    if (!src) return;
+
+    previewEl.dataset.loaded = "1";
+
+    const iframe = document.createElement("iframe");
+    iframe.src = src;
+    iframe.title = "Live preview";
+    iframe.loading = "lazy";
+    iframe.tabIndex = -1;
+    iframe.setAttribute("aria-hidden", "true");
+
+    let loaded = false;
+    const failTimer = setTimeout(() => {
+      if (loaded) return;
+      showFallback(previewEl);
+    }, LOAD_TIMEOUT);
+
+    iframe.addEventListener("load", () => {
+      loaded = true;
+      clearTimeout(failTimer);
+      // Cross-origin: we can't read content, so we just trust it loaded.
+      previewEl.classList.add("is-loaded");
+    });
+
+    iframe.addEventListener("error", () => {
+      clearTimeout(failTimer);
+      showFallback(previewEl);
+    });
+
+    // Append after the badges but before fallback (fallback z-index handles layering)
+    previewEl.appendChild(iframe);
+  }
+
+  function showFallback(previewEl) {
+    previewEl.classList.add("is-loaded");
+    const fb = previewEl.querySelector(".preview__fallback");
+    if (fb) fb.classList.add("is-active");
+  }
+
+  $$(".preview[data-live-src]").forEach((previewEl) => {
+    const card = previewEl.closest(".card");
+    if (!card) return;
+
+    // Load on hover
+    card.addEventListener("mouseenter", () => loadPreview(previewEl), { once: true });
+    // Load on keyboard focus
+    card.addEventListener("focusin",    () => loadPreview(previewEl), { once: true });
+    // Load on touch start
+    card.addEventListener("touchstart", () => loadPreview(previewEl), { once: true, passive: true });
+    // Also load when card enters viewport (fallback)
+    if ("IntersectionObserver" in window) {
+      const vio = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // small delay so it doesn't fight with page-load
+            setTimeout(() => loadPreview(previewEl), 600);
+            vio.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+      vio.observe(card);
+    } else {
+      loadPreview(previewEl);
+    }
+  });
 
   /* ============================================================
      TRANSLATIONS
@@ -1200,8 +1413,6 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
       "lab.kicker": "Lab & Experiments",
       "lab.title": "Things I built for fun.",
       "lab.desc": "Concept designs and personal projects — where I explore new ideas and sharpen my craft.",
-      "empty.title": "Experiments loading soon",
-      "empty.hint": "Six new concept projects are in the works — landing pages, interactive experiences and design experiments. Check back shortly.",
 
       "lab.lumiere.desc": "Fine dining restaurant website with menu, chef profile, and reservation call-to-action.",
       "lab.nova.desc": "Modern dental clinic website with services, doctor profiles, and an instant booking form.",
@@ -1247,8 +1458,6 @@ html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
       "lab.kicker": "المختبر والتجارب",
       "lab.title": "أشياء بنيتها للمتعة.",
       "lab.desc": "تصاميم مفاهيمية ومشاريع شخصية — أستكشف فيها أفكار جديدة وأصقل مهاراتي.",
-      "empty.title": "التجارب قادمة قريباً",
-      "empty.hint": "ستة مشاريع مفاهيمية جديدة قيد التنفيذ — صفحات هبوط وتجارب تفاعلية وتصاميم. عُد قريباً.",
 
       "lab.lumiere.desc": "موقع مطعم فاخر يعرض المنيو، نبذة عن الشيف، ودعوة مباشرة للحجز.",
       "lab.nova.desc": "موقع عيادة أسنان حديث يعرض الخدمات، الأطباء، ونموذج حجز فوري.",
