@@ -1,0 +1,1841 @@
+<!DOCTYPE html>
+<html lang="ar" dir="rtl" data-theme="light">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1">
+<title>Speed Medical — مستلزمات ومعدات طبية ومعملية</title>
+<meta name="description" content="Speed Medical — demo e-commerce for medical and laboratory supplies. متجر تجريبي للمستلزمات الطبية والمعملية.">
+<meta name="color-scheme" content="light dark">
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Cairo:wght@400;500;600;700;800&family=Inter:wght@400;500;600;700;800&display=swap" rel="stylesheet">
+<style>
+/* ============================================================
+   SPEED MEDICAL — DESIGN SYSTEM
+   1 Tokens · 2 Reset · 3 Layout · 4 Components · 5 Sections
+   6 Modals · 7 Responsive
+   ============================================================ */
+
+/* ---------- 1. TOKENS ---------- */
+:root{
+  --bg:#f4f7f9;
+  --surface:#ffffff;
+  --surface-2:#eaf0f4;
+  --line:#d9e2e8;
+  --text:#0d2230;
+  --muted:#52677a;
+  --primary:#0a7c8c;
+  --primary-strong:#075f6c;
+  --primary-soft:#dff1f3;
+  --on-primary:#ffffff;
+  --accent:#b8420c;
+  --accent-soft:#fdebe1;
+  --success:#12794a;
+  --success-soft:#e0f4ea;
+  --warn:#8f5200;
+  --warn-soft:#fdf0d6;
+  --danger:#b42318;
+  --danger-soft:#fde8e6;
+  --star:#e5a100;
+  --overlay:rgba(6,18,25,.55);
+  --shadow-1:0 1px 2px rgba(13,34,48,.06),0 1px 1px rgba(13,34,48,.04);
+  --shadow-2:0 10px 30px rgba(13,34,48,.12);
+  --hero-grad:linear-gradient(135deg,#e6f4f6 0%,#f4f7f9 60%);
+  --radius:10px;
+  --radius-sm:6px;
+  --header-h:64px;
+  --font-ar:'Cairo','Segoe UI',Tahoma,system-ui,sans-serif;
+  --font-en:'Inter','Cairo','Segoe UI',system-ui,sans-serif;
+}
+html[data-theme="dark"]{
+  --bg:#0a1419;
+  --surface:#111e25;
+  --surface-2:#18272f;
+  --line:#243842;
+  --text:#e8f1f5;
+  --muted:#9db3c0;
+  --primary:#38bdd0;
+  --primary-strong:#7bdbe8;
+  --primary-soft:#12343b;
+  --on-primary:#04252b;
+  --accent:#ff9a62;
+  --accent-soft:#3a2216;
+  --success:#4ade9b;
+  --success-soft:#103224;
+  --warn:#f5b84a;
+  --warn-soft:#352a10;
+  --danger:#ff8a80;
+  --danger-soft:#3a1816;
+  --star:#f5b84a;
+  --overlay:rgba(0,0,0,.65);
+  --shadow-1:0 1px 2px rgba(0,0,0,.4);
+  --shadow-2:0 14px 40px rgba(0,0,0,.5);
+  --hero-grad:linear-gradient(135deg,#0f2a31 0%,#0a1419 65%);
+}
+
+/* ---------- 2. RESET ---------- */
+*,*::before,*::after{box-sizing:border-box;margin:0;padding:0}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%;scroll-padding-top:calc(var(--header-h) + 12px)}
+body{
+  font-family:var(--font-ar);
+  background:var(--bg);color:var(--text);
+  line-height:1.7;font-size:16px;
+  min-height:100vh;overflow-x:hidden;
+  transition:background-color .25s,color .25s;
+}
+html[lang="en"] body{font-family:var(--font-en);line-height:1.6}
+body.no-scroll{overflow:hidden}
+img,svg{display:block;max-width:100%}
+button,input,select,textarea{font:inherit;color:inherit}
+button{background:none;border:none;cursor:pointer;text-align:inherit}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+[hidden]{display:none!important}
+:focus-visible{outline:3px solid var(--primary);outline-offset:2px;border-radius:4px}
+.sr-only{position:absolute;width:1px;height:1px;overflow:hidden;clip:rect(0 0 0 0);white-space:nowrap}
+.skip{position:absolute;inset-inline-start:12px;top:-60px;background:var(--primary);color:var(--on-primary);padding:10px 16px;border-radius:var(--radius-sm);z-index:300;font-weight:700}
+.skip:focus{top:12px}
+.ic{width:20px;height:20px;stroke:currentColor;fill:none;stroke-width:1.8;stroke-linecap:round;stroke-linejoin:round;flex:none}
+[dir="rtl"] .flip-rtl{transform:scaleX(-1)}
+
+/* ---------- 3. LAYOUT ---------- */
+.container{width:100%;max-width:1240px;margin-inline:auto;padding-inline:20px}
+.section{padding-block:56px}
+.section--alt{background:var(--surface);border-block:1px solid var(--line)}
+.section__head{display:flex;justify-content:space-between;align-items:flex-end;gap:16px;flex-wrap:wrap;margin-bottom:26px}
+.section__head h2{font-size:clamp(1.4rem,2.6vw,1.9rem);line-height:1.3;font-weight:800}
+.section__head p{color:var(--muted);max-width:60ch;margin-top:6px}
+.eyebrow{display:inline-block;font-size:.8rem;font-weight:700;letter-spacing:.04em;color:var(--primary-strong);margin-bottom:6px;text-transform:uppercase}
+
+/* ---------- 4. COMPONENTS ---------- */
+.btn{
+  display:inline-flex;align-items:center;justify-content:center;gap:8px;
+  min-height:44px;padding:0 18px;border-radius:var(--radius-sm);
+  font-weight:700;font-size:.95rem;border:1px solid transparent;
+  transition:background-color .15s,border-color .15s,transform .1s,color .15s;
+  text-align:center;white-space:nowrap;
+}
+.btn:active{transform:translateY(1px)}
+.btn--primary{background:var(--primary);color:var(--on-primary)}
+.btn--primary:hover{background:var(--primary-strong);color:var(--on-primary)}
+html[data-theme="dark"] .btn--primary:hover{background:#5fd0e0}
+.btn--ghost{background:transparent;border-color:var(--line);color:var(--text)}
+.btn--ghost:hover{background:var(--surface-2);border-color:var(--primary)}
+.btn--block{width:100%}
+.btn--sm{min-height:38px;padding:0 12px;font-size:.85rem}
+.btn[disabled]{opacity:.5;cursor:not-allowed;transform:none}
+.iconbtn{
+  width:44px;height:44px;display:inline-flex;align-items:center;justify-content:center;
+  border-radius:var(--radius-sm);border:1px solid var(--line);background:var(--surface);position:relative;
+  transition:background-color .15s,border-color .15s;
+}
+.iconbtn:hover{background:var(--surface-2);border-color:var(--primary)}
+.iconbtn .txt{font-weight:800;font-size:.8rem}
+.badge{
+  display:inline-flex;align-items:center;gap:4px;font-size:.72rem;font-weight:800;
+  padding:2px 8px;border-radius:4px;line-height:1.6;white-space:nowrap;
+}
+.badge--sale{background:var(--accent);color:#fff}
+html[data-theme="dark"] .badge--sale{color:#2b1204}
+.badge--new{background:var(--primary);color:var(--on-primary)}
+.badge--feat{background:var(--warn-soft);color:var(--warn)}
+.badge--local{background:var(--success-soft);color:var(--success)}
+.badge--imp{background:var(--primary-soft);color:var(--primary-strong)}
+.badge--demo{background:var(--surface-2);color:var(--muted);border:1px dashed var(--line)}
+.field{display:flex;flex-direction:column;gap:6px;margin-bottom:14px}
+.field label,.field .lbl{font-weight:700;font-size:.9rem}
+.field .req{color:var(--danger)}
+.input{
+  width:100%;min-height:46px;padding:10px 12px;background:var(--surface);
+  border:1px solid var(--line);border-radius:var(--radius-sm);font-size:16px;
+  transition:border-color .15s,box-shadow .15s;
+}
+textarea.input{min-height:96px;resize:vertical}
+.input:hover{border-color:var(--muted)}
+.input:focus{outline:none;border-color:var(--primary);box-shadow:0 0 0 3px var(--primary-soft)}
+.input[aria-invalid="true"]{border-color:var(--danger);box-shadow:0 0 0 3px var(--danger-soft)}
+.err{color:var(--danger);font-size:.85rem;font-weight:600;min-height:0}
+.err:empty{display:none}
+.note{font-size:.85rem;color:var(--muted)}
+.note--box{background:var(--warn-soft);color:var(--text);border:1px solid var(--warn);border-radius:var(--radius-sm);padding:10px 12px;display:flex;gap:10px;align-items:flex-start}
+.note--box .ic{color:var(--warn);margin-top:3px}
+.note--info{background:var(--primary-soft);border-color:var(--primary)}
+.note--info .ic{color:var(--primary-strong)}
+.stars{position:relative;display:inline-block;font-size:1rem;line-height:1;letter-spacing:2px;white-space:nowrap;direction:ltr}
+.stars__bg{color:var(--line)}
+html[data-theme="dark"] .stars__bg{color:#3a505c}
+.stars__fg{position:absolute;top:0;inset-inline-start:0;overflow:hidden;color:var(--star)}
+[dir="rtl"] .stars{direction:rtl}
+.money{font-weight:800;white-space:nowrap}
+.price-old{color:var(--muted);text-decoration:line-through;font-size:.85rem;white-space:nowrap}
+.stock{display:inline-flex;align-items:center;gap:6px;font-size:.82rem;font-weight:700}
+.stock::before{content:"";width:8px;height:8px;border-radius:50%;background:currentColor}
+.stock--in{color:var(--success)}
+.stock--low{color:var(--warn)}
+.stock--out{color:var(--danger)}
+
+/* ---------- 5. SECTIONS ---------- */
+/* Demo bar */
+.demobar{background:var(--primary-strong);color:#fff;font-size:.82rem;font-weight:600;text-align:center;padding:6px 12px}
+html[data-theme="dark"] .demobar{background:#0e3a42;color:var(--text)}
+.demobar a{text-decoration:underline;margin-inline-start:8px}
+
+/* Header */
+.header{position:sticky;top:0;z-index:50;background:var(--surface);border-bottom:1px solid var(--line);box-shadow:var(--shadow-1)}
+.header__in{display:flex;align-items:center;gap:14px;min-height:var(--header-h);flex-wrap:wrap;padding-block:8px}
+.brand{display:flex;align-items:center;gap:10px;font-weight:800;font-size:1.15rem;letter-spacing:-.01em;flex:none}
+.brand__mark{width:38px;height:38px;border-radius:9px;background:var(--primary);color:var(--on-primary);display:grid;place-items:center}
+.brand__mark .ic{width:22px;height:22px;stroke-width:2.2}
+.brand small{display:block;font-weight:600;font-size:.68rem;color:var(--muted);line-height:1;letter-spacing:.06em;text-transform:uppercase}
+.nav{display:flex;gap:4px;margin-inline-start:12px}
+.nav a{padding:8px 12px;border-radius:var(--radius-sm);font-weight:700;font-size:.95rem;color:var(--muted);transition:color .15s,background-color .15s}
+.nav a:hover{color:var(--text);background:var(--surface-2)}
+.nav a[aria-current="true"]{color:var(--primary-strong);background:var(--primary-soft)}
+.search{position:relative;flex:1 1 260px;max-width:420px;margin-inline-start:auto}
+.search .ic{position:absolute;inset-inline-start:12px;top:50%;transform:translateY(-50%);color:var(--muted);pointer-events:none}
+.search .input{padding-inline-start:40px;min-height:44px;background:var(--surface-2);border-color:transparent}
+.search .input:focus{background:var(--surface);border-color:var(--primary)}
+.actions{display:flex;gap:8px;align-items:center}
+.cartbtn .count{
+  position:absolute;top:-6px;inset-inline-end:-6px;min-width:20px;height:20px;padding:0 5px;border-radius:10px;
+  background:var(--accent);color:#fff;font-size:.72rem;font-weight:800;display:grid;place-items:center;
+}
+html[data-theme="dark"] .cartbtn .count{color:#2b1204}
+.cartbtn .count[data-n="0"]{display:none}
+.menubtn{display:none}
+.theme-sun{display:none}
+html[data-theme="dark"] .theme-sun{display:block}
+html[data-theme="dark"] .theme-moon{display:none}
+
+/* Hero */
+.hero{background:var(--hero-grad);border-bottom:1px solid var(--line)}
+.hero__in{display:grid;grid-template-columns:1.05fr .95fr;gap:44px;align-items:center;padding-block:56px}
+.hero__badge{display:inline-flex;align-items:center;gap:8px;background:var(--accent-soft);color:var(--accent);font-weight:800;font-size:.82rem;padding:5px 12px;border-radius:999px;margin-bottom:16px}
+.hero h1{font-size:clamp(1.9rem,4.4vw,3.1rem);line-height:1.2;font-weight:800;letter-spacing:-.01em;margin-bottom:14px}
+html[lang="ar"] .hero h1{line-height:1.35;letter-spacing:0}
+.hero p{color:var(--muted);font-size:1.08rem;max-width:52ch;margin-bottom:26px}
+.hero__cta{display:flex;gap:12px;flex-wrap:wrap}
+.hero__stats{display:flex;gap:28px;margin-top:34px;flex-wrap:wrap}
+.hero__stats strong{display:block;font-size:1.6rem;font-weight:800;line-height:1.1}
+.hero__stats span{font-size:.85rem;color:var(--muted)}
+.hero__media{position:relative;aspect-ratio:4/3;border-radius:14px;overflow:hidden;background:var(--surface-2);border:1px solid var(--line);box-shadow:var(--shadow-2)}
+.hero__media img{width:100%;height:100%;object-fit:cover}
+
+/* Features */
+.features{display:grid;grid-template-columns:repeat(4,1fr);gap:0;border-bottom:1px solid var(--line);background:var(--surface)}
+.feature{display:flex;gap:12px;align-items:flex-start;padding:20px}
+.feature + .feature{border-inline-start:1px solid var(--line)}
+.feature .ic{color:var(--primary);width:26px;height:26px;margin-top:2px}
+.feature strong{display:block;font-size:.95rem;line-height:1.4}
+.feature span{font-size:.84rem;color:var(--muted);line-height:1.5;display:block}
+
+/* Categories */
+.cats{display:grid;grid-template-columns:repeat(4,1fr);gap:14px}
+.cat{
+  display:flex;flex-direction:column;gap:6px;align-items:flex-start;padding:18px;
+  background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);
+  transition:border-color .15s,transform .15s,box-shadow .15s;
+}
+.cat:hover{border-color:var(--primary);transform:translateY(-2px);box-shadow:var(--shadow-2)}
+.cat.is-active{border-color:var(--primary);background:var(--primary-soft);box-shadow:inset 0 0 0 1px var(--primary)}
+.cat__ic{width:34px;height:34px;color:var(--primary);margin-bottom:4px}
+.cat__name{font-weight:800;line-height:1.35}
+.cat__n{font-size:.82rem;color:var(--muted)}
+
+/* Companies */
+.companies{display:grid;grid-template-columns:repeat(5,1fr);gap:14px}
+.company{
+  display:flex;flex-direction:column;gap:8px;padding:18px;background:var(--bg);
+  border:1px solid var(--line);border-radius:var(--radius);transition:border-color .15s,box-shadow .15s;
+}
+.company:hover{border-color:var(--primary)}
+.company.is-active{border-color:var(--primary);box-shadow:inset 0 0 0 1px var(--primary);background:var(--primary-soft)}
+.company__logo{width:46px;height:46px;border-radius:9px;display:grid;place-items:center;font-weight:800;background:var(--surface);border:1px solid var(--line);color:var(--primary-strong);font-family:var(--font-en)}
+.company h3{font-size:1rem;line-height:1.35}
+.company p{font-size:.84rem;color:var(--muted);flex:1}
+.company__tags{display:flex;gap:6px;flex-wrap:wrap}
+
+/* Catalog toolbar */
+.tabs{display:flex;gap:8px;flex-wrap:wrap;margin-bottom:16px}
+.tab{padding:8px 16px;border-radius:999px;border:1px solid var(--line);background:var(--surface);font-weight:700;font-size:.9rem;min-height:40px;transition:all .15s}
+.tab:hover{border-color:var(--primary)}
+.tab[aria-pressed="true"]{background:var(--primary);color:var(--on-primary);border-color:var(--primary)}
+.toolbar{display:grid;grid-template-columns:repeat(3,1fr);gap:12px;margin-bottom:14px}
+.toolbar .field{margin-bottom:0}
+.resultsbar{display:flex;align-items:center;gap:10px;flex-wrap:wrap;margin-bottom:18px;min-height:34px}
+.resultsbar .count{font-weight:700;color:var(--muted);font-size:.92rem}
+.chip{display:inline-flex;align-items:center;gap:6px;background:var(--primary-soft);color:var(--primary-strong);font-weight:700;font-size:.82rem;padding:4px 10px;border-radius:999px}
+.linkbtn{color:var(--primary-strong);font-weight:800;text-decoration:underline;font-size:.9rem;min-height:32px}
+.companybar{display:flex;gap:16px;align-items:center;flex-wrap:wrap;background:var(--primary-soft);border:1px solid var(--primary);border-radius:var(--radius);padding:14px 16px;margin-bottom:18px}
+.companybar h3{font-size:1.05rem}
+.companybar p{font-size:.88rem;color:var(--muted)}
+.companybar__cats{display:flex;gap:6px;flex-wrap:wrap;margin-top:8px}
+.companybar__cats button{background:var(--surface);border:1px solid var(--line);border-radius:999px;padding:3px 12px;font-size:.82rem;font-weight:700}
+.companybar__cats button:hover,.companybar__cats button[aria-pressed="true"]{border-color:var(--primary);color:var(--primary-strong)}
+
+/* Product grid & cards */
+.grid{display:grid;grid-template-columns:repeat(auto-fill,minmax(250px,1fr));gap:18px}
+.card{display:flex;flex-direction:column;background:var(--surface);border:1px solid var(--line);border-radius:var(--radius);overflow:hidden;transition:border-color .15s,box-shadow .2s,transform .2s}
+.card:hover{border-color:var(--primary);box-shadow:var(--shadow-2);transform:translateY(-2px)}
+.card__media{position:relative;display:block;width:100%;aspect-ratio:4/3;background:var(--surface-2);overflow:hidden}
+.card__media img{width:100%;height:100%;object-fit:cover;transition:transform .35s}
+.card:hover .card__media img{transform:scale(1.04)}
+.card__badges{position:absolute;top:10px;inset-inline-start:10px;display:flex;flex-direction:column;gap:5px;align-items:flex-start}
+.card__body{padding:14px;display:flex;flex-direction:column;gap:7px;flex:1}
+.card__brand{font-size:.8rem;color:var(--muted);font-weight:600;display:flex;gap:8px;align-items:center;flex-wrap:wrap}
+.card__title{font-weight:800;line-height:1.4;font-size:1rem;display:-webkit-box;-webkit-line-clamp:2;-webkit-box-orient:vertical;overflow:hidden;min-height:2.8em;text-align:start}
+.card__title:hover{color:var(--primary-strong)}
+.rating{display:flex;align-items:center;gap:8px;font-size:.84rem;color:var(--muted)}
+.rating b{color:var(--text)}
+.card__price{display:flex;align-items:baseline;gap:10px;flex-wrap:wrap;margin-top:auto;padding-top:4px}
+.card__price .money{font-size:1.2rem}
+.card__actions{display:grid;grid-template-columns:1fr 1fr;gap:8px;margin-top:8px}
+.empty{text-align:center;padding:56px 20px;border:1px dashed var(--line);border-radius:var(--radius);background:var(--surface)}
+.empty .ic{width:46px;height:46px;margin:0 auto 12px;color:var(--muted)}
+.empty h3{margin-bottom:6px}
+.empty p{color:var(--muted);margin-bottom:16px}
+
+/* Footer */
+.footer{background:var(--surface);border-top:1px solid var(--line);padding-block:40px 28px;margin-top:20px}
+.footer__grid{display:grid;grid-template-columns:2fr 1fr 1fr;gap:32px;margin-bottom:28px}
+.footer h4{margin-bottom:10px;font-size:.95rem}
+.footer p,.footer li{color:var(--muted);font-size:.9rem}
+.footer li{margin-bottom:6px}
+.footer a:hover,.footer .linkbtn:hover{color:var(--primary-strong)}
+.footer__bar{border-top:1px solid var(--line);padding-top:18px;font-size:.84rem;color:var(--muted);display:flex;justify-content:space-between;gap:12px;flex-wrap:wrap}
+
+/* Back to top + toast */
+.totop{position:fixed;bottom:20px;inset-inline-end:20px;z-index:40;box-shadow:var(--shadow-2);opacity:0;pointer-events:none;transform:translateY(10px);transition:opacity .2s,transform .2s}
+.totop.show{opacity:1;pointer-events:auto;transform:none}
+.toasts{position:fixed;bottom:20px;inset-inline-start:50%;transform:translateX(-50%);z-index:400;display:flex;flex-direction:column;gap:8px;align-items:center;width:min(92vw,420px);pointer-events:none}
+[dir="rtl"] .toasts{transform:translateX(50%)}
+.toast{background:var(--text);color:var(--bg);padding:11px 16px;border-radius:var(--radius-sm);font-weight:700;font-size:.9rem;box-shadow:var(--shadow-2);display:flex;gap:10px;align-items:center;animation:rise .25s ease both;max-width:100%}
+.toast--error{background:var(--danger);color:#fff}
+html[data-theme="dark"] .toast--error{color:#2b0a07}
+.toast--ok .ic{color:#4ade9b}
+html:not([data-theme="dark"]) .toast--ok .ic{color:#6ee7b7}
+@keyframes rise{from{opacity:0;transform:translateY(10px)}to{opacity:1;transform:none}}
+
+/* ---------- 6. MODALS ---------- */
+.overlay{position:fixed;inset:0;background:var(--overlay);z-index:200;display:flex;align-items:center;justify-content:center;padding:20px;animation:fade .18s ease both}
+.overlay--drawer{padding:0;align-items:stretch;justify-content:flex-end}
+.dialog{position:relative;background:var(--surface);border:1px solid var(--line);border-radius:14px;box-shadow:var(--shadow-2);width:100%;max-width:560px;max-height:calc(100dvh - 40px);overflow:auto;animation:pop .22s ease both;overscroll-behavior:contain}
+.dialog:focus{outline:none}
+.dialog--wide{max-width:1020px}
+.dialog--checkout{max-width:980px}
+.dialog__pad{padding:26px}
+.close{position:absolute;top:12px;inset-inline-end:12px;z-index:5;width:40px;height:40px;display:grid;place-items:center;border-radius:50%;background:var(--surface);border:1px solid var(--line)}
+.close:hover{background:var(--surface-2)}
+.drawer{max-width:430px;height:100dvh;max-height:none;border-radius:0;border-block:none;border-inline-end:none;display:flex;flex-direction:column;animation:slide .26s ease both}
+[dir="rtl"] .drawer{animation-name:slideR}
+.drawer__head{padding:16px 20px;border-bottom:1px solid var(--line);display:flex;align-items:center;justify-content:space-between;gap:10px}
+.drawer__head h2{font-size:1.15rem}
+.drawer__head .close{position:static}
+.drawer__body{flex:1;overflow:auto;padding:8px 20px}
+.drawer__foot{padding:16px 20px;border-top:1px solid var(--line);background:var(--surface)}
+.drawer__row{display:flex;justify-content:space-between;align-items:center;margin-bottom:6px}
+@keyframes fade{from{opacity:0}to{opacity:1}}
+@keyframes pop{from{opacity:0;transform:translateY(14px) scale(.98)}to{opacity:1;transform:none}}
+@keyframes slide{from{transform:translateX(100%)}to{transform:none}}
+@keyframes slideR{from{transform:translateX(-100%)}to{transform:none}}
+
+.line{display:grid;grid-template-columns:64px 1fr;gap:12px;padding:14px 0;border-bottom:1px solid var(--line)}
+.line:last-child{border-bottom:none}
+.line__img{width:64px;height:64px;border-radius:var(--radius-sm);overflow:hidden;background:var(--surface-2);border:1px solid var(--line)}
+.line__img img{width:100%;height:100%;object-fit:cover}
+.line__name{font-weight:700;line-height:1.4;font-size:.92rem}
+.line__meta{font-size:.82rem;color:var(--muted)}
+.line__ctrl{display:flex;align-items:center;justify-content:space-between;margin-top:8px;gap:8px;flex-wrap:wrap}
+.stepper{display:inline-flex;align-items:center;border:1px solid var(--line);border-radius:var(--radius-sm);background:var(--surface)}
+.stepper button{width:40px;height:40px;display:grid;place-items:center}
+.stepper button:hover:not([disabled]){background:var(--surface-2)}
+.stepper button[disabled]{opacity:.35;cursor:not-allowed}
+.stepper output{min-width:40px;text-align:center;font-weight:800}
+.rm{color:var(--danger);display:inline-flex;gap:4px;align-items:center;font-size:.84rem;font-weight:700;min-height:40px;padding-inline:6px}
+
+/* Product modal */
+.pm{display:grid;grid-template-columns:1.05fr 1fr;gap:30px;padding:26px}
+.pm__main{aspect-ratio:4/3;background:var(--surface-2);border-radius:var(--radius);overflow:hidden;border:1px solid var(--line)}
+.pm__main img{width:100%;height:100%;object-fit:cover}
+.pm__thumbs{display:flex;gap:10px;margin-top:10px;flex-wrap:wrap}
+.pm__thumbs button{width:72px;height:56px;border-radius:var(--radius-sm);overflow:hidden;border:2px solid var(--line);background:var(--surface-2);padding:0}
+.pm__thumbs button[aria-current="true"]{border-color:var(--primary)}
+.pm__thumbs img{width:100%;height:100%;object-fit:cover}
+.pm__badges{display:flex;gap:6px;flex-wrap:wrap;margin-bottom:10px}
+.pm h2{font-size:clamp(1.3rem,2.4vw,1.7rem);line-height:1.35;margin-bottom:6px;padding-inline-end:36px}
+.pm__company{color:var(--muted);font-weight:600;margin-bottom:10px}
+.pm__price{display:flex;align-items:baseline;gap:12px;flex-wrap:wrap;margin:14px 0 4px}
+.pm__price .money{font-size:1.9rem}
+.pm__meta{display:grid;grid-template-columns:auto 1fr;gap:6px 14px;margin:14px 0;padding:14px 0;border-block:1px solid var(--line);font-size:.92rem}
+.pm__meta dt{color:var(--muted);font-weight:600}
+.pm__meta dd{font-weight:700}
+.pm__desc{color:var(--text);margin-bottom:16px}
+.pm__buy{display:flex;gap:12px;align-items:center;flex-wrap:wrap}
+.pm__buy .btn{flex:1;min-width:160px}
+.reviews{padding:0 26px 26px}
+.reviews h3{font-size:1.2rem;margin-bottom:6px}
+.reviews__grid{display:grid;grid-template-columns:1fr 1fr;gap:28px;margin-top:16px}
+.rsum{display:flex;gap:22px;align-items:center;flex-wrap:wrap;margin-bottom:8px}
+.rsum__score{text-align:center}
+.rsum__score strong{display:block;font-size:2.4rem;line-height:1.1;font-weight:800}
+.rsum__score span.n{display:block;font-size:.82rem;color:var(--muted)}
+.rsum__dist{flex:1;min-width:180px}
+.drow{display:grid;grid-template-columns:34px 1fr 28px;gap:8px;align-items:center;font-size:.8rem;color:var(--muted)}
+.drow .bar{height:8px;border-radius:4px;background:var(--surface-2);overflow:hidden}
+.drow .bar i{display:block;height:100%;background:var(--star)}
+.rlist{display:flex;flex-direction:column;gap:12px;margin-top:14px;max-height:360px;overflow:auto}
+.review{border:1px solid var(--line);border-radius:var(--radius);padding:12px 14px;background:var(--bg)}
+.review__top{display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;align-items:center;margin-bottom:6px}
+.review__name{font-weight:800}
+.review__meta{font-size:.8rem;color:var(--muted)}
+.review p{overflow-wrap:anywhere;white-space:pre-wrap}
+.starsinput{display:flex;gap:4px;border:none}
+.starsinput legend{font-weight:700;font-size:.9rem;margin-bottom:6px;padding:0}
+.starsinput .row{display:flex;gap:2px}
+.starsinput input{position:absolute;opacity:0;width:1px;height:1px}
+.starsinput label{font-size:2rem;line-height:1;cursor:pointer;color:var(--line);padding:2px 4px;transition:color .1s,transform .1s}
+html[data-theme="dark"] .starsinput label{color:#3a505c}
+.starsinput label.on{color:var(--star)}
+.starsinput label:hover{transform:scale(1.12)}
+.starsinput input:focus-visible + label{outline:3px solid var(--primary);border-radius:4px}
+
+/* Checkout */
+.co{display:grid;grid-template-columns:1.1fr .9fr;gap:0}
+.co__form{padding:26px}
+.co__sum{padding:26px;background:var(--surface-2);border-inline-start:1px solid var(--line);border-radius:0 14px 14px 0}
+[dir="rtl"] .co__sum{border-radius:14px 0 0 14px}
+.co h2{font-size:1.4rem;margin-bottom:12px;padding-inline-end:40px}
+.co h3{font-size:1rem;margin:18px 0 10px}
+.row2{display:grid;grid-template-columns:1fr 1fr;gap:12px}
+.pay{display:grid;gap:8px;margin-bottom:10px}
+.pay label{display:flex;align-items:center;gap:10px;border:1px solid var(--line);border-radius:var(--radius-sm);padding:12px 14px;cursor:pointer;background:var(--surface);font-weight:700}
+.pay label:hover{border-color:var(--primary)}
+.pay input{accent-color:var(--primary);width:18px;height:18px}
+.pay label:has(input:checked){border-color:var(--primary);background:var(--primary-soft)}
+.pay label:has(input:focus-visible){outline:3px solid var(--primary);outline-offset:2px}
+.sumline{display:grid;grid-template-columns:48px 1fr auto;gap:10px;align-items:center;padding:8px 0;border-bottom:1px solid var(--line);font-size:.88rem}
+.sumline img{width:48px;height:48px;object-fit:cover;border-radius:6px;background:var(--surface)}
+.sumline b{display:block;line-height:1.35}
+.sumline small{color:var(--muted)}
+.totals{margin-top:14px}
+.totals div{display:flex;justify-content:space-between;gap:12px;padding:5px 0;font-size:.92rem}
+.totals .sub{color:var(--muted);font-size:.86rem}
+.totals .grand{border-top:2px solid var(--text);margin-top:8px;padding-top:12px;font-size:1.15rem;font-weight:800}
+
+/* Success / orders */
+.done{padding:34px 26px;text-align:center}
+.done__ic{width:64px;height:64px;border-radius:50%;background:var(--success-soft);color:var(--success);display:grid;place-items:center;margin:0 auto 14px}
+.done__ic .ic{width:32px;height:32px;stroke-width:2.4}
+.done h2{margin-bottom:6px}
+.done__no{display:inline-block;font-family:var(--font-en);font-weight:800;font-size:1.2rem;letter-spacing:.06em;background:var(--surface-2);border:1px dashed var(--muted);padding:6px 16px;border-radius:var(--radius-sm);margin:10px 0 14px;direction:ltr}
+.done__body{text-align:start;margin-top:18px}
+.done__cols{display:grid;grid-template-columns:1fr 1fr;gap:20px;margin-top:14px}
+.done dl{display:grid;grid-template-columns:auto 1fr;gap:4px 12px;font-size:.9rem}
+.done dt{color:var(--muted);font-weight:600}
+.done dd{font-weight:700;overflow-wrap:anywhere}
+.order{border:1px solid var(--line);border-radius:var(--radius);margin-bottom:10px;background:var(--bg)}
+.order summary{padding:12px 14px;cursor:pointer;display:flex;justify-content:space-between;gap:10px;flex-wrap:wrap;font-weight:700;list-style:none}
+.order summary::-webkit-details-marker{display:none}
+.order[open] summary{border-bottom:1px solid var(--line)}
+.order__in{padding:12px 14px}
+.ltr{direction:ltr;unicode-bidi:isolate}
+
+/* ---------- 7. RESPONSIVE ---------- */
+@media (max-width:1100px){
+  .companies{grid-template-columns:repeat(3,1fr)}
+  .cats{grid-template-columns:repeat(2,1fr)}
+  .features{grid-template-columns:repeat(2,1fr)}
+  .feature:nth-child(3){border-inline-start:none}
+  .feature:nth-child(n+3){border-top:1px solid var(--line)}
+}
+@media (max-width:900px){
+  .menubtn{display:inline-flex}
+  .nav{display:none;order:10;flex-basis:100%;flex-direction:column;margin:0;padding-top:6px;border-top:1px solid var(--line)}
+  .header.is-open .nav{display:flex}
+  .nav a{padding:12px}
+  .search{order:11;flex-basis:100%;max-width:none;margin:0}
+  .actions{margin-inline-start:auto}
+  .hero__in{grid-template-columns:1fr;gap:28px;padding-block:36px}
+  .hero__media{order:-1;aspect-ratio:16/9}
+  .toolbar{grid-template-columns:1fr 1fr}
+  .pm{grid-template-columns:1fr;gap:20px;padding:18px}
+  .reviews{padding:0 18px 22px}
+  .reviews__grid{grid-template-columns:1fr}
+  .co{grid-template-columns:1fr}
+  .co__sum{border-inline-start:none;border-top:1px solid var(--line);border-radius:0 0 14px 14px!important}
+  .footer__grid{grid-template-columns:1fr 1fr}
+  .footer__grid > :first-child{grid-column:1/-1}
+}
+@media (max-width:600px){
+  .container{padding-inline:16px}
+  .section{padding-block:40px}
+  .overlay:not(.overlay--drawer){padding:0;align-items:stretch}
+  .overlay:not(.overlay--drawer) .dialog{max-width:none;max-height:100dvh;border-radius:0;border:none;height:100dvh}
+  .toolbar{grid-template-columns:1fr}
+  .companies{grid-template-columns:1fr 1fr}
+  .cats{gap:10px}
+  .cat{padding:14px}
+  .features{grid-template-columns:1fr}
+  .feature + .feature{border-inline-start:none;border-top:1px solid var(--line)}
+  .row2{grid-template-columns:1fr}
+  .done__cols{grid-template-columns:1fr}
+  .co__form,.co__sum{padding:18px}
+  .grid{grid-template-columns:1fr}
+  .hero__stats{gap:20px}
+  .brand small{display:none}
+  .footer__grid{grid-template-columns:1fr}
+}
+@media (max-width:380px){
+  .companies{grid-template-columns:1fr}
+  .cats{grid-template-columns:1fr}
+  .actions{gap:6px}
+  .iconbtn{width:40px;height:40px}
+}
+@media (prefers-reduced-motion:reduce){
+  *,*::before,*::after{animation-duration:.01ms!important;transition-duration:.01ms!important;scroll-behavior:auto!important}
+}
+</style>
+</head>
+<body>
+<a class="skip" href="#products" data-i18n="skip">تخطي إلى المحتوى</a>
+
+<div class="demobar" role="note">
+  <span data-i18n="demobar">متجر تجريبي لأغراض العرض فقط — لا توجد طلبات أو مدفوعات حقيقية.</span>
+  <a href="../index.html" data-i18n="backPortfolio">العودة للبورتفوليو</a>
+</div>
+
+<!-- ============ HEADER ============ -->
+<header class="header" id="siteHeader">
+  <div class="container header__in">
+    <a class="brand" href="#home" aria-label="Speed Medical">
+      <span class="brand__mark" aria-hidden="true"><i data-icon="pulse"></i></span>
+      <span>Speed Medical<small data-i18n="brandSub">مستلزمات طبية</small></span>
+    </a>
+    <nav class="nav" id="mainNav" aria-label="Main">
+      <a href="#home" data-nav="home" data-i18n="nav.home">الرئيسية</a>
+      <a href="#products" data-nav="products" data-i18n="nav.products">المنتجات</a>
+      <a href="#companies" data-nav="companies" data-i18n="nav.companies">الشركات</a>
+      <a href="#categories" data-nav="categories" data-i18n="nav.categories">الأقسام</a>
+    </nav>
+    <form class="search" id="searchForm" role="search" autocomplete="off">
+      <i data-icon="search"></i>
+      <label class="sr-only" for="searchInput" data-i18n="search.label">بحث</label>
+      <input class="input" id="searchInput" type="search" data-i18n-ph="search.ph" placeholder="ابحث عن منتج أو شركة أو قسم…" maxlength="80">
+    </form>
+    <div class="actions">
+      <button class="iconbtn" id="langBtn" type="button" data-action="lang"><span class="txt" id="langTxt">EN</span></button>
+      <button class="iconbtn" id="themeBtn" type="button" data-action="theme">
+        <span class="theme-moon"><i data-icon="moon"></i></span><span class="theme-sun"><i data-icon="sun"></i></span>
+      </button>
+      <button class="iconbtn cartbtn" id="cartBtn" type="button" data-action="cart-open" aria-haspopup="dialog">
+        <i data-icon="cart"></i><span class="count" id="cartCount" data-n="0">0</span>
+      </button>
+      <button class="iconbtn menubtn" id="menuBtn" type="button" data-action="menu" aria-expanded="false" aria-controls="mainNav">
+        <i data-icon="menu"></i>
+      </button>
+    </div>
+  </div>
+</header>
+
+<main id="main">
+<!-- ============ HERO ============ -->
+<section class="hero" id="home" aria-labelledby="heroTitle">
+  <div class="container hero__in">
+    <div>
+      <span class="hero__badge"><i data-icon="tag"></i><span data-i18n="hero.badge">عرض تجريبي · أسعار توضيحية</span></span>
+      <h1 id="heroTitle" data-i18n="hero.title">كل ما يحتاجه معملك وعيادتك في مكان واحد</h1>
+      <p data-i18n="hero.desc">تصفّح معدات المعامل والمستلزمات الطبية من منتجات محلية ومستوردة، مع تفصيل واضح للأسعار والضريبة قبل إتمام الطلب.</p>
+      <div class="hero__cta">
+        <a class="btn btn--primary" href="#products"><span data-i18n="hero.cta1">تسوّق الآن</span><i data-icon="arrow" class="flip-rtl"></i></a>
+        <a class="btn btn--ghost" href="#categories" data-i18n="hero.cta2">تصفّح الأقسام</a>
+      </div>
+      <div class="hero__stats" id="heroStats"></div>
+    </div>
+    <div class="hero__media">
+      <img id="heroImg" data-cat="hero" width="900" height="675" fetchpriority="high"
+           src="https://images.unsplash.com/photo-1579684385127-1ef15d508118?auto=format&fit=crop&w=1100&q=70"
+           alt="" >
+    </div>
+  </div>
+</section>
+
+<div class="features" id="features"></div>
+
+<!-- ============ CATEGORIES ============ -->
+<section class="section" id="categories" aria-labelledby="catTitle">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow" data-i18n="cats.eyebrow">الأقسام</span>
+        <h2 id="catTitle" data-i18n="cats.title">تسوّق حسب القسم</h2>
+        <p data-i18n="cats.sub">ثمانية أقسام تغطي احتياجات المعامل والعيادات.</p>
+      </div>
+    </div>
+    <div class="cats" id="catGrid"></div>
+  </div>
+</section>
+
+<!-- ============ COMPANIES ============ -->
+<section class="section section--alt" id="companies" aria-labelledby="coTitleSec">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow" data-i18n="companies.eyebrow">الشركات</span>
+        <h2 id="coTitleSec" data-i18n="companies.title">الشركات والعلامات</h2>
+        <p data-i18n="companies.sub">شركات تجريبية للعرض فقط — لا تمثّل أي شركة حقيقية ولا توجد أي شراكات أو توكيلات رسمية.</p>
+      </div>
+    </div>
+    <div class="companies" id="companyGrid"></div>
+  </div>
+</section>
+
+<!-- ============ PRODUCTS ============ -->
+<section class="section" id="products" aria-labelledby="prodTitle">
+  <div class="container">
+    <div class="section__head">
+      <div>
+        <span class="eyebrow" data-i18n="products.eyebrow">الكتالوج</span>
+        <h2 id="prodTitle" data-i18n="products.title">المنتجات</h2>
+        <p data-i18n="products.sub">كتالوج تجريبي — الأسعار توضيحية وليست أسعارًا تجارية موثّقة، وكلها بالجنيه المصري.</p>
+      </div>
+    </div>
+    <div class="tabs" id="tabs" role="group" data-i18n-aria="products.tabsAria"></div>
+    <div class="toolbar">
+      <div class="field"><label for="fCat" data-i18n="filter.category">القسم</label><select class="input" id="fCat"></select></div>
+      <div class="field"><label for="fCompany" data-i18n="filter.company">الشركة</label><select class="input" id="fCompany"></select></div>
+      <div class="field"><label for="fSort" data-i18n="filter.sort">ترتيب حسب</label><select class="input" id="fSort"></select></div>
+    </div>
+    <div id="companyBar"></div>
+    <div class="resultsbar" id="resultsBar" aria-live="polite"></div>
+    <div class="grid" id="productGrid"></div>
+    <div id="emptyState" hidden></div>
+  </div>
+</section>
+</main>
+
+<!-- ============ FOOTER ============ -->
+<footer class="footer">
+  <div class="container">
+    <div class="footer__grid">
+      <div>
+        <a class="brand" href="#home" style="margin-bottom:12px" aria-label="Speed Medical">
+          <span class="brand__mark" aria-hidden="true"><i data-icon="pulse"></i></span><span>Speed Medical</span>
+        </a>
+        <p data-i18n="footer.about">متجر تجريبي لعرض تجربة شراء المستلزمات الطبية والمعملية. الأسعار والشركات والمنتجات توضيحية ولا تمثّل عروضًا تجارية حقيقية.</p>
+      </div>
+      <div>
+        <h4 data-i18n="footer.links">روابط سريعة</h4>
+        <ul>
+          <li><a href="#products" data-i18n="nav.products">المنتجات</a></li>
+          <li><a href="#companies" data-i18n="nav.companies">الشركات</a></li>
+          <li><a href="#categories" data-i18n="nav.categories">الأقسام</a></li>
+          <li><a href="../index.html" data-i18n="backPortfolio">العودة للبورتفوليو</a></li>
+        </ul>
+      </div>
+      <div>
+        <h4 data-i18n="footer.demo">عن التجربة</h4>
+        <ul>
+          <li data-i18n="footer.d1">لا يوجد دفع حقيقي</li>
+          <li data-i18n="footer.d2">الطلبات محفوظة على متصفحك فقط</li>
+          <li><button class="linkbtn" type="button" data-action="orders-open"><span data-i18n="footer.orders">عرض الطلبات التجريبية</span> (<span id="ordersCount">0</span>)</button></li>
+        </ul>
+      </div>
+    </div>
+    <div class="footer__bar">
+      <span data-i18n="footer.copy">© 2026 Speed Medical — مشروع تجريبي ضمن أعمال أحمد حسين</span>
+      <span data-i18n="footer.currency">جميع الأسعار بالجنيه المصري (EGP)</span>
+    </div>
+  </div>
+</footer>
+
+<button class="iconbtn btn--primary totops totop" id="toTop" type="button" data-action="top" data-i18n-aria="toTop"><i data-icon="up"></i></button>
+<div class="toasts" id="toasts" role="status" aria-live="polite"></div>
+
+<!-- ============ MODAL: PRODUCT ============ -->
+<div class="overlay" id="mProduct" data-modal hidden>
+  <div class="dialog dialog--wide" role="dialog" aria-modal="true" aria-labelledby="pmTitle" tabindex="-1">
+    <button class="close" type="button" data-action="close" data-i18n-aria="common.close"><i data-icon="close"></i></button>
+    <div id="pmBody"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL: CART DRAWER ============ -->
+<div class="overlay overlay--drawer" id="mCart" data-modal hidden>
+  <aside class="dialog drawer" role="dialog" aria-modal="true" aria-labelledby="cartTitle" tabindex="-1">
+    <div class="drawer__head">
+      <h2 id="cartTitle" data-i18n="cart.title">سلة المشتريات</h2>
+      <button class="close" type="button" data-action="close" data-i18n-aria="common.close"><i data-icon="close"></i></button>
+    </div>
+    <div class="drawer__body" id="cartBody"></div>
+    <div class="drawer__foot" id="cartFoot"></div>
+  </aside>
+</div>
+
+<!-- ============ MODAL: CHECKOUT ============ -->
+<div class="overlay" id="mCheckout" data-modal hidden>
+  <div class="dialog dialog--checkout" role="dialog" aria-modal="true" aria-labelledby="coTitle" tabindex="-1">
+    <button class="close" type="button" data-action="close" data-i18n-aria="common.close"><i data-icon="close"></i></button>
+    <div class="co">
+      <form class="co__form" id="checkoutForm" novalidate>
+        <h2 id="coTitle" data-i18n="co.title">إتمام الطلب (تجريبي)</h2>
+        <div class="note note--box"><i data-icon="info"></i><span data-i18n="co.banner">هذه تجربة توضيحية فقط: لا يتم أي دفع حقيقي، ولن يُرسل الطلب إلى أي مورّد.</span></div>
+
+        <h3 data-i18n="co.customer">بيانات العميل</h3>
+        <div class="row2">
+          <div class="field"><label for="coName"><span data-i18n="co.name">اسم العميل</span> <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="coName" name="name" autocomplete="name" maxlength="80" aria-describedby="coNameErr" required><p class="err" id="coNameErr"></p></div>
+          <div class="field"><label for="coOrg"><span data-i18n="co.org">اسم الجهة / المنشأة الشارية</span> <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="coOrg" name="org" autocomplete="organization" maxlength="100" aria-describedby="coOrgErr" required><p class="err" id="coOrgErr"></p></div>
+        </div>
+        <div class="row2">
+          <div class="field"><label for="coPhone"><span data-i18n="co.phone">رقم الهاتف</span> <span class="req" aria-hidden="true">*</span></label>
+            <input class="input ltr" id="coPhone" name="phone" type="tel" inputmode="tel" autocomplete="tel" maxlength="20" aria-describedby="coPhoneErr" required><p class="err" id="coPhoneErr"></p></div>
+          <div class="field"><label for="coCity"><span data-i18n="co.city">المحافظة / المدينة</span> <span class="req" aria-hidden="true">*</span></label>
+            <select class="input" id="coCity" name="city" autocomplete="address-level1" aria-describedby="coCityErr" required></select><p class="err" id="coCityErr"></p></div>
+        </div>
+        <div class="field"><label for="coAddr"><span data-i18n="co.address">عنوان التوصيل بالتفصيل</span> <span class="req" aria-hidden="true">*</span></label>
+          <textarea class="input" id="coAddr" name="address" autocomplete="street-address" maxlength="300" aria-describedby="coAddrErr" required></textarea><p class="err" id="coAddrErr"></p></div>
+        <div class="field"><label for="coNotes" data-i18n="co.notes">ملاحظات إضافية للتوصيل (اختياري)</label>
+          <textarea class="input" id="coNotes" name="notes" maxlength="300" style="min-height:70px"></textarea></div>
+
+        <h3 data-i18n="co.payment">طريقة الدفع (محاكاة)</h3>
+        <div class="pay" role="radiogroup" data-i18n-aria="co.payment">
+          <label><input type="radio" name="pay" value="cod" checked><span data-i18n="co.cod">الدفع عند الاستلام</span></label>
+          <label><input type="radio" name="pay" value="card"><span data-i18n="co.card">بطاقة بنكية</span></label>
+          <label><input type="radio" name="pay" value="wallet"><span data-i18n="co.wallet">محفظة إلكترونية</span></label>
+        </div>
+        <div class="note note--box note--info" id="payNote"><i data-icon="info"></i><span id="payNoteTxt"></span></div>
+        <p class="err" id="coFormErr" style="margin-top:10px"></p>
+
+        <div style="display:flex;gap:10px;margin-top:18px;flex-wrap:wrap">
+          <button class="btn btn--ghost" type="button" data-action="checkout-back" data-i18n="co.back">رجوع للسلة</button>
+          <button class="btn btn--primary" type="submit" style="flex:1;min-width:200px" data-i18n="co.place">تأكيد الطلب التجريبي</button>
+        </div>
+      </form>
+      <aside class="co__sum" aria-labelledby="coSumTitle">
+        <h3 id="coSumTitle" style="margin-top:0" data-i18n="co.summary">ملخص الطلب</h3>
+        <div id="coSummary"></div>
+      </aside>
+    </div>
+  </div>
+</div>
+
+<!-- ============ MODAL: SUCCESS ============ -->
+<div class="overlay" id="mSuccess" data-modal hidden>
+  <div class="dialog" style="max-width:760px" role="dialog" aria-modal="true" aria-labelledby="okTitle" tabindex="-1">
+    <button class="close" type="button" data-action="close" data-i18n-aria="common.close"><i data-icon="close"></i></button>
+    <div id="successBody"></div>
+  </div>
+</div>
+
+<!-- ============ MODAL: ORDERS ============ -->
+<div class="overlay" id="mOrders" data-modal hidden>
+  <div class="dialog" style="max-width:720px" role="dialog" aria-modal="true" aria-labelledby="ordersTitle" tabindex="-1">
+    <button class="close" type="button" data-action="close" data-i18n-aria="common.close"><i data-icon="close"></i></button>
+    <div class="dialog__pad">
+      <h2 id="ordersTitle" style="margin-bottom:6px;padding-inline-end:40px" data-i18n="orders.title">الطلبات التجريبية</h2>
+      <p class="note" style="margin-bottom:16px" data-i18n="orders.note">محفوظة على هذا المتصفح فقط ولا تُرسل لأي جهة.</p>
+      <div id="ordersBody"></div>
+    </div>
+  </div>
+</div>
+
+<noscript><p style="padding:20px;text-align:center">JavaScript is required / يلزم تفعيل جافاسكريبت.</p></noscript>
+
+<script>
+(function () {
+  'use strict';
+
+  /* =====================================================================
+     A. CONFIGURATION — edit these values to change store behaviour
+     ===================================================================== */
+  const CONFIG = {
+    TAX_RATE: 0.14,            // Demo tax rate — applies to IMPORTED products only (0.14 = 14%)
+    DELIVERY_FEE: 60,          // Demo flat delivery fee (EGP). Delivery is NOT taxed.
+    FREE_DELIVERY_FROM: 0,     // Subtotal (EGP) from which delivery is free. 0 = disabled.
+    MAX_QTY: 50,               // Max quantity per product line
+    MAX_ORDERS_STORED: 30,
+    DEFAULT_LANG: 'ar',
+    PREFIX: 'speedMedical:'
+  };
+
+  /* =====================================================================
+     B. DATA — categories, companies, products (edit/extend here)
+     ===================================================================== */
+  const PHOTO = {   // Unsplash photo ids — swap freely; broken URLs fall back to a built-in illustration
+    hero:'1579684385127-1ef15d508118', tubes:'1579154204601-01588f351e67', lab:'1582719471384-894fbb16e074',
+    micro:'1530026405186-ed1f139313f8', blood:'1579165466741-7f35e4755660', syringe:'1583947215259-38e31be8751f',
+    doctor:'1576091160399-112ba8d25d1d', mask:'1584362917165-526a968579e8', steth:'1631549916768-4119b2e5f926',
+    hospital:'1586773860418-d37222d8fce3', gloves:'1587854692152-cbe660dbde88', supplies:'1584308666744-24d5c474f2ae'
+  };
+
+  const CATEGORIES = [
+    { id:'lab-equipment',  icon:'flask',  ar:'معدات المعامل',          en:'Laboratory Equipment' },
+    { id:'lab-consumables',icon:'vial',   ar:'مستهلكات المعامل',       en:'Laboratory Consumables' },
+    { id:'blood',          icon:'drop',   ar:'مستلزمات سحب الدم',      en:'Blood Collection Supplies' },
+    { id:'instruments',    icon:'scissors',ar:'الأدوات الطبية',        en:'Medical Instruments' },
+    { id:'diagnostic',     icon:'steth',  ar:'أجهزة التشخيص',          en:'Diagnostic Equipment' },
+    { id:'ppe',            icon:'shield', ar:'معدات الوقاية الشخصية',  en:'Personal Protective Equipment' },
+    { id:'furniture',      icon:'bed',    ar:'الأثاث الطبي',           en:'Medical Furniture' },
+    { id:'other',          icon:'box',    ar:'مستلزمات طبية أخرى',     en:'Other Medical Supplies' }
+  ];
+
+  const COMPANIES = [
+    { id:'speed',     own:true,  origin:'mixed',   initials:'SM', ar:'Speed Medical',            en:'Speed Medical',
+      dAr:'العلامة الخاصة بالمتجر — منتجات تجريبية محلية ومستوردة.', dEn:'The store’s own brand — demo local and imported products.' },
+    { id:'nilecare',  own:false, origin:'local',   initials:'NC', ar:'نايل كير لابز (تجريبية)',   en:'NileCare Labs (Demo)',
+      dAr:'شركة محلية تجريبية لمستهلكات المعامل والوقاية.', dEn:'Demo local company for lab consumables and protection.' },
+    { id:'cairosteel',own:false, origin:'local',   initials:'CS', ar:'كايرو ستيل ميديكال (تجريبية)', en:'Cairo Steel Medical (Demo)',
+      dAr:'مصنّع محلي تجريبي للأدوات والأثاث الطبي.', dEn:'Demo local manufacturer of instruments and furniture.' },
+    { id:'eurodiag',  own:false, origin:'imported',initials:'ED', ar:'يورو دياج (تجريبية)',       en:'EuroDiag (Demo)',
+      dAr:'علامة مستوردة تجريبية لأجهزة التشخيص والمجاهر.', dEn:'Demo imported brand for diagnostics and microscopes.' },
+    { id:'medipro',   own:false, origin:'imported',initials:'MP', ar:'ميدي برو آسيا (تجريبية)',   en:'MediPro Asia (Demo)',
+      dAr:'علامة مستوردة تجريبية للمستلزمات الطبية.', dEn:'Demo imported brand for medical supplies.' }
+  ];
+
+  // stock: 'in' | 'low' | 'out' · origin: 'local' | 'imported' · sale: discounted price or null
+  const PRODUCTS = [
+    { id:'p01', cat:'lab-equipment', company:'eurodiag', origin:'imported', price:18500, sale:16900, rating:4.7, reviews:38, featured:true, isNew:false, stock:'in',
+      images:[PHOTO.micro,PHOTO.lab,PHOTO.doctor],
+      nameAr:'ميكروسكوب رقمي ثنائي العينية', nameEn:'Digital Binocular Microscope',
+      descAr:'ميكروسكوب مخبري بتكبير حتى 1000× وإضاءة LED قابلة للتحكم وكاميرا رقمية لتوثيق العينات.',
+      descEn:'Laboratory microscope with up to 1000× magnification, dimmable LED illumination and a digital camera for sample documentation.' },
+    { id:'p02', cat:'lab-equipment', company:'speed', origin:'imported', price:9800, sale:8900, rating:4.5, reviews:24, featured:true, isNew:false, stock:'in',
+      images:[PHOTO.lab,PHOTO.tubes],
+      nameAr:'سنتريفيوج مكتبي 4000 دورة', nameEn:'Benchtop Centrifuge 4000 rpm',
+      descAr:'جهاز طرد مركزي مكتبي بسرعة تصل إلى 4000 دورة/دقيقة، يتسع لـ 12 أنبوب، مع مؤقت رقمي وقفل أمان للغطاء.',
+      descEn:'Benchtop centrifuge up to 4000 rpm, 12-tube capacity, digital timer and lid safety lock.' },
+    { id:'p03', cat:'lab-equipment', company:'cairosteel', origin:'local', price:14200, sale:null, rating:4.4, reviews:17, featured:false, isNew:false, stock:'low',
+      images:[PHOTO.lab,PHOTO.micro],
+      nameAr:'حضّانة معملية 30 لتر', nameEn:'Laboratory Incubator 30 L',
+      descAr:'حضّانة بتحكم رقمي في درجة الحرارة حتى 60°م، بيت داخلي من الاستانلس ورفوف قابلة للتعديل.',
+      descEn:'Digitally controlled incubator up to 60 °C with a stainless-steel interior and adjustable shelves.' },
+    { id:'p04', cat:'lab-consumables', company:'nilecare', origin:'local', price:380, sale:340, rating:4.5, reviews:52, featured:false, isNew:false, stock:'in',
+      images:[PHOTO.tubes,PHOTO.supplies],
+      nameAr:'أطراف ميكروبيبت 1000 ميكرولتر (1000 قطعة)', nameEn:'Micropipette Tips 1000 µL (pack of 1000)',
+      descAr:'أطراف بلاستيكية شفافة عالية الدقة، متوافقة مع معظم الميكروبيبت القياسية، معبأة في عبوة اقتصادية.',
+      descEn:'Clear, high-precision plastic tips compatible with most standard micropipettes, in an economy pack.' },
+    { id:'p05', cat:'lab-consumables', company:'nilecare', origin:'local', price:210, sale:null, rating:4.3, reviews:31, featured:false, isNew:false, stock:'in',
+      images:[PHOTO.tubes,PHOTO.lab],
+      nameAr:'أنابيب اختبار زجاجية 12×75 مم (100 قطعة)', nameEn:'Glass Test Tubes 12×75 mm (pack of 100)',
+      descAr:'أنابيب زجاج بوروسيليكات متينة ومقاومة للحرارة للاستخدام اليومي في المعامل.',
+      descEn:'Durable, heat-resistant borosilicate glass tubes for everyday laboratory use.' },
+    { id:'p06', cat:'lab-consumables', company:'medipro', origin:'imported', price:650, sale:590, rating:4.6, reviews:19, featured:false, isNew:false, stock:'out',
+      images:[PHOTO.supplies,PHOTO.tubes],
+      nameAr:'أطباق بتري معقمة 90 مم (500 قطعة)', nameEn:'Sterile Petri Dishes 90 mm (pack of 500)',
+      descAr:'أطباق بتري بلاستيكية معقمة بأشعة جاما، مناسبة لزراعة الميكروبات والعينات.',
+      descEn:'Gamma-sterilised plastic Petri dishes suitable for microbial and sample culture.' },
+    { id:'p07', cat:'blood', company:'speed', origin:'local', price:340, sale:295, rating:4.6, reviews:44, featured:true, isNew:true, stock:'in',
+      images:[PHOTO.blood,PHOTO.tubes],
+      nameAr:'أنابيب سحب دم فاكيوم EDTA (100 أنبوب)', nameEn:'EDTA Vacuum Blood Tubes (box of 100)',
+      descAr:'أنابيب فاكيوم بغطاء بنفسجي ومضاد تجلط EDTA لتحاليل الدم الكاملة، بحجم 3 مل.',
+      descEn:'Vacuum tubes with a lavender cap and EDTA anticoagulant for whole-blood tests, 3 mL.' },
+    { id:'p08', cat:'blood', company:'medipro', origin:'imported', price:520, sale:null, rating:4.4, reviews:12, featured:false, isNew:true, stock:'in',
+      images:[PHOTO.syringe,PHOTO.blood],
+      nameAr:'إبر فراشة أمان 21G (50 قطعة)', nameEn:'Safety Butterfly Needles 21G (box of 50)',
+      descAr:'إبر فراشة بآلية أمان تقلل خطر الوخز العرضي، مع أنبوب مرن وحامل متوافق مع نظام الفاكيوم.',
+      descEn:'Butterfly needles with a safety mechanism that reduces needle-stick risk, flexible tubing and vacuum-holder compatible.' },
+    { id:'p09', cat:'instruments', company:'cairosteel', origin:'local', price:3450, sale:2990, rating:4.8, reviews:27, featured:true, isNew:false, stock:'in',
+      images:[PHOTO.supplies,PHOTO.doctor],
+      nameAr:'طقم أدوات جراحية استانلس (12 قطعة)', nameEn:'Stainless Surgical Instrument Set (12 pcs)',
+      descAr:'طقم يضم مقصات وملاقط ومباضع من الاستانلس الطبي القابل للتعقيم بالأوتوكلاف، داخل علبة معدنية.',
+      descEn:'Set of scissors, forceps and scalpel handles in autoclavable medical stainless steel, supplied in a metal case.' },
+    { id:'p10', cat:'instruments', company:'medipro', origin:'imported', price:750, sale:null, rating:4.5, reviews:63, featured:false, isNew:false, stock:'in',
+      images:[PHOTO.steth,PHOTO.doctor],
+      nameAr:'سماعة طبية ثنائية الرأس', nameEn:'Dual-Head Stethoscope',
+      descAr:'سماعة بجودة صوت عالية وغشاء مزدوج للبالغين والأطفال، وأنبوب مرن خالٍ من اللاتكس.',
+      descEn:'High-acoustic-quality stethoscope with a dual head for adults and children and latex-free tubing.' },
+    { id:'p11', cat:'diagnostic', company:'eurodiag', origin:'imported', price:1650, sale:1390, rating:4.6, reviews:71, featured:true, isNew:false, stock:'in',
+      images:[PHOTO.steth,PHOTO.hospital],
+      nameAr:'جهاز قياس ضغط رقمي للذراع', nameEn:'Digital Upper-Arm Blood Pressure Monitor',
+      descAr:'جهاز قياس ضغط ونبض بشاشة كبيرة وذاكرة لـ 90 قراءة وكشف عدم انتظام ضربات القلب.',
+      descEn:'Blood pressure and pulse monitor with a large display, 90-reading memory and irregular-heartbeat detection.' },
+    { id:'p12', cat:'diagnostic', company:'speed', origin:'imported', price:480, sale:null, rating:4.2, reviews:22, featured:false, isNew:true, stock:'in',
+      images:[PHOTO.doctor,PHOTO.steth],
+      nameAr:'جهاز قياس نسبة الأكسجين بالإصبع', nameEn:'Fingertip Pulse Oximeter',
+      descAr:'جهاز صغير لقياس نسبة تشبع الأكسجين ومعدل النبض بشاشة OLED وإيقاف تلقائي.',
+      descEn:'Compact device measuring oxygen saturation and pulse rate with an OLED display and auto power-off.' },
+    { id:'p13', cat:'ppe', company:'speed', origin:'local', price:260, sale:230, rating:4.5, reviews:88, featured:true, isNew:false, stock:'in',
+      images:[PHOTO.gloves,PHOTO.mask],
+      nameAr:'قفازات نيتريل للفحص بدون بودرة (100 قطعة)', nameEn:'Powder-Free Nitrile Exam Gloves (box of 100)',
+      descAr:'قفازات نيتريل زرقاء خالية من اللاتكس والبودرة، مقاس وسط، بمقاومة جيدة للمواد الكيميائية.',
+      descEn:'Blue latex-free, powder-free nitrile gloves, size medium, with good chemical resistance.' },
+    { id:'p14', cat:'ppe', company:'nilecare', origin:'local', price:95, sale:null, rating:4.2, reviews:140, featured:false, isNew:false, stock:'in',
+      images:[PHOTO.mask,PHOTO.gloves],
+      nameAr:'كمامات جراحية 3 طبقات (50 قطعة)', nameEn:'3-Ply Surgical Face Masks (box of 50)',
+      descAr:'كمامات بثلاث طبقات وشريط أنف قابل للتشكيل ورباط مطاطي مريح خلف الأذن.',
+      descEn:'Three-layer masks with a mouldable nose strip and comfortable elastic ear loops.' },
+    { id:'p15', cat:'furniture', company:'cairosteel', origin:'local', price:6800, sale:6200, rating:4.7, reviews:15, featured:false, isNew:false, stock:'low',
+      images:[PHOTO.hospital,PHOTO.doctor],
+      nameAr:'سرير كشف طبي بمرتبة جلد', nameEn:'Examination Couch with Vinyl Mattress',
+      descAr:'سرير كشف بإطار معدني مطلي بالإيبوكسي ومرتبة جلد صناعي سهلة التنظيف ومسند رأس قابل للتعديل.',
+      descEn:'Examination couch with an epoxy-coated steel frame, easy-clean vinyl mattress and adjustable head rest.' },
+    { id:'p16', cat:'other', company:'speed', origin:'local', price:85, sale:null, rating:4.3, reviews:9, featured:false, isNew:true, stock:'low',
+      images:[PHOTO.supplies,PHOTO.hospital],
+      nameAr:'حاوية تخلص من الأدوات الحادة 5 لتر', nameEn:'Sharps Disposal Container 5 L',
+      descAr:'حاوية صفراء مقاومة للثقب بغطاء أمان وفتحة قفل أحادية الاتجاه لتجميع الإبر والمشارط بأمان.',
+      descEn:'Yellow puncture-resistant container with a safety lid and one-way opening for safely collecting needles and blades.' }
+  ];
+
+  const GOVERNORATES = [
+    ['القاهرة','Cairo'],['الجيزة','Giza'],['الإسكندرية','Alexandria'],['القليوبية','Qalyubia'],['الشرقية','Sharqia'],
+    ['الدقهلية','Dakahlia'],['الغربية','Gharbia'],['المنوفية','Monufia'],['البحيرة','Beheira'],['كفر الشيخ','Kafr El-Sheikh'],
+    ['دمياط','Damietta'],['بورسعيد','Port Said'],['الإسماعيلية','Ismailia'],['السويس','Suez'],['الفيوم','Faiyum'],
+    ['بني سويف','Beni Suef'],['المنيا','Minya'],['أسيوط','Assiut'],['سوهاج','Sohag'],['قنا','Qena'],['الأقصر','Luxor'],
+    ['أسوان','Aswan'],['البحر الأحمر','Red Sea'],['الوادي الجديد','New Valley'],['مطروح','Matrouh'],
+    ['شمال سيناء','North Sinai'],['جنوب سيناء','South Sinai']
+  ];
+
+  /* =====================================================================
+     C. TRANSLATIONS (Arabic default · English)
+     ===================================================================== */
+  const I18N = {
+    ar: {
+      'title':'Speed Medical — مستلزمات ومعدات طبية ومعملية',
+      'skip':'تخطي إلى المحتوى','demobar':'متجر تجريبي لأغراض العرض فقط — لا توجد طلبات أو مدفوعات حقيقية.',
+      'backPortfolio':'العودة للبورتفوليو','brandSub':'مستلزمات طبية',
+      'nav.home':'الرئيسية','nav.products':'المنتجات','nav.companies':'الشركات','nav.categories':'الأقسام',
+      'search.label':'بحث','search.ph':'ابحث عن منتج أو شركة أو قسم…',
+      'lang.aria':'تغيير اللغة إلى الإنجليزية','lang.txt':'EN',
+      'theme.toDark':'تفعيل الوضع الداكن','theme.toLight':'تفعيل الوضع الفاتح',
+      'cart.aria':'السلة، {n} عنصر','menu.aria':'القائمة','toTop':'العودة للأعلى','common.close':'إغلاق',
+      'cur':'ج.م',
+      'hero.badge':'عرض تجريبي · أسعار توضيحية',
+      'hero.title':'كل ما يحتاجه معملك وعيادتك في مكان واحد',
+      'hero.desc':'تصفّح معدات المعامل والمستلزمات الطبية من منتجات محلية ومستوردة، مع تفصيل واضح للأسعار والضريبة قبل إتمام الطلب.',
+      'hero.cta1':'تسوّق الآن','hero.cta2':'تصفّح الأقسام',
+      'hero.s1':'منتجًا تجريبيًا','hero.s2':'أقسام','hero.s3':'شركات تجريبية','hero.alt':'مختبر طبي ومستلزمات طبية',
+      'f1.t':'محلي ومستورد','f1.d':'كل منتج موسوم بمصدره بوضوح.',
+      'f2.t':'ضريبة شفافة','f2.d':'الضريبة على المنتجات المستوردة فقط وتظهر منفصلة.',
+      'f3.t':'طلب تجريبي آمن','f3.d':'لا نجمع بيانات دفع ولا نرسل أي طلب لمورّد حقيقي.',
+      'f4.t':'ثنائي اللغة','f4.d':'واجهة كاملة بالعربية والإنجليزية.',
+      'cats.eyebrow':'الأقسام','cats.title':'تسوّق حسب القسم','cats.sub':'ثمانية أقسام تغطي احتياجات المعامل والعيادات.','cats.count':'{n} منتج',
+      'companies.eyebrow':'الشركات','companies.title':'الشركات والعلامات',
+      'companies.sub':'شركات تجريبية للعرض فقط — لا تمثّل أي شركة حقيقية ولا توجد أي شراكات أو توكيلات رسمية.',
+      'company.demo':'شركة تجريبية','company.own':'علامة المتجر','company.local':'محلية','company.imported':'مستوردة','company.mixed':'محلية ومستوردة',
+      'company.view':'عرض منتجاتها','company.n':'{n} منتج','company.clear':'عرض كل الشركات',
+      'products.eyebrow':'الكتالوج','products.title':'المنتجات',
+      'products.sub':'كتالوج تجريبي — الأسعار توضيحية وليست أسعارًا تجارية موثّقة، وكلها بالجنيه المصري.',
+      'products.tabsAria':'تصنيفات سريعة',
+      'tab.all':'الكل','tab.featured':'المميزة','tab.new':'وصل حديثًا','tab.sale':'عروض وخصومات',
+      'filter.category':'القسم','filter.company':'الشركة','filter.sort':'ترتيب حسب','filter.allCats':'كل الأقسام','filter.allCompanies':'كل الشركات',
+      'sort.featured':'الأبرز','sort.priceAsc':'السعر: من الأقل','sort.priceDesc':'السعر: من الأعلى','sort.rating':'الأعلى تقييمًا','sort.newest':'الأحدث',
+      'results':'النتائج: {n}','filters.clear':'مسح الفلاتر','chip.search':'بحث: {q}',
+      'empty.title':'لا توجد نتائج مطابقة','empty.desc':'جرّب كلمات بحث مختلفة أو امسح الفلاتر لعرض كل المنتجات.',
+      'card.view':'عرض المنتج','card.add':'أضف للسلة','card.unavailable':'غير متاح',
+      'badge.new':'جديد','badge.featured':'مميز','badge.local':'محلي','badge.imported':'مستورد','off':'خصم {n}٪',
+      'avail.in':'متوفر','avail.low':'كمية محدودة','avail.out':'غير متوفر',
+      'stars.aria':'تقييم {n} من 5',
+      'pm.category':'القسم','pm.company':'الشركة','pm.origin':'المصدر','pm.avail':'التوفر','pm.qty':'الكمية',
+      'pm.add':'أضف للسلة','pm.rating':'{avg} من 5','pm.count':'({n} تقييم)','pm.img':'صورة {i} من {n}',
+      'pm.taxImp':'السعر قبل الضريبة. تُضاف ضريبة {rate}٪ على هذا المنتج المستورد عند إتمام الطلب.',
+      'pm.taxLoc':'منتج محلي — لا تُطبَّق عليه ضريبة المنتجات المستوردة.',
+      'pm.inc':'زيادة الكمية','pm.dec':'تقليل الكمية',
+      'rv.title':'تقييمات العملاء','rv.demo':'هذه تقييمات تجريبية تُحفظ على جهازك فقط (LocalStorage) وليست شهادات عملاء موثّقة.',
+      'rv.empty':'لا توجد تقييمات محلية بعد. كن أول من يضيف تقييمًا.','rv.dist':'توزيع التقييمات المضافة محليًا',
+      'rv.formTitle':'أضف تقييمك','rv.name':'الاسم','rv.country':'الدولة','rv.rating':'التقييم','rv.comment':'تعليقك','rv.submit':'إرسال التقييم',
+      'rv.local':'تقييم محلي','rv.list':'التقييمات المضافة',
+      'rv.eName':'من فضلك أدخل اسمك (حرفان على الأقل).','rv.eCountry':'من فضلك أدخل الدولة.','rv.eRating':'اختر تقييمًا من 1 إلى 5 نجوم.',
+      'rv.eComment':'اكتب تعليقك (10 أحرف على الأقل).','rv.ok':'تم حفظ تقييمك محليًا على جهازك. شكرًا لك!','rv.fix':'راجع الحقول المطلوبة.',
+      'cart.title':'سلة المشتريات','cart.emptyT':'سلتك فارغة','cart.emptyD':'أضف بعض المنتجات لتبدأ طلبك.','cart.emptyCta':'تصفّح المنتجات',
+      'cart.subtotal':'المجموع الفرعي','cart.note':'الضريبة على المنتجات المستوردة ورسوم التوصيل تُحتسب في صفحة إتمام الطلب.',
+      'cart.checkout':'إتمام الطلب','cart.remove':'حذف','cart.unit':'سعر الوحدة','cart.line':'الإجمالي','cart.items':'{n} عنصر',
+      'toast.added':'تمت إضافة «{name}» إلى السلة','toast.removed':'تم حذف المنتج من السلة','toast.maxQty':'وصلت للحد الأقصى للكمية','toast.unavailable':'هذا المنتج غير متاح حاليًا',
+      'toast.lang':'تم تغيير اللغة إلى العربية','toast.theme.dark':'تم تفعيل الوضع الداكن','toast.theme.light':'تم تفعيل الوضع الفاتح',
+      'co.title':'إتمام الطلب (تجريبي)','co.banner':'هذه تجربة توضيحية فقط: لا يتم أي دفع حقيقي، ولن يُرسل الطلب إلى أي مورّد.',
+      'co.customer':'بيانات العميل','co.name':'اسم العميل','co.org':'اسم الجهة / المنشأة الشارية','co.phone':'رقم الهاتف','co.city':'المحافظة / المدينة',
+      'co.cityPh':'اختر المحافظة','co.address':'عنوان التوصيل بالتفصيل','co.notes':'ملاحظات إضافية للتوصيل (اختياري)',
+      'co.payment':'طريقة الدفع (محاكاة)','co.cod':'الدفع عند الاستلام','co.card':'بطاقة بنكية','co.wallet':'محفظة إلكترونية',
+      'co.codNote':'سيتم “الدفع” عند الاستلام — محاكاة فقط ولا يوجد أي تحصيل فعلي.',
+      'co.cardNote':'محاكاة تجريبية: لن نطلب رقم بطاقة أو CVV ولن تتم أي عملية دفع حقيقية.',
+      'co.walletNote':'محاكاة تجريبية: لن نطلب رقم محفظة أو رمز PIN ولن تتم أي عملية دفع حقيقية.',
+      'co.back':'رجوع للسلة','co.place':'تأكيد الطلب التجريبي','co.summary':'ملخص الطلب',
+      'co.sub':'إجمالي المنتجات','co.imp':'إجمالي المنتجات المستوردة','co.tax':'ضريبة المنتجات المستوردة ({rate}٪)','co.del':'رسوم التوصيل (تجريبية)',
+      'co.free':'مجاني','co.total':'الإجمالي النهائي',
+      'co.taxNote':'الضريبة تُطبَّق على المنتجات المستوردة فقط، ولا تُطبَّق على المنتجات المحلية ولا على رسوم التوصيل.',
+      'co.qty':'الكمية',
+      'co.eName':'من فضلك أدخل اسم العميل.','co.eOrg':'من فضلك أدخل اسم الجهة أو المنشأة.','co.ePhone':'أدخل رقم هاتف صحيح (من 9 إلى 14 رقمًا).',
+      'co.eCity':'اختر المحافظة أو المدينة.','co.eAddr':'اكتب عنوان التوصيل بالتفصيل (10 أحرف على الأقل).','co.eEmpty':'سلتك فارغة — أضف منتجات أولًا.',
+      'ok.title':'تم تسجيل طلبك التجريبي','ok.no':'رقم الطلب',
+      'ok.disc':'هذا طلب محاكى؛ لم يُرسل إلى أي مورّد حقيقي ولم تتم أي عملية دفع أو شراء فعلية.',
+      'ok.date':'التاريخ','ok.pay':'طريقة الدفع','ok.cust':'بيانات العميل','ok.ship':'التوصيل','ok.items':'المنتجات',
+      'ok.continue':'متابعة التسوق','ok.orders':'عرض الطلبات التجريبية',
+      'orders.title':'الطلبات التجريبية','orders.note':'محفوظة على هذا المتصفح فقط ولا تُرسل لأي جهة.','orders.empty':'لا توجد طلبات تجريبية محفوظة بعد.',
+      'orders.items':'{n} منتج',
+      'footer.about':'متجر تجريبي لعرض تجربة شراء المستلزمات الطبية والمعملية. الأسعار والشركات والمنتجات توضيحية ولا تمثّل عروضًا تجارية حقيقية.',
+      'footer.links':'روابط سريعة','footer.demo':'عن التجربة','footer.d1':'لا يوجد دفع حقيقي','footer.d2':'الطلبات محفوظة على متصفحك فقط',
+      'footer.orders':'عرض الطلبات التجريبية','footer.copy':'© 2026 Speed Medical — مشروع تجريبي ضمن أعمال أحمد حسين',
+      'footer.currency':'جميع الأسعار بالجنيه المصري (EGP)'
+    },
+    en: {
+      'title':'Speed Medical — Medical & Laboratory Supplies',
+      'skip':'Skip to content','demobar':'Demo store for showcase only — no real orders or payments.',
+      'backPortfolio':'Back to portfolio','brandSub':'Medical supplies',
+      'nav.home':'Home','nav.products':'Products','nav.companies':'Companies','nav.categories':'Categories',
+      'search.label':'Search','search.ph':'Search products, companies, categories…',
+      'lang.aria':'Switch language to Arabic','lang.txt':'عربي',
+      'theme.toDark':'Enable dark mode','theme.toLight':'Enable light mode',
+      'cart.aria':'Cart, {n} items','menu.aria':'Menu','toTop':'Back to top','common.close':'Close',
+      'cur':'EGP',
+      'hero.badge':'Demo showcase · illustrative prices',
+      'hero.title':'Everything your lab and clinic needs, in one place',
+      'hero.desc':'Browse laboratory equipment and medical supplies — local and imported — with a transparent price and tax breakdown before you check out.',
+      'hero.cta1':'Shop now','hero.cta2':'Browse categories',
+      'hero.s1':'demo products','hero.s2':'categories','hero.s3':'demo companies','hero.alt':'Medical laboratory and supplies',
+      'f1.t':'Local & imported','f1.d':'Every product is clearly marked by origin.',
+      'f2.t':'Transparent tax','f2.d':'Tax applies to imported items only and is shown separately.',
+      'f3.t':'Safe demo checkout','f3.d':'No payment data is collected and nothing is sent to a real supplier.',
+      'f4.t':'Bilingual','f4.d':'A complete Arabic and English interface.',
+      'cats.eyebrow':'Categories','cats.title':'Shop by category','cats.sub':'Eight categories covering lab and clinic needs.','cats.count':'{n} products',
+      'companies.eyebrow':'Companies','companies.title':'Companies & brands',
+      'companies.sub':'Demo companies for showcase only — they do not represent any real company, partnership or official distributorship.',
+      'company.demo':'Demo company','company.own':'Own brand','company.local':'Local','company.imported':'Imported','company.mixed':'Local & imported',
+      'company.view':'View products','company.n':'{n} products','company.clear':'Show all companies',
+      'products.eyebrow':'Catalog','products.title':'Products',
+      'products.sub':'Demo catalog — prices are illustrative, not verified commercial pricing, and all in Egyptian pounds.',
+      'products.tabsAria':'Quick collections',
+      'tab.all':'All','tab.featured':'Featured','tab.new':'New arrivals','tab.sale':'Discounts',
+      'filter.category':'Category','filter.company':'Company','filter.sort':'Sort by','filter.allCats':'All categories','filter.allCompanies':'All companies',
+      'sort.featured':'Featured','sort.priceAsc':'Price: low to high','sort.priceDesc':'Price: high to low','sort.rating':'Top rated','sort.newest':'Newest',
+      'results':'Results: {n}','filters.clear':'Clear filters','chip.search':'Search: {q}',
+      'empty.title':'No matching products','empty.desc':'Try different search words or clear the filters to see every product.',
+      'card.view':'View product','card.add':'Add to cart','card.unavailable':'Unavailable',
+      'badge.new':'New','badge.featured':'Featured','badge.local':'Local','badge.imported':'Imported','off':'{n}% off',
+      'avail.in':'In stock','avail.low':'Limited stock','avail.out':'Out of stock',
+      'stars.aria':'Rated {n} out of 5',
+      'pm.category':'Category','pm.company':'Company','pm.origin':'Origin','pm.avail':'Availability','pm.qty':'Quantity',
+      'pm.add':'Add to cart','pm.rating':'{avg} out of 5','pm.count':'({n} reviews)','pm.img':'Image {i} of {n}',
+      'pm.taxImp':'Price before tax. A {rate}% tax is added to this imported product at checkout.',
+      'pm.taxLoc':'Local product — the imported-products tax does not apply.',
+      'pm.inc':'Increase quantity','pm.dec':'Decrease quantity',
+      'rv.title':'Customer reviews','rv.demo':'These are demo reviews stored only on your device (LocalStorage) — not verified customer testimonials.',
+      'rv.empty':'No local reviews yet. Be the first to add one.','rv.dist':'Distribution of locally added ratings',
+      'rv.formTitle':'Write a review','rv.name':'Name','rv.country':'Country','rv.rating':'Rating','rv.comment':'Your comment','rv.submit':'Submit review',
+      'rv.local':'Local review','rv.list':'Added reviews',
+      'rv.eName':'Please enter your name (at least 2 characters).','rv.eCountry':'Please enter your country.','rv.eRating':'Choose a rating from 1 to 5 stars.',
+      'rv.eComment':'Write a comment (at least 10 characters).','rv.ok':'Your review was saved locally on your device. Thank you!','rv.fix':'Please review the required fields.',
+      'cart.title':'Shopping cart','cart.emptyT':'Your cart is empty','cart.emptyD':'Add some products to start your order.','cart.emptyCta':'Browse products',
+      'cart.subtotal':'Subtotal','cart.note':'Tax on imported products and the delivery fee are calculated at checkout.',
+      'cart.checkout':'Checkout','cart.remove':'Remove','cart.unit':'Unit price','cart.line':'Line total','cart.items':'{n} items',
+      'toast.added':'“{name}” was added to your cart','toast.removed':'Item removed from cart','toast.maxQty':'Maximum quantity reached','toast.unavailable':'This product is currently unavailable',
+      'toast.lang':'Language switched to English','toast.theme.dark':'Dark mode enabled','toast.theme.light':'Light mode enabled',
+      'co.title':'Checkout (demo)','co.banner':'This is a demonstration only: no real payment is taken and the order is not sent to any supplier.',
+      'co.customer':'Customer information','co.name':'Customer name','co.org':'Purchasing organization / facility','co.phone':'Phone number','co.city':'Governorate / city',
+      'co.cityPh':'Select governorate','co.address':'Detailed delivery address','co.notes':'Additional delivery instructions (optional)',
+      'co.payment':'Payment method (simulated)','co.cod':'Cash on delivery','co.card':'Bank card','co.wallet':'Electronic wallet',
+      'co.codNote':'You would “pay” on delivery — simulation only, nothing is actually collected.',
+      'co.cardNote':'Demo simulation: no card number or CVV is requested and no real payment is made.',
+      'co.walletNote':'Demo simulation: no wallet number or PIN is requested and no real payment is made.',
+      'co.back':'Back to cart','co.place':'Confirm demo order','co.summary':'Order summary',
+      'co.sub':'Products subtotal','co.imp':'Imported products subtotal','co.tax':'Imported products tax ({rate}%)','co.del':'Delivery fee (demo)',
+      'co.free':'Free','co.total':'Final total',
+      'co.taxNote':'Tax applies to imported products only. It does not apply to local products or to the delivery fee.',
+      'co.qty':'Qty',
+      'co.eName':'Please enter the customer name.','co.eOrg':'Please enter the organization or facility name.','co.ePhone':'Enter a valid phone number (9 to 14 digits).',
+      'co.eCity':'Select a governorate or city.','co.eAddr':'Enter the detailed delivery address (at least 10 characters).','co.eEmpty':'Your cart is empty — add products first.',
+      'ok.title':'Your demo order has been recorded','ok.no':'Order number',
+      'ok.disc':'This is a simulated order; it was not sent to any real supplier and no real payment or purchase took place.',
+      'ok.date':'Date','ok.pay':'Payment method','ok.cust':'Customer','ok.ship':'Delivery','ok.items':'Items',
+      'ok.continue':'Continue shopping','ok.orders':'View demo orders',
+      'orders.title':'Demo orders','orders.note':'Stored on this browser only and never sent anywhere.','orders.empty':'No demo orders saved yet.',
+      'orders.items':'{n} items',
+      'footer.about':'A demo store showcasing a medical and laboratory supplies shopping experience. Prices, companies and products are illustrative and are not real commercial offers.',
+      'footer.links':'Quick links','footer.demo':'About this demo','footer.d1':'No real payments','footer.d2':'Orders are stored in your browser only',
+      'footer.orders':'View demo orders','footer.copy':'© 2026 Speed Medical — a demo project from Ahmed Hussein’s portfolio',
+      'footer.currency':'All prices are in Egyptian pounds (EGP)'
+    }
+  };
+
+  /* =====================================================================
+     D. UTILITIES
+     ===================================================================== */
+  const $ = (s, r) => (r || document).querySelector(s);
+  const $$ = (s, r) => Array.from((r || document).querySelectorAll(s));
+  const esc = s => String(s == null ? '' : s).replace(/[&<>"']/g, c => ({'&':'&amp;','<':'&lt;','>':'&gt;','"':'&quot;',"'":'&#39;'}[c]));
+  const round2 = n => Math.round((n + Number.EPSILON) * 100) / 100;
+  const debounce = (fn, ms) => { let t; return (...a) => { clearTimeout(t); t = setTimeout(() => fn(...a), ms); }; };
+  const toLatinDigits = s => String(s).replace(/[٠-٩]/g, d => '٠١٢٣٤٥٦٧٨٩'.indexOf(d)).replace(/[۰-۹]/g, d => '۰۱۲۳۴۵۶۷۸۹'.indexOf(d));
+  const normText = s => toLatinDigits(String(s || '')).toLowerCase()
+    .replace(/[ً-ٟـ]/g, '').replace(/[أإآ]/g, 'ا').replace(/ى/g, 'ي').replace(/ة/g, 'ه').trim();
+
+  const store = {
+    get(key, fallback) {
+      try { const raw = localStorage.getItem(CONFIG.PREFIX + key); return raw == null ? fallback : JSON.parse(raw); }
+      catch (e) { return fallback; }
+    },
+    set(key, value) {
+      try { localStorage.setItem(CONFIG.PREFIX + key, JSON.stringify(value)); return true; }
+      catch (e) { return false; }
+    }
+  };
+
+  /* Icons (24×24 stroke paths) */
+  const ICONS = {
+    cart:'<circle cx="9" cy="20" r="1.5"/><circle cx="18" cy="20" r="1.5"/><path d="M2 3h3l2.7 12.4a2 2 0 0 0 2 1.6h7.7a2 2 0 0 0 2-1.5L21 7H6"/>',
+    search:'<circle cx="11" cy="11" r="7"/><path d="m20 20-3.5-3.5"/>',
+    sun:'<circle cx="12" cy="12" r="4"/><path d="M12 2v2M12 20v2M4.9 4.9l1.4 1.4M17.7 17.7l1.4 1.4M2 12h2M20 12h2M4.9 19.1l1.4-1.4M17.7 6.3l1.4-1.4"/>',
+    moon:'<path d="M21 12.8A9 9 0 1 1 11.2 3a7 7 0 0 0 9.8 9.8z"/>',
+    menu:'<path d="M4 6h16M4 12h16M4 18h16"/>',
+    close:'<path d="M6 6l12 12M18 6 6 18"/>',
+    check:'<path d="m5 12 5 5L20 7"/>',
+    flask:'<path d="M9 3h6M10 3v6L4.5 19a1.5 1.5 0 0 0 1.3 2.2h12.4a1.5 1.5 0 0 0 1.3-2.2L14 9V3"/><path d="M7.5 15h9"/>',
+    vial:'<path d="M9 3h6M10 3v15a2 2 0 0 0 4 0V3"/><path d="M10 12h4"/>',
+    drop:'<path d="M12 3s6 6.2 6 10.5a6 6 0 0 1-12 0C6 9.2 12 3 12 3z"/>',
+    scissors:'<circle cx="6" cy="6" r="3"/><circle cx="6" cy="18" r="3"/><path d="M8.5 8 20 19M8.5 16 20 5"/>',
+    steth:'<path d="M5 3v6a4 4 0 0 0 8 0V3"/><path d="M9 13v2a5 5 0 0 0 10 0v-2"/><circle cx="19" cy="11" r="2"/>',
+    shield:'<path d="M12 3 4 6v6c0 5 3.4 8 8 9 4.6-1 8-4 8-9V6z"/><path d="m9 12 2 2 4-4"/>',
+    bed:'<path d="M3 18V7M3 14h18v4M21 14v-2a3 3 0 0 0-3-3h-7v5"/><circle cx="7" cy="11" r="1.6"/>',
+    box:'<path d="m3 7 9-4 9 4v10l-9 4-9-4z"/><path d="m3 7 9 4 9-4M12 11v10"/>',
+    truck:'<path d="M2 6h11v10H2zM13 9h4l4 4v3h-8"/><circle cx="7" cy="18" r="1.8"/><circle cx="17" cy="18" r="1.8"/>',
+    tag:'<path d="M3 12V4h8l10 10-8 8z"/><circle cx="7.5" cy="8.5" r="1.2"/>',
+    plus:'<path d="M12 5v14M5 12h14"/>', minus:'<path d="M5 12h14"/>',
+    trash:'<path d="M4 7h16M9 7V4h6v3M6 7l1 13h10l1-13M10 11v6M14 11v6"/>',
+    arrow:'<path d="M5 12h14M13 6l6 6-6 6"/>',
+    info:'<circle cx="12" cy="12" r="9"/><path d="M12 11v5M12 8v.01"/>',
+    building:'<path d="M4 21V5l8-2v18M12 9h8v12M7 9h2M7 13h2M7 17h2M15 13h2M15 17h2"/>',
+    up:'<path d="M12 19V5M6 11l6-6 6 6"/>',
+    pulse:'<path d="M3 12h4l2-6 4 12 2-6h6"/>',
+    globe:'<circle cx="12" cy="12" r="9"/><path d="M3 12h18M12 3a14 14 0 0 1 0 18M12 3a14 14 0 0 0 0 18"/>'
+  };
+  const icon = (name, cls) => `<svg class="ic${cls ? ' ' + cls : ''}" viewBox="0 0 24 24" aria-hidden="true" focusable="false">${ICONS[name] || ''}</svg>`;
+
+  /* Image helpers + built-in fallback illustration */
+  const imgUrl = (id, w) => `https://images.unsplash.com/photo-${id}?auto=format&fit=crop&w=${w}&q=70`;
+  function fallbackSvg(catId) {
+    const c = CATEGORIES.find(x => x.id === catId);
+    const path = ICONS[c ? c.icon : 'flask'];
+    const svg = `<svg xmlns="http://www.w3.org/2000/svg" width="400" height="300" viewBox="0 0 400 300"><defs><linearGradient id="g" x1="0" y1="0" x2="1" y2="1"><stop offset="0" stop-color="#d9f0f3"/><stop offset="1" stop-color="#b3dce3"/></linearGradient></defs><rect width="400" height="300" fill="url(#g)"/><g transform="translate(162 112) scale(3.1)" fill="none" stroke="#0a7c8c" stroke-width="1.3" stroke-linecap="round" stroke-linejoin="round">${path}</g></svg>`;
+    return 'data:image/svg+xml;charset=utf-8,' + encodeURIComponent(svg);
+  }
+  function guardImage(img) {
+    if (img.dataset.fb) return;
+    img.dataset.fb = '1';
+    img.src = fallbackSvg(img.dataset.cat);
+  }
+
+  /* =====================================================================
+     E. STATE
+     ===================================================================== */
+  const PMAP = new Map(PRODUCTS.map(p => [p.id, p]));
+  const CMAP = new Map(CATEGORIES.map(c => [c.id, c]));
+  const COMPMAP = new Map(COMPANIES.map(c => [c.id, c]));
+
+  const state = {
+    lang: CONFIG.DEFAULT_LANG, theme: 'light',
+    query: '', cat: 'all', company: 'all', sort: 'featured', tab: 'all',
+    cart: [], reviews: {}, orders: [],
+    pmId: null, pmQty: 1, pmImg: 0, lastOrderId: null,
+    activeModal: null, lastFocus: null
+  };
+
+  const t = (key, vars) => {
+    let s = (I18N[state.lang] && I18N[state.lang][key]) || I18N.en[key] || key;
+    if (vars) Object.keys(vars).forEach(k => { s = s.split('{' + k + '}').join(vars[k]); });
+    return s;
+  };
+  const locale = () => state.lang === 'ar' ? 'ar-EG' : 'en-US';
+  const num = n => new Intl.NumberFormat(locale()).format(n);
+  const fmtAvg = n => new Intl.NumberFormat(locale(), { minimumFractionDigits: 1, maximumFractionDigits: 1 }).format(n);
+  const money = n => `<span class="money"><bdi>${new Intl.NumberFormat(locale(), { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(n)}</bdi> ${esc(t('cur'))}</span>`;
+  const moneyTxt = n => `${new Intl.NumberFormat(locale(), { minimumFractionDigits: 0, maximumFractionDigits: 2 }).format(n)} ${t('cur')}`;
+
+  const pname = p => state.lang === 'ar' ? p.nameAr : p.nameEn;
+  const pdesc = p => state.lang === 'ar' ? p.descAr : p.descEn;
+  const cname = c => state.lang === 'ar' ? c.ar : c.en;
+  const compName = id => { const c = COMPMAP.get(id); return c ? cname(c) : ''; };
+  const unitPrice = p => p.sale != null ? p.sale : p.price;
+  const discountPct = p => p.sale != null ? Math.round((1 - p.sale / p.price) * 100) : 0;
+
+  function stats(p) {
+    const rs = state.reviews[p.id] || [];
+    const count = p.reviews + rs.length;
+    const sum = p.rating * p.reviews + rs.reduce((a, r) => a + r.rating, 0);
+    return { avg: count ? sum / count : 0, count, local: rs.length };
+  }
+
+  /* =====================================================================
+     F. PERSISTENCE (safe load / save)
+     ===================================================================== */
+  function loadState() {
+    const lang = store.get('lang', null);
+    state.lang = (lang === 'ar' || lang === 'en') ? lang : CONFIG.DEFAULT_LANG;
+    const theme = store.get('theme', null);
+    state.theme = (theme === 'light' || theme === 'dark') ? theme
+      : (window.matchMedia && matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light');
+
+    const cart = store.get('cart', []);
+    state.cart = Array.isArray(cart) ? cart.filter(l => l && PMAP.has(l.id) && Number.isInteger(l.qty) && l.qty > 0)
+      .map(l => ({ id: l.id, qty: Math.min(l.qty, CONFIG.MAX_QTY) })) : [];
+
+    const rv = store.get('reviews', {});
+    state.reviews = {};
+    if (rv && typeof rv === 'object' && !Array.isArray(rv)) {
+      Object.keys(rv).forEach(pid => {
+        if (!PMAP.has(pid) || !Array.isArray(rv[pid])) return;
+        state.reviews[pid] = rv[pid].filter(r => r && typeof r.name === 'string' && typeof r.comment === 'string'
+          && Number.isInteger(r.rating) && r.rating >= 1 && r.rating <= 5)
+          .map(r => ({ id: String(r.id || ''), name: r.name.slice(0, 60), country: String(r.country || '').slice(0, 60),
+                       rating: r.rating, comment: r.comment.slice(0, 500), date: String(r.date || '') }));
+      });
+    }
+    const orders = store.get('orders', []);
+    state.orders = Array.isArray(orders) ? orders.filter(o => o && typeof o.id === 'string' && Array.isArray(o.items) && o.totals && o.customer) : [];
+  }
+  const saveCart = () => store.set('cart', state.cart);
+  const saveReviews = () => store.set('reviews', state.reviews);
+  const saveOrders = () => store.set('orders', state.orders.slice(0, CONFIG.MAX_ORDERS_STORED));
+
+  /* =====================================================================
+     G. CALCULATIONS
+     ===================================================================== */
+  function cartLines() {
+    return state.cart.map(l => { const p = PMAP.get(l.id); const unit = unitPrice(p); return { p, qty: l.qty, unit, line: round2(unit * l.qty) }; });
+  }
+  function computeTotals(lines) {
+    const subtotal = round2(lines.reduce((a, l) => a + l.line, 0));
+    const importedSubtotal = round2(lines.filter(l => l.p.origin === 'imported').reduce((a, l) => a + l.line, 0));
+    const tax = round2(importedSubtotal * CONFIG.TAX_RATE);           // imported products ONLY
+    let delivery = lines.length ? CONFIG.DELIVERY_FEE : 0;            // delivery fee is never taxed
+    if (lines.length && CONFIG.FREE_DELIVERY_FROM > 0 && subtotal >= CONFIG.FREE_DELIVERY_FROM) delivery = 0;
+    const total = round2(subtotal + tax + delivery);
+    return { subtotal, importedSubtotal, tax, delivery, total };
+  }
+  const cartCount = () => state.cart.reduce((a, l) => a + l.qty, 0);
+
+  /* =====================================================================
+     H. RENDER HELPERS
+     ===================================================================== */
+  function starsHTML(avg) {
+    const pct = Math.max(0, Math.min(100, (avg / 5) * 100));
+    return `<span class="stars" role="img" aria-label="${esc(t('stars.aria', { n: fmtAvg(avg) }))}"><span class="stars__bg" aria-hidden="true">★★★★★</span><span class="stars__fg" aria-hidden="true" style="width:${pct}%">★★★★★</span></span>`;
+  }
+  const availHTML = p => `<span class="stock stock--${p.stock}">${esc(t('avail.' + p.stock))}</span>`;
+  const originBadge = p => `<span class="badge badge--${p.origin === 'local' ? 'local' : 'imp'}">${esc(t('badge.' + p.origin))}</span>`;
+  const imgTag = (p, idx, w, extra) => `<img src="${imgUrl(p.images[idx] || p.images[0], w)}" alt="${esc(pname(p))}" data-cat="${p.cat}" ${extra || ''}>`;
+
+  function hydrateIcons(root) {
+    $$('[data-icon]', root).forEach(el => { el.outerHTML = icon(el.dataset.icon, el.className || ''); });
+  }
+
+  function toast(msg, type) {
+    const box = $('#toasts');
+    const el = document.createElement('div');
+    el.className = 'toast toast--' + (type || 'ok');
+    el.innerHTML = (type === 'error' ? icon('info') : icon('check'));
+    const span = document.createElement('span'); span.textContent = msg; el.appendChild(span);
+    box.appendChild(el);
+    while (box.children.length > 3) box.removeChild(box.firstChild);
+    setTimeout(() => el.remove(), 3200);
+  }
+
+  /* =====================================================================
+     I. RENDER — STATIC-ISH SECTIONS
+     ===================================================================== */
+  function applyStaticI18n() {
+    const root = document.documentElement;
+    root.lang = state.lang; root.dir = state.lang === 'ar' ? 'rtl' : 'ltr'; root.dataset.theme = state.theme;
+    document.title = t('title');
+    $$('[data-i18n]').forEach(el => { el.textContent = t(el.dataset.i18n); });
+    $$('[data-i18n-ph]').forEach(el => { el.placeholder = t(el.dataset.i18nPh); });
+    $$('[data-i18n-aria]').forEach(el => { el.setAttribute('aria-label', t(el.dataset.i18nAria)); });
+    $('#langBtn').setAttribute('aria-label', t('lang.aria'));
+    $('#langTxt').textContent = t('lang.txt');
+    $('#themeBtn').setAttribute('aria-label', state.theme === 'dark' ? t('theme.toLight') : t('theme.toDark'));
+    $('#menuBtn').setAttribute('aria-label', t('menu.aria'));
+    const hi = $('#heroImg'); hi.alt = t('hero.alt');
+    const gov = $('#coCity');
+    const cur = gov.value;
+    gov.innerHTML = `<option value="">${esc(t('co.cityPh'))}</option>` +
+      GOVERNORATES.map((g, i) => `<option value="${i}">${esc(state.lang === 'ar' ? g[0] : g[1])}</option>`).join('');
+    gov.value = cur;
+    updatePayNote();
+  }
+
+  function renderHero() {
+    $('#heroStats').innerHTML = [
+      [PRODUCTS.length, 'hero.s1'], [CATEGORIES.length, 'hero.s2'], [COMPANIES.length - 1, 'hero.s3']
+    ].map(s => `<div><strong>${num(s[0])}</strong><span>${esc(t(s[1]))}</span></div>`).join('');
+    $('#features').innerHTML = [['truck','f1'],['tag','f2'],['shield','f3'],['globe','f4']].map(f =>
+      `<div class="feature">${icon(f[0])}<div><strong>${esc(t(f[1] + '.t'))}</strong><span>${esc(t(f[1] + '.d'))}</span></div></div>`).join('');
+  }
+  function renderCategories() {
+    $('#catGrid').innerHTML = CATEGORIES.map(c => {
+      const n = PRODUCTS.filter(p => p.cat === c.id).length, on = state.cat === c.id;
+      return `<button type="button" class="cat${on ? ' is-active' : ''}" data-action="cat" data-id="${c.id}" aria-pressed="${on}">
+        ${icon(c.icon, 'cat__ic')}<span class="cat__name">${esc(cname(c))}</span><span class="cat__n">${esc(t('cats.count', { n: num(n) }))}</span></button>`;
+    }).join('');
+  }
+  function renderCompanies() {
+    $('#companyGrid').innerHTML = COMPANIES.map(c => {
+      const n = PRODUCTS.filter(p => p.company === c.id).length, on = state.company === c.id;
+      return `<div class="company${on ? ' is-active' : ''}">
+        <span class="company__logo" aria-hidden="true">${esc(c.initials)}</span>
+        <h3>${esc(cname(c))}</h3>
+        <div class="company__tags">
+          ${c.own ? `<span class="badge badge--new">${esc(t('company.own'))}</span>` : `<span class="badge badge--demo">${esc(t('company.demo'))}</span>`}
+          <span class="badge badge--imp">${esc(t('company.' + c.origin))}</span>
+        </div>
+        <p>${esc(state.lang === 'ar' ? c.dAr : c.dEn)}</p>
+        <button type="button" class="btn btn--ghost btn--sm" data-action="company" data-id="${c.id}" aria-pressed="${on}">${esc(t('company.view'))} (${esc(num(n))})</button>
+      </div>`;
+    }).join('');
+  }
+  function renderToolbar() {
+    $('#tabs').innerHTML = ['all', 'featured', 'new', 'sale'].map(k =>
+      `<button type="button" class="tab" data-action="tab" data-id="${k}" aria-pressed="${state.tab === k}">${esc(t('tab.' + k))}</button>`).join('');
+    $('#fCat').innerHTML = `<option value="all">${esc(t('filter.allCats'))}</option>` +
+      CATEGORIES.map(c => `<option value="${c.id}">${esc(cname(c))}</option>`).join('');
+    $('#fCompany').innerHTML = `<option value="all">${esc(t('filter.allCompanies'))}</option>` +
+      COMPANIES.map(c => `<option value="${c.id}">${esc(cname(c))}</option>`).join('');
+    $('#fSort').innerHTML = ['featured', 'priceAsc', 'priceDesc', 'rating', 'newest'].map(k =>
+      `<option value="${k}">${esc(t('sort.' + k))}</option>`).join('');
+    $('#fCat').value = state.cat; $('#fCompany').value = state.company; $('#fSort').value = state.sort;
+  }
+
+  /* ---- catalog ---- */
+  function visibleProducts() {
+    const q = normText(state.query);
+    const list = PRODUCTS.filter(p => {
+      if (state.cat !== 'all' && p.cat !== state.cat) return false;
+      if (state.company !== 'all' && p.company !== state.company) return false;
+      if (state.tab === 'featured' && !p.featured) return false;
+      if (state.tab === 'new' && !p.isNew) return false;
+      if (state.tab === 'sale' && p.sale == null) return false;
+      if (q) {
+        const c = CMAP.get(p.cat), co = COMPMAP.get(p.company);
+        const hay = normText([p.nameAr, p.nameEn, p.descAr, p.descEn, c.ar, c.en, co.ar, co.en].join(' '));
+        if (!q.split(/\s+/).every(w => hay.includes(w))) return false;
+      }
+      return true;
+    });
+    const by = {
+      featured: (a, b) => (b.featured - a.featured) || (b.rating - a.rating),
+      priceAsc: (a, b) => unitPrice(a) - unitPrice(b),
+      priceDesc: (a, b) => unitPrice(b) - unitPrice(a),
+      rating: (a, b) => stats(b).avg - stats(a).avg,
+      newest: (a, b) => (b.isNew - a.isNew) || a.id.localeCompare(b.id)
+    };
+    return list.sort(by[state.sort] || by.featured);
+  }
+
+  function cardHTML(p) {
+    const st = stats(p), pct = discountPct(p), out = p.stock === 'out';
+    return `<article class="card">
+      <button type="button" class="card__media" data-action="view" data-id="${p.id}" aria-label="${esc(t('card.view'))}: ${esc(pname(p))}">
+        ${imgTag(p, 0, 640, 'loading="lazy" width="640" height="480"')}
+        <span class="card__badges">
+          ${pct ? `<span class="badge badge--sale">${esc(t('off', { n: num(pct) }))}</span>` : ''}
+          ${p.isNew ? `<span class="badge badge--new">${esc(t('badge.new'))}</span>` : ''}
+          ${p.featured ? `<span class="badge badge--feat">${esc(t('badge.featured'))}</span>` : ''}
+        </span>
+      </button>
+      <div class="card__body">
+        <div class="card__brand">${esc(compName(p.company))} ${originBadge(p)}</div>
+        <button type="button" class="card__title" data-action="view" data-id="${p.id}">${esc(pname(p))}</button>
+        <div class="rating">${starsHTML(st.avg)}<b>${esc(fmtAvg(st.avg))}</b><span>${esc(t('pm.count', { n: num(st.count) }))}</span></div>
+        ${availHTML(p)}
+        <div class="card__price">${money(unitPrice(p))}${pct ? `<s class="price-old">${esc(moneyTxt(p.price))}</s>` : ''}</div>
+        <div class="card__actions">
+          <button type="button" class="btn btn--ghost btn--sm" data-action="view" data-id="${p.id}">${esc(t('card.view'))}</button>
+          <button type="button" class="btn btn--primary btn--sm" data-action="add" data-id="${p.id}" ${out ? 'disabled' : ''}>${icon('cart')}${esc(out ? t('card.unavailable') : t('card.add'))}</button>
+        </div>
+      </div>
+    </article>`;
+  }
+
+  function renderProducts() {
+    const list = visibleProducts();
+    $('#productGrid').innerHTML = list.map(cardHTML).join('');
+    $('#productGrid').hidden = !list.length;
+    const empty = $('#emptyState');
+    empty.hidden = !!list.length;
+    empty.innerHTML = list.length ? '' : `<div class="empty">${icon('search')}<h3>${esc(t('empty.title'))}</h3><p>${esc(t('empty.desc'))}</p>
+      <button type="button" class="btn btn--primary" data-action="clear-filters">${esc(t('filters.clear'))}</button></div>`;
+
+    const active = state.query || state.cat !== 'all' || state.company !== 'all' || state.tab !== 'all';
+    $('#resultsBar').innerHTML = `<span class="count">${esc(t('results', { n: num(list.length) }))}</span>` +
+      (state.query ? `<span class="chip">${esc(t('chip.search', { q: state.query.slice(0, 30) }))}</span>` : '') +
+      (active ? `<button type="button" class="linkbtn" data-action="clear-filters">${esc(t('filters.clear'))}</button>` : '');
+
+    const bar = $('#companyBar');
+    if (state.company !== 'all') {
+      const co = COMPMAP.get(state.company);
+      const cats = [...new Set(PRODUCTS.filter(p => p.company === co.id).map(p => p.cat))];
+      bar.innerHTML = `<div class="companybar"><div style="flex:1;min-width:220px">
+        <h3>${esc(cname(co))} ${co.own ? '' : `<span class="badge badge--demo">${esc(t('company.demo'))}</span>`}</h3>
+        <p>${esc(state.lang === 'ar' ? co.dAr : co.dEn)}</p>
+        <div class="companybar__cats">${cats.map(id => `<button type="button" data-action="cat" data-id="${id}" data-keep="1" aria-pressed="${state.cat === id}">${esc(cname(CMAP.get(id)))}</button>`).join('')}</div></div>
+        <button type="button" class="btn btn--ghost btn--sm" data-action="company-clear">${esc(t('company.clear'))}</button></div>`;
+    } else bar.innerHTML = '';
+  }
+
+  /* ---- cart badge & drawer ---- */
+  function renderCartBadge() {
+    const n = cartCount();
+    const b = $('#cartCount'); b.textContent = n > 99 ? '99+' : num(n); b.dataset.n = n;
+    $('#cartBtn').setAttribute('aria-label', t('cart.aria', { n: num(n) }));
+    const oc = $('#ordersCount'); if (oc) oc.textContent = num(state.orders.length);
+  }
+  function withFocusRestore(fn) {
+    const a = document.activeElement;
+    const sel = a && a.dataset && a.dataset.action ? `[data-action="${a.dataset.action}"]${a.dataset.id ? `[data-id="${a.dataset.id}"]` : ''}` : null;
+    fn();
+    if (sel && a.closest && (a.closest('#cartBody') || a.closest('#pmBody'))) { const n = $(sel); if (n && !n.disabled) n.focus(); }
+  }
+  function renderCart() {
+    withFocusRestore(() => {
+      const lines = cartLines(), body = $('#cartBody'), foot = $('#cartFoot');
+      if (!lines.length) {
+        body.innerHTML = `<div class="empty" style="margin-top:20px">${icon('cart')}<h3>${esc(t('cart.emptyT'))}</h3><p>${esc(t('cart.emptyD'))}</p>
+          <button type="button" class="btn btn--primary" data-action="cart-browse">${esc(t('cart.emptyCta'))}</button></div>`;
+        foot.hidden = true; foot.innerHTML = '';
+        return;
+      }
+      body.innerHTML = lines.map(l => `<div class="line">
+        <div class="line__img">${imgTag(l.p, 0, 160, 'width="64" height="64"')}</div>
+        <div>
+          <div class="line__name">${esc(pname(l.p))}</div>
+          <div class="line__meta">${esc(compName(l.p.company))} · ${esc(t('badge.' + l.p.origin))}</div>
+          <div class="line__meta">${esc(t('cart.unit'))}: ${esc(moneyTxt(l.unit))}</div>
+          <div class="line__ctrl">
+            <div class="stepper" role="group" aria-label="${esc(t('pm.qty'))}: ${esc(pname(l.p))}">
+              <button type="button" data-action="dec" data-id="${l.p.id}" aria-label="${esc(t('pm.dec'))}" ${l.qty <= 1 ? 'disabled' : ''}>${icon('minus')}</button>
+              <output aria-live="polite">${esc(num(l.qty))}</output>
+              <button type="button" data-action="inc" data-id="${l.p.id}" aria-label="${esc(t('pm.inc'))}" ${l.qty >= CONFIG.MAX_QTY ? 'disabled' : ''}>${icon('plus')}</button>
+            </div>
+            ${money(l.line)}
+          </div>
+          <button type="button" class="rm" data-action="remove" data-id="${l.p.id}">${icon('trash')}${esc(t('cart.remove'))}</button>
+        </div></div>`).join('');
+      const tt = computeTotals(lines);
+      foot.hidden = false;
+      foot.innerHTML = `<div class="drawer__row"><span>${esc(t('cart.subtotal'))} <span class="note">(${esc(t('cart.items', { n: num(cartCount()) }))})</span></span>${money(tt.subtotal)}</div>
+        <p class="note" style="margin-bottom:12px">${esc(t('cart.note'))}</p>
+        <button type="button" class="btn btn--primary btn--block" data-action="checkout">${esc(t('cart.checkout'))}</button>`;
+    });
+  }
+
+  /* ---- product modal ---- */
+  function renderPmRating(p) {
+    const st = stats(p);
+    return `${starsHTML(st.avg)} <b>${esc(t('pm.rating', { avg: fmtAvg(st.avg) }))}</b> <span class="note">${esc(t('pm.count', { n: num(st.count) }))}</span>`;
+  }
+  function renderPmReviews(p) {
+    const st = stats(p), rs = (state.reviews[p.id] || []).slice().reverse();
+    const dist = [5, 4, 3, 2, 1].map(n => ({ n, c: rs.filter(r => r.rating === n).length }));
+    return `<div class="rsum">
+        <div class="rsum__score"><strong>${esc(fmtAvg(st.avg))}</strong>${starsHTML(st.avg)}<span class="n">${esc(t('pm.count', { n: num(st.count) }))}</span></div>
+        <div class="rsum__dist" role="group" aria-label="${esc(t('rv.dist'))}">${dist.map(d => `<div class="drow"><span>${esc(num(d.n))} ★</span><span class="bar"><i style="width:${rs.length ? Math.round(d.c / rs.length * 100) : 0}%"></i></span><span>${esc(num(d.c))}</span></div>`).join('')}</div>
+      </div>
+      <p class="note">${esc(t('rv.dist'))}</p>
+      <div class="rlist" aria-label="${esc(t('rv.list'))}">
+      ${rs.length ? rs.map(r => `<div class="review"><div class="review__top"><span class="review__name">${esc(r.name)} <span class="badge badge--demo">${esc(t('rv.local'))}</span></span>${starsHTML(r.rating)}</div>
+          <div class="review__meta">${esc(r.country)}${r.date ? ' · ' + esc(new Date(r.date).toLocaleDateString(locale(), { dateStyle: 'medium' })) : ''}</div>
+          <p>${esc(r.comment)}</p></div>`).join('') : `<p class="note">${esc(t('rv.empty'))}</p>`}
+      </div>`;
+  }
+  function renderProductModal() {
+    const p = PMAP.get(state.pmId); if (!p) return;
+    const pct = discountPct(p), c = CMAP.get(p.cat), out = p.stock === 'out';
+    const imgs = p.images;
+    $('#pmBody').innerHTML = `
+    <div class="pm">
+      <div>
+        <div class="pm__main" id="pmMain">${imgTag(p, state.pmImg, 900, 'width="900" height="675"')}</div>
+        <div class="pm__thumbs">${imgs.map((id, i) => `<button type="button" data-action="pm-img" data-id="${i}" aria-current="${i === state.pmImg}" aria-label="${esc(t('pm.img', { i: num(i + 1), n: num(imgs.length) }))}">${imgTag(p, i, 160, 'alt="" width="72" height="56"')}</button>`).join('')}</div>
+      </div>
+      <div>
+        <div class="pm__badges">${pct ? `<span class="badge badge--sale">${esc(t('off', { n: num(pct) }))}</span>` : ''}${p.isNew ? `<span class="badge badge--new">${esc(t('badge.new'))}</span>` : ''}${p.featured ? `<span class="badge badge--feat">${esc(t('badge.featured'))}</span>` : ''}${originBadge(p)}</div>
+        <h2 id="pmTitle">${esc(pname(p))}</h2>
+        <div class="pm__company">${esc(compName(p.company))}</div>
+        <div class="rating" id="pmRating">${renderPmRating(p)}</div>
+        <div class="pm__price">${money(unitPrice(p))}${pct ? `<s class="price-old">${esc(moneyTxt(p.price))}</s>` : ''}</div>
+        <p class="note">${esc(p.origin === 'imported' ? t('pm.taxImp', { rate: num(round2(CONFIG.TAX_RATE * 100)) }) : t('pm.taxLoc'))}</p>
+        <dl class="pm__meta">
+          <dt>${esc(t('pm.category'))}</dt><dd>${esc(cname(c))}</dd>
+          <dt>${esc(t('pm.company'))}</dt><dd>${esc(compName(p.company))}</dd>
+          <dt>${esc(t('pm.origin'))}</dt><dd>${esc(t('badge.' + p.origin))}</dd>
+          <dt>${esc(t('pm.avail'))}</dt><dd>${availHTML(p)}</dd>
+        </dl>
+        <p class="pm__desc">${esc(pdesc(p))}</p>
+        <div class="pm__buy">
+          <div class="stepper" role="group" aria-label="${esc(t('pm.qty'))}">
+            <button type="button" data-action="pm-dec" aria-label="${esc(t('pm.dec'))}" ${state.pmQty <= 1 ? 'disabled' : ''}>${icon('minus')}</button>
+            <output id="pmQty" aria-live="polite">${esc(num(state.pmQty))}</output>
+            <button type="button" data-action="pm-inc" aria-label="${esc(t('pm.inc'))}" ${state.pmQty >= CONFIG.MAX_QTY ? 'disabled' : ''}>${icon('plus')}</button>
+          </div>
+          <button type="button" class="btn btn--primary" data-action="pm-add" ${out ? 'disabled' : ''}>${icon('cart')}${esc(out ? t('card.unavailable') : t('pm.add'))}</button>
+        </div>
+      </div>
+    </div>
+    <section class="reviews" aria-labelledby="rvTitle">
+      <h3 id="rvTitle">${esc(t('rv.title'))}</h3>
+      <div class="note note--box" style="margin-top:8px">${icon('info')}<span>${esc(t('rv.demo'))}</span></div>
+      <div class="reviews__grid">
+        <div id="pmReviews">${renderPmReviews(p)}</div>
+        <form id="reviewForm" novalidate>
+          <h4 style="margin-bottom:12px">${esc(t('rv.formTitle'))}</h4>
+          <div class="field"><label for="rvName">${esc(t('rv.name'))} <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="rvName" maxlength="60" autocomplete="name" aria-describedby="rvNameErr"><p class="err" id="rvNameErr"></p></div>
+          <div class="field"><label for="rvCountry">${esc(t('rv.country'))} <span class="req" aria-hidden="true">*</span></label>
+            <input class="input" id="rvCountry" maxlength="60" autocomplete="country-name" aria-describedby="rvCountryErr"><p class="err" id="rvCountryErr"></p></div>
+          <fieldset class="starsinput field" aria-describedby="rvRatingErr">
+            <legend>${esc(t('rv.rating'))} <span class="req" aria-hidden="true">*</span></legend>
+            <div class="row">${[1, 2, 3, 4, 5].map(n => `<input type="radio" name="rvRating" id="rvStar${n}" value="${n}"><label for="rvStar${n}" title="${esc(t('stars.aria', { n: num(n) }))}"><span aria-hidden="true">★</span><span class="sr-only">${esc(t('stars.aria', { n: num(n) }))}</span></label>`).join('')}</div>
+            <p class="err" id="rvRatingErr"></p>
+          </fieldset>
+          <div class="field"><label for="rvComment">${esc(t('rv.comment'))} <span class="req" aria-hidden="true">*</span></label>
+            <textarea class="input" id="rvComment" maxlength="500" aria-describedby="rvCommentErr"></textarea><p class="err" id="rvCommentErr"></p></div>
+          <button class="btn btn--primary" type="submit">${esc(t('rv.submit'))}</button>
+        </form>
+      </div>
+    </section>`;
+  }
+  function openProduct(id, trigger) {
+    if (!PMAP.has(id)) return;
+    state.pmId = id; state.pmQty = 1; state.pmImg = 0;
+    renderProductModal();
+    openModal('mProduct', trigger);
+  }
+
+  /* ---- checkout ---- */
+  function renderCheckoutSummary() {
+    const lines = cartLines(), tt = computeTotals(lines);
+    $('#coSummary').innerHTML = lines.map(l => `<div class="sumline">
+        ${imgTag(l.p, 0, 160, 'width="48" height="48"')}
+        <div><b>${esc(pname(l.p))}</b><small>${esc(t('co.qty'))}: ${esc(num(l.qty))} × ${esc(moneyTxt(l.unit))} · ${esc(t('badge.' + l.p.origin))}</small></div>
+        ${money(l.line)}</div>`).join('') + `
+      <div class="totals">
+        <div><span>${esc(t('co.sub'))}</span>${money(tt.subtotal)}</div>
+        <div class="sub"><span>${esc(t('co.imp'))}</span>${money(tt.importedSubtotal)}</div>
+        <div class="sub"><span>${esc(t('co.tax', { rate: num(round2(CONFIG.TAX_RATE * 100)) }))}</span>${money(tt.tax)}</div>
+        <div><span>${esc(t('co.del'))}</span>${tt.delivery ? money(tt.delivery) : `<span class="money">${esc(t('co.free'))}</span>`}</div>
+        <div class="grand"><span>${esc(t('co.total'))}</span>${money(tt.total)}</div>
+      </div>
+      <p class="note" style="margin-top:12px">${esc(t('co.taxNote'))}</p>`;
+  }
+  function updatePayNote() {
+    const sel = $('input[name="pay"]:checked');
+    const v = sel ? sel.value : 'cod';
+    $('#payNoteTxt').textContent = t('co.' + v + 'Note');
+  }
+
+  /* ---- success + orders ---- */
+  const payLabel = v => t('co.' + (['cod', 'card', 'wallet'].includes(v) ? v : 'cod'));
+  function orderDetailHTML(o) {
+    const cityName = GOVERNORATES[o.customer.city] ? (state.lang === 'ar' ? GOVERNORATES[o.customer.city][0] : GOVERNORATES[o.customer.city][1]) : '';
+    const p = o.totals;
+    return `<div class="done__cols">
+        <dl><dt>${esc(t('ok.date'))}</dt><dd>${esc(new Date(o.createdAt).toLocaleString(locale(), { dateStyle: 'medium', timeStyle: 'short' }))}</dd>
+          <dt>${esc(t('ok.pay'))}</dt><dd>${esc(payLabel(o.payment))}</dd>
+          <dt>${esc(t('co.name'))}</dt><dd>${esc(o.customer.name)}</dd>
+          <dt>${esc(t('co.org'))}</dt><dd>${esc(o.customer.org)}</dd>
+          <dt>${esc(t('co.phone'))}</dt><dd class="ltr">${esc(o.customer.phone)}</dd></dl>
+        <dl><dt>${esc(t('co.city'))}</dt><dd>${esc(cityName)}</dd>
+          <dt>${esc(t('co.address'))}</dt><dd>${esc(o.customer.address)}</dd>
+          ${o.customer.notes ? `<dt>${esc(t('co.notes'))}</dt><dd>${esc(o.customer.notes)}</dd>` : ''}</dl>
+      </div>
+      <h4 style="margin:16px 0 4px">${esc(t('ok.items'))}</h4>
+      ${o.items.map(i => { const pr = PMAP.get(i.id); const nm = state.lang === 'ar' ? i.nameAr : i.nameEn;
+        return `<div class="sumline">${pr ? imgTag(pr, 0, 160, 'width="48" height="48"') : '<span></span>'}
+          <div><b>${esc(nm)}</b><small>${esc(t('co.qty'))}: ${esc(num(i.qty))} × ${esc(moneyTxt(i.unit))} · ${esc(t('badge.' + i.origin))}</small></div>${money(i.line)}</div>`; }).join('')}
+      <div class="totals">
+        <div><span>${esc(t('co.sub'))}</span>${money(p.subtotal)}</div>
+        <div class="sub"><span>${esc(t('co.imp'))}</span>${money(p.importedSubtotal)}</div>
+        <div class="sub"><span>${esc(t('co.tax', { rate: num(round2((o.taxRate != null ? o.taxRate : CONFIG.TAX_RATE) * 100)) }))}</span>${money(p.tax)}</div>
+        <div><span>${esc(t('co.del'))}</span>${p.delivery ? money(p.delivery) : `<span class="money">${esc(t('co.free'))}</span>`}</div>
+        <div class="grand"><span>${esc(t('co.total'))}</span>${money(p.total)}</div>
+      </div>`;
+  }
+  function renderSuccess() {
+    const o = state.orders.find(x => x.id === state.lastOrderId); if (!o) return;
+    $('#successBody').innerHTML = `<div class="done">
+      <div class="done__ic">${icon('check')}</div>
+      <h2 id="okTitle">${esc(t('ok.title'))}</h2>
+      <div class="note">${esc(t('ok.no'))}</div>
+      <div class="done__no">${esc(o.id)}</div>
+      <div class="note note--box" style="text-align:start">${icon('info')}<span>${esc(t('ok.disc'))}</span></div>
+      <div class="done__body">${orderDetailHTML(o)}</div>
+      <div style="display:flex;gap:10px;justify-content:center;margin-top:22px;flex-wrap:wrap">
+        <button type="button" class="btn btn--ghost" data-action="orders-open">${esc(t('ok.orders'))}</button>
+        <button type="button" class="btn btn--primary" data-action="close">${esc(t('ok.continue'))}</button>
+      </div></div>`;
+  }
+  function renderOrders() {
+    $('#ordersBody').innerHTML = state.orders.length ? state.orders.map(o => `<details class="order">
+        <summary><span class="ltr">${esc(o.id)}</span><span>${esc(t('orders.items', { n: num(o.items.reduce((a, i) => a + i.qty, 0)) }))} · ${moneyTxt(o.totals.total)}</span></summary>
+        <div class="order__in">${orderDetailHTML(o)}</div></details>`).join('')
+      : `<div class="empty">${icon('box')}<p>${esc(t('orders.empty'))}</p></div>`;
+  }
+
+  function renderAll() {
+    applyStaticI18n();
+    renderHero(); renderCategories(); renderCompanies(); renderToolbar(); renderProducts();
+    renderCartBadge(); renderCart();
+    if (state.activeModal === 'mProduct') renderProductModal();
+    if (state.activeModal === 'mCheckout') renderCheckoutSummary();
+    if (state.activeModal === 'mSuccess') renderSuccess();
+    if (state.activeModal === 'mOrders') renderOrders();
+    $('#searchInput').value = state.query;
+  }
+
+  /* =====================================================================
+     J. MODAL MANAGER (accessible)
+     ===================================================================== */
+  const FOCUSABLE = 'a[href],button:not([disabled]),input:not([disabled]):not([type="hidden"]),select:not([disabled]),textarea:not([disabled]),[tabindex]:not([tabindex="-1"]),summary';
+  function openModal(id, trigger) {
+    if (state.activeModal) closeModal(true);
+    const m = document.getElementById(id);
+    state.lastFocus = trigger || document.activeElement;
+    m.hidden = false; state.activeModal = id;
+    document.body.classList.add('no-scroll');
+    const dlg = $('.dialog', m); dlg.scrollTop = 0;
+    const first = $('.close', m) || dlg; setTimeout(() => (id === 'mProduct' || id === 'mSuccess' ? dlg : first).focus(), 30);
+  }
+  function closeModal(silent) {
+    if (!state.activeModal) return;
+    const m = document.getElementById(state.activeModal);
+    m.hidden = true; state.activeModal = null;
+    document.body.classList.remove('no-scroll');
+    if (!silent && state.lastFocus && document.contains(state.lastFocus) && state.lastFocus.focus) state.lastFocus.focus();
+  }
+  function trapTab(e) {
+    if (e.key !== 'Tab' || !state.activeModal) return;
+    const dlg = $('.dialog', document.getElementById(state.activeModal));
+    const items = $$(FOCUSABLE, dlg).filter(el => el.offsetParent !== null);
+    if (!items.length) { e.preventDefault(); dlg.focus(); return; }
+    const first = items[0], last = items[items.length - 1];
+    if (e.shiftKey && (document.activeElement === first || document.activeElement === dlg)) { e.preventDefault(); last.focus(); }
+    else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+  }
+
+  /* =====================================================================
+     K. ACTIONS (cart, filters, language, theme)
+     ===================================================================== */
+  function addToCart(id, qty) {
+    const p = PMAP.get(id);
+    if (!p || p.stock === 'out') { toast(t('toast.unavailable'), 'error'); return false; }
+    const line = state.cart.find(l => l.id === id), cur = line ? line.qty : 0;
+    if (cur + qty > CONFIG.MAX_QTY) { toast(t('toast.maxQty'), 'error'); return false; }
+    if (line) line.qty += qty; else state.cart.push({ id, qty });
+    saveCart(); renderCartBadge(); renderCart();
+    toast(t('toast.added', { name: pname(p) }));
+    return true;
+  }
+  function changeQty(id, delta) {
+    const line = state.cart.find(l => l.id === id); if (!line) return;
+    const q = line.qty + delta;
+    if (q < 1) return;
+    if (q > CONFIG.MAX_QTY) { toast(t('toast.maxQty'), 'error'); return; }
+    line.qty = q; saveCart(); renderCartBadge(); renderCart();
+    if (state.activeModal === 'mCheckout') renderCheckoutSummary();
+  }
+  function removeFromCart(id) {
+    state.cart = state.cart.filter(l => l.id !== id);
+    saveCart(); renderCartBadge(); renderCart(); toast(t('toast.removed'));
+  }
+  function scrollToProducts() {
+    const el = $('#products'); if (el) el.scrollIntoView({ behavior: 'smooth', block: 'start' });
+  }
+  function setLang(lang) {
+    state.lang = lang; store.set('lang', lang); renderAll();
+  }
+  function setTheme(theme) {
+    state.theme = theme; store.set('theme', theme);
+    document.documentElement.dataset.theme = theme;
+    $('#themeBtn').setAttribute('aria-label', theme === 'dark' ? t('theme.toLight') : t('theme.toDark'));
+    toast(t(theme === 'dark' ? 'toast.theme.dark' : 'toast.theme.light'));
+  }
+  function clearFilters() {
+    state.query = ''; state.cat = 'all'; state.company = 'all'; state.tab = 'all'; state.sort = 'featured';
+    $('#searchInput').value = '';
+    renderCategories(); renderCompanies(); renderToolbar(); renderProducts();
+  }
+  function refreshCatalog() { renderCategories(); renderCompanies(); renderToolbar(); renderProducts(); }
+
+  /* ---- reviews ---- */
+  function setErr(inputId, errId, msg) {
+    const el = document.getElementById(inputId), er = document.getElementById(errId);
+    if (er) er.textContent = msg || '';
+    if (el && el.setAttribute) { if (msg) el.setAttribute('aria-invalid', 'true'); else el.removeAttribute('aria-invalid'); }
+  }
+  function submitReview(form) {
+    const p = PMAP.get(state.pmId); if (!p) return;
+    const name = $('#rvName').value.trim(), country = $('#rvCountry').value.trim(), comment = $('#rvComment').value.trim();
+    const checked = $('input[name="rvRating"]:checked', form), rating = checked ? parseInt(checked.value, 10) : 0;
+    let first = null;
+    const bad = (cond, inp, err, key) => { setErr(inp, err, cond ? t(key) : ''); if (cond && !first) first = document.getElementById(inp); return cond; };
+    const e1 = bad(name.length < 2, 'rvName', 'rvNameErr', 'rv.eName');
+    const e2 = bad(country.length < 2, 'rvCountry', 'rvCountryErr', 'rv.eCountry');
+    const e3 = !rating; $('#rvRatingErr').textContent = e3 ? t('rv.eRating') : ''; if (e3 && !first) first = $('#rvStar1');
+    const e4 = bad(comment.length < 10, 'rvComment', 'rvCommentErr', 'rv.eComment');
+    if (e1 || e2 || e3 || e4) { toast(t('rv.fix'), 'error'); if (first) first.focus(); return; }
+    const list = state.reviews[p.id] || (state.reviews[p.id] = []);
+    list.push({ id: Date.now().toString(36) + Math.random().toString(36).slice(2, 6), name: name.slice(0, 60), country: country.slice(0, 60), rating, comment: comment.slice(0, 500), date: new Date().toISOString() });
+    saveReviews();
+    form.reset(); $$('.starsinput label', form).forEach(l => l.classList.remove('on'));
+    $('#pmReviews').innerHTML = renderPmReviews(p);
+    $('#pmRating').innerHTML = renderPmRating(p);
+    renderProducts();
+    toast(t('rv.ok'));
+  }
+
+  /* ---- checkout / order ---- */
+  function openCheckout(trigger) {
+    if (!state.cart.length) { toast(t('co.eEmpty'), 'error'); return; }
+    closeModal(true);
+    renderCheckoutSummary(); updatePayNote();
+    openModal('mCheckout', trigger || $('#cartBtn'));
+  }
+  function generateOrderId() {
+    const d = new Date(), pad = n => String(n).padStart(2, '0');
+    let id;
+    do { id = `SM-${String(d.getFullYear()).slice(2)}${pad(d.getMonth() + 1)}${pad(d.getDate())}-${Math.random().toString(36).slice(2, 6).toUpperCase()}`; }
+    while (state.orders.some(o => o.id === id));
+    return id;
+  }
+  function validateCheckout() {
+    const v = id => $('#' + id).value.trim();
+    const phone = toLatinDigits(v('coPhone')).replace(/[\s\-()]/g, '');
+    const checks = [
+      ['coName', 'coNameErr', v('coName').length < 2, 'co.eName'],
+      ['coOrg', 'coOrgErr', v('coOrg').length < 2, 'co.eOrg'],
+      ['coPhone', 'coPhoneErr', !/^\+?\d{9,14}$/.test(phone), 'co.ePhone'],
+      ['coCity', 'coCityErr', $('#coCity').value === '', 'co.eCity'],
+      ['coAddr', 'coAddrErr', v('coAddr').length < 10, 'co.eAddr']
+    ];
+    let first = null;
+    checks.forEach(c => { setErr(c[0], c[1], c[2] ? t(c[3]) : ''); if (c[2] && !first) first = $('#' + c[0]); });
+    return { ok: !first, first, phone };
+  }
+  function placeOrder() {
+    const lines = cartLines();
+    $('#coFormErr').textContent = '';
+    if (!lines.length) { $('#coFormErr').textContent = t('co.eEmpty'); return; }
+    const v = validateCheckout();
+    if (!v.ok) { v.first.focus(); return; }
+    const tt = computeTotals(lines);
+    const order = {
+      id: generateOrderId(), createdAt: new Date().toISOString(), lang: state.lang, demo: true, taxRate: CONFIG.TAX_RATE,
+      payment: ($('input[name="pay"]:checked') || {}).value || 'cod',
+      customer: { name: $('#coName').value.trim(), org: $('#coOrg').value.trim(), phone: v.phone, city: $('#coCity').value,
+                  address: $('#coAddr').value.trim(), notes: $('#coNotes').value.trim() },
+      items: lines.map(l => ({ id: l.p.id, nameAr: l.p.nameAr, nameEn: l.p.nameEn, qty: l.qty, unit: l.unit, line: l.line, origin: l.p.origin })),
+      totals: tt
+    };
+    state.orders.unshift(order); saveOrders();
+    state.cart = []; saveCart();
+    state.lastOrderId = order.id;
+    $('#checkoutForm').reset(); updatePayNote();
+    renderCartBadge(); renderCart();
+    closeModal(true);
+    renderSuccess(); openModal('mSuccess', $('#cartBtn'));
+  }
+
+  /* =====================================================================
+     L. EVENTS (delegated)
+     ===================================================================== */
+  document.addEventListener('click', e => {
+    const el = e.target.closest('[data-action]'); if (!el) return;
+    const a = el.dataset.action, id = el.dataset.id;
+    switch (a) {
+      case 'lang': setLang(state.lang === 'ar' ? 'en' : 'ar'); break;
+      case 'theme': setTheme(state.theme === 'dark' ? 'light' : 'dark'); break;
+      case 'menu': { const h = $('#siteHeader'); const open = h.classList.toggle('is-open'); el.setAttribute('aria-expanded', open); break; }
+      case 'cart-open': renderCart(); openModal('mCart', el); break;
+      case 'cart-browse': closeModal(); scrollToProducts(); break;
+      case 'close': closeModal(); break;
+      case 'view': openProduct(id, el); break;
+      case 'add': addToCart(id, 1); break;
+      case 'inc': changeQty(id, 1); break;
+      case 'dec': changeQty(id, -1); break;
+      case 'remove': removeFromCart(id); break;
+      case 'checkout': openCheckout(); break;
+      case 'checkout-back': closeModal(true); renderCart(); openModal('mCart', $('#cartBtn')); break;
+      case 'pm-img': {
+        const p = PMAP.get(state.pmId); state.pmImg = parseInt(id, 10);
+        const main = $('#pmMain'); main.innerHTML = imgTag(p, state.pmImg, 900, 'width="900" height="675"');
+        $$('.pm__thumbs button').forEach((b, i) => b.setAttribute('aria-current', i === state.pmImg));
+        break; }
+      case 'pm-inc': case 'pm-dec': {
+        state.pmQty = Math.max(1, Math.min(CONFIG.MAX_QTY, state.pmQty + (a === 'pm-inc' ? 1 : -1)));
+        $('#pmQty').textContent = num(state.pmQty);
+        $('[data-action="pm-dec"]').disabled = state.pmQty <= 1; $('[data-action="pm-inc"]').disabled = state.pmQty >= CONFIG.MAX_QTY;
+        break; }
+      case 'pm-add': addToCart(state.pmId, state.pmQty); break;
+      case 'cat':
+        state.cat = (state.cat === id && !el.dataset.keep) ? 'all' : id;
+        refreshCatalog(); if (!el.dataset.keep) scrollToProducts(); break;
+      case 'company': state.company = state.company === id ? 'all' : id; refreshCatalog(); scrollToProducts(); break;
+      case 'company-clear': state.company = 'all'; refreshCatalog(); break;
+      case 'tab': state.tab = id; renderToolbar(); renderProducts(); break;
+      case 'clear-filters': clearFilters(); break;
+      case 'orders-open': renderOrders(); openModal('mOrders', el); break;
+      case 'top': window.scrollTo({ top: 0, behavior: 'smooth' }); break;
+    }
+  });
+
+  document.addEventListener('click', e => {      // overlay backdrop closes modal
+    if (e.target.classList && e.target.classList.contains('overlay')) closeModal();
+  });
+  document.addEventListener('click', e => {      // nav links close mobile menu
+    if (e.target.closest('#mainNav a')) { $('#siteHeader').classList.remove('is-open'); $('#menuBtn').setAttribute('aria-expanded', 'false'); }
+  });
+  document.addEventListener('keydown', e => {
+    if (e.key === 'Escape' && state.activeModal) { e.preventDefault(); closeModal(); }
+    trapTab(e);
+  });
+  document.addEventListener('error', e => { if (e.target && e.target.tagName === 'IMG') guardImage(e.target); }, true);
+
+  document.addEventListener('change', e => {
+    const el = e.target;
+    if (el.id === 'fCat') { state.cat = el.value; refreshCatalog(); }
+    else if (el.id === 'fCompany') { state.company = el.value; refreshCatalog(); }
+    else if (el.id === 'fSort') { state.sort = el.value; renderProducts(); }
+    else if (el.name === 'pay') updatePayNote();
+    else if (el.name === 'rvRating') {
+      const n = parseInt(el.value, 10);
+      $$('.starsinput label').forEach((l, i) => l.classList.toggle('on', i < n));
+      $('#rvRatingErr').textContent = '';
+    }
+  });
+  document.addEventListener('submit', e => {
+    if (e.target.id === 'reviewForm') { e.preventDefault(); submitReview(e.target); }
+    else if (e.target.id === 'checkoutForm') { e.preventDefault(); placeOrder(); }
+    else if (e.target.id === 'searchForm') { e.preventDefault(); scrollToProducts(); $('#searchInput').blur(); }
+  });
+  document.addEventListener('input', e => {
+    if (e.target.id === 'coName' || e.target.id === 'coOrg' || e.target.id === 'coPhone' || e.target.id === 'coAddr') setErr(e.target.id, e.target.id + 'Err', '');
+  });
+  $('#searchInput').addEventListener('input', debounce(e => {
+    state.query = e.target.value.slice(0, 80); renderProducts();
+    const r = $('#products').getBoundingClientRect();
+    if (state.query && (r.top > window.innerHeight - 140 || r.bottom < 0)) scrollToProducts();
+  }, 160));
+
+  const toTop = $('#toTop');
+  window.addEventListener('scroll', () => toTop.classList.toggle('show', window.scrollY > 600), { passive: true });
+
+  if ('IntersectionObserver' in window) {   // highlight current section in nav
+    const links = {}; $$('[data-nav]').forEach(a => { links[a.dataset.nav] = a; });
+    const io = new IntersectionObserver(entries => {
+      entries.forEach(en => { if (en.isIntersecting) Object.keys(links).forEach(k => links[k].setAttribute('aria-current', String(k === en.target.id))); });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+    ['home', 'categories', 'companies', 'products'].forEach(id => { const s = document.getElementById(id); if (s) io.observe(s); });
+  }
+
+  /* =====================================================================
+     M. INIT
+     ===================================================================== */
+  function init() {
+    hydrateIcons(document);
+    loadState();
+    renderAll();
+    const hero = $('#heroImg');
+    if (hero.complete && hero.naturalWidth === 0) guardImage(hero);
+  }
+  init();
+})();
+</script>
+</body>
+</html>
