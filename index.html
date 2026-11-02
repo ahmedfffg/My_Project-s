@@ -1,0 +1,1567 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0, viewport-fit=cover">
+<meta name="theme-color" content="#080a0f">
+<meta name="description" content="Ahmed Hussein — Web Developer Portfolio. Selected client work, lab experiments, and stack.">
+<title>Ahmed Hussein — Web Developer</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+<link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700;800;900&family=JetBrains+Mono:wght@400;500;700&display=swap" rel="stylesheet">
+   
+
+<style>
+/* ============================================================
+   AHMED HUSSEIN — PORTFOLIO
+   ============================================================ */
+
+*,*::before,*::after{margin:0;padding:0;box-sizing:border-box}
+html{scroll-behavior:smooth;-webkit-text-size-adjust:100%}
+img,svg,iframe{display:block;max-width:100%}
+button{font:inherit;color:inherit;background:none;border:none;cursor:pointer}
+a{color:inherit;text-decoration:none}
+ul{list-style:none}
+
+:root{
+  --bg:#080a0f;
+  --surface:#10131a;
+  --surface-2:#151923;
+  --surface-3:#1c212d;
+  --line:rgba(255,255,255,.08);
+  --line-2:rgba(255,255,255,.14);
+  --text:#f4f6fb;
+  --muted:#9299aa;
+  --muted-2:#5f6675;
+  --accent:#7c5cff;
+  --accent-2:#21d4fd;
+  --accent-3:#a98cff;
+  --mint:#55e6a5;
+  --warn:#ffb84d;
+
+  --sans:"Inter",system-ui,-apple-system,BlinkMacSystemFont,"Segoe UI",sans-serif;
+  --mono:"JetBrains Mono",ui-monospace,Menlo,monospace;
+  --arabic:"Tajawal","Cairo","Inter",system-ui,sans-serif;
+
+  --gutter:clamp(16px,4vw,32px);
+  --radius:24px;
+  --radius-sm:16px;
+  --radius-xs:10px;
+  --ease:cubic-bezier(.22,.61,.36,1);
+  --ease-out:cubic-bezier(.16,1,.3,1);
+
+  --shadow-sm:0 4px 12px rgba(0,0,0,.18);
+  --shadow-md:0 12px 40px rgba(0,0,0,.24);
+  --shadow-lg:0 25px 80px rgba(0,0,0,.42);
+  --shadow-glow:0 20px 60px rgba(124,92,255,.22);
+}
+
+body{
+  font-family:var(--sans);
+  background:
+    radial-gradient(60% 40% at 15% 8%,rgba(124,92,255,.14),transparent 60%),
+    radial-gradient(50% 40% at 85% 28%,rgba(33,212,253,.09),transparent 60%),
+    radial-gradient(60% 50% at 50% 100%,rgba(124,92,255,.06),transparent 65%),
+    var(--bg);
+  color:var(--text);
+  min-height:100svh;
+  overflow-x:hidden;
+  line-height:1.65;
+  -webkit-font-smoothing:antialiased;
+  text-rendering:optimizeLegibility;
+}
+
+body::before{
+  content:"";
+  position:fixed;inset:0;pointer-events:none;z-index:0;
+  background-image:radial-gradient(rgba(255,255,255,.35) .5px,transparent .5px);
+  background-size:28px 28px;
+  opacity:.16;
+  -webkit-mask-image:linear-gradient(to bottom,#000 0%,transparent 75%);
+  mask-image:linear-gradient(to bottom,#000 0%,transparent 75%);
+}
+
+.progress{
+  position:fixed;top:0;left:0;height:2px;width:0;z-index:50;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  box-shadow:0 0 18px rgba(124,92,255,.6);
+  transition:width .1s linear;
+}
+
+.container{
+  width:min(1120px,92%);
+  margin-inline:auto;
+  position:relative;
+  z-index:1;
+}
+
+.kicker{
+  color:#a595ff;
+  text-transform:uppercase;
+  letter-spacing:.28em;
+  font-size:11px;
+  font-weight:800;
+  margin-bottom:12px;
+}
+
+/* ---------- NAV ---------- */
+.nav{
+  position:fixed;top:16px;left:50%;transform:translateX(-50%);
+  width:min(1120px,92%);z-index:40;
+  display:flex;align-items:center;justify-content:space-between;
+  padding:12px 14px 12px 16px;
+  gap:12px;
+  background:rgba(10,12,18,.72);
+  border:1px solid var(--line);
+  border-radius:18px;
+  backdrop-filter:blur(20px) saturate(160%);
+  -webkit-backdrop-filter:blur(20px) saturate(160%);
+  box-shadow:0 12px 40px rgba(0,0,0,.22);
+  transition:padding .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);
+}
+.nav.is-scrolled{
+  padding:9px 12px 9px 14px;
+  background:rgba(10,12,18,.9);
+  border-color:var(--line-2);
+  box-shadow:0 18px 50px rgba(0,0,0,.4);
+}
+
+.nav__left{display:flex;align-items:center;gap:11px;min-width:0}
+
+.nav__brand{
+  display:flex;align-items:center;gap:10px;
+  font-weight:800;font-size:1.08rem;
+  letter-spacing:-.01em;
+  white-space:nowrap;
+}
+.nav__brand b{color:var(--text);font-weight:800}
+.nav__brand span{color:var(--accent)}
+
+.logo-img{
+  width:38px;height:38px;flex:none;
+  border-radius:11px;
+  object-fit:cover;
+  border:1px solid var(--line-2);
+  background:var(--surface-2);
+  transition:transform .35s var(--ease),border-color .35s var(--ease),box-shadow .35s var(--ease);
+}
+.logo-img:hover{
+  transform:scale(1.06);
+  border-color:rgba(124,92,255,.55);
+  box-shadow:0 8px 22px rgba(124,92,255,.35);
+}
+
+.nav__links{display:flex;align-items:center;gap:4px}
+.nav__link{
+  position:relative;
+  font-size:13px;font-weight:500;
+  color:var(--muted);
+  padding:9px 14px;
+  border-radius:10px;
+  transition:color .25s var(--ease),background .25s var(--ease);
+  white-space:nowrap;
+}
+.nav__link:hover{color:var(--text);background:rgba(255,255,255,.05)}
+.nav__link::before{
+  content:"";
+  position:absolute;left:14px;right:14px;bottom:5px;
+  height:1px;
+  background:linear-gradient(90deg,var(--accent),var(--accent-2));
+  transform:scaleX(0);transform-origin:left;
+  transition:transform .35s var(--ease);
+}
+.nav__link:hover::before{transform:scaleX(1)}
+
+.lang{
+  display:inline-flex;align-items:center;gap:7px;
+  padding:8px 14px;
+  border-radius:10px;
+  background:rgba(124,92,255,.12);
+  border:1px solid rgba(124,92,255,.32);
+  color:#c9bcff;
+  font-size:12px;font-weight:700;
+  letter-spacing:.02em;
+  transition:background .25s var(--ease),border-color .25s var(--ease),transform .25s var(--ease),color .25s var(--ease);
+  white-space:nowrap;
+}
+.lang:hover{
+  background:rgba(124,92,255,.22);
+  border-color:rgba(124,92,255,.55);
+  color:#fff;
+  transform:translateY(-1px);
+}
+.lang svg{width:14px;height:14px;flex:none}
+
+/* ---------- HERO ---------- */
+.hero{
+  position:relative;z-index:1;
+  min-height:100svh;
+  display:grid;place-items:center;
+  text-align:center;
+  padding:140px 0 90px;
+}
+.hero__content{max-width:840px}
+
+.badge{
+  display:inline-flex;align-items:center;gap:9px;
+  padding:8px 15px 8px 13px;
+  border:1px solid var(--line-2);
+  border-radius:999px;
+  background:rgba(255,255,255,.03);
+  color:#c5c9d5;font-size:12px;font-weight:600;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  animation:fadeUp .8s var(--ease-out) both;
+}
+.badge i{
+  width:7px;height:7px;border-radius:50%;
+  background:var(--mint);
+  box-shadow:0 0 0 0 rgba(85,230,165,.6);
+  animation:pulseRing 2.4s var(--ease-out) infinite;
+}
+
+.hero h1{
+  font-size:clamp(2.8rem,9.2vw,6rem);
+  line-height:.95;
+  letter-spacing:-.045em;
+  font-weight:800;
+  margin:26px 0 22px;
+  animation:fadeUp .8s .08s var(--ease-out) both;
+}
+.gradient{
+  display:inline-block;
+  background:linear-gradient(100deg,#fff 10%,#a98cff 55%,#5ce4ff 100%);
+  background-size:220% 100%;
+  -webkit-background-clip:text;background-clip:text;
+  -webkit-text-fill-color:transparent;
+  animation:shine 6s ease infinite;
+}
+
+.hero p{
+  max-width:620px;
+  margin:0 auto;
+  color:var(--muted);
+  font-size:clamp(15px,1.6vw,17px);
+  line-height:1.8;
+  animation:fadeUp .8s .16s var(--ease-out) both;
+}
+
+.hero__actions{
+  display:flex;justify-content:center;gap:10px;
+  margin-top:32px;flex-wrap:wrap;
+  animation:fadeUp .8s .24s var(--ease-out) both;
+}
+
+.btn{
+  position:relative;
+  display:inline-flex;align-items:center;justify-content:center;gap:9px;
+  padding:14px 22px;
+  min-height:48px;
+  border-radius:13px;
+  border:1px solid var(--line);
+  font-weight:700;font-size:14px;
+  cursor:pointer;
+  transition:transform .28s var(--ease),box-shadow .28s var(--ease),background .28s var(--ease),border-color .28s var(--ease),color .28s var(--ease);
+  white-space:nowrap;
+}
+.btn:hover{transform:translateY(-3px)}
+.btn svg{width:16px;height:16px;flex:none}
+.btn .arrow{transition:transform .28s var(--ease)}
+.btn:hover .arrow{transform:translate(3px,-3px)}
+
+.btn--primary{
+  background:var(--text);color:#090b10;
+  border-color:transparent;
+  box-shadow:0 12px 35px rgba(255,255,255,.10);
+}
+.btn--primary:hover{box-shadow:0 18px 48px rgba(255,255,255,.18)}
+
+.btn--ghost{
+  background:rgba(255,255,255,.035);
+  color:var(--text);
+  border-color:var(--line);
+}
+.btn--ghost:hover{
+  background:rgba(255,255,255,.08);
+  border-color:var(--line-2);
+}
+
+.scroll-cue{
+  position:absolute;bottom:26px;left:50%;transform:translateX(-50%);
+  display:inline-flex;align-items:center;gap:8px;
+  color:#626979;font-size:11px;letter-spacing:.28em;text-transform:uppercase;
+  animation:bob 2.2s ease-in-out infinite;
+}
+.scroll-cue svg{width:12px;height:12px}
+
+/* ---------- AD BANNER ---------- */
+.ad-banner{
+  position:relative;z-index:1;
+  width:min(1120px,92%);
+  margin:0 auto 20px;
+  border:1px solid var(--line);
+  border-radius:var(--radius-sm);
+  background:linear-gradient(135deg,rgba(124,92,255,.08),rgba(33,212,253,.05));
+  overflow:hidden;
+  transition:border-color .3s var(--ease),box-shadow .3s var(--ease);
+  animation:fadeUp .8s .3s var(--ease-out) both;
+}
+.ad-banner:hover{
+  border-color:rgba(124,92,255,.35);
+  box-shadow:0 15px 50px rgba(124,92,255,.12);
+}
+.ad-banner img{width:100%;height:auto;max-height:140px;object-fit:cover}
+.ad-banner .ad-link{display:block;width:100%}
+.ad-label{
+  position:absolute;top:8px;left:12px;z-index:2;
+  font-size:9px;letter-spacing:.16em;text-transform:uppercase;
+  color:#7a8090;background:rgba(8,10,15,.75);
+  padding:3px 8px;border-radius:5px;
+  border:1px solid var(--line);
+}
+.ad-placeholder{
+  display:flex;align-items:center;justify-content:center;gap:10px;
+  padding:22px 20px;text-align:center;
+  color:var(--muted);font-size:13px;
+}
+.ad-placeholder strong{color:#c9bcff}
+
+/* ---------- SECTIONS ---------- */
+.section{padding:clamp(70px,10vw,110px) 0;position:relative;z-index:1}
+
+.section__head{
+  display:flex;justify-content:space-between;align-items:flex-end;
+  gap:24px;margin-bottom:38px;
+}
+.section__head h2{
+  font-size:clamp(1.85rem,5vw,2.9rem);
+  letter-spacing:-.03em;
+  font-weight:800;
+  line-height:1.1;
+}
+.section__head p{
+  color:var(--muted);
+  font-size:14px;
+  line-height:1.75;
+  max-width:400px;
+}
+
+.divider{
+  width:min(1120px,92%);
+  margin:0 auto;
+  height:1px;
+  background:linear-gradient(90deg,transparent,rgba(255,255,255,.14),transparent);
+}
+
+/* ---------- PROJECTS GRID ---------- */
+.projects{
+  display:grid;
+  grid-template-columns:repeat(2,1fr);
+  gap:20px;
+}
+
+.card{
+  position:relative;
+  display:flex;flex-direction:column;
+  padding:10px;
+  border-radius:var(--radius);
+  background:linear-gradient(145deg,rgba(255,255,255,.055),rgba(255,255,255,.015));
+  border:1px solid var(--line);
+  box-shadow:var(--shadow-md);
+  overflow:hidden;
+  transition:transform .4s var(--ease),border-color .4s var(--ease),box-shadow .4s var(--ease);
+}
+.card::before{
+  content:"";
+  position:absolute;inset:-1px;
+  border-radius:inherit;
+  padding:1px;
+  background:linear-gradient(135deg,rgba(124,92,255,.5),transparent 40%,transparent 60%,rgba(33,212,253,.4));
+  -webkit-mask:linear-gradient(#000 0 0) content-box,linear-gradient(#000 0 0);
+  -webkit-mask-composite:xor;
+  mask-composite:exclude;
+  opacity:0;
+  transition:opacity .4s var(--ease);
+  pointer-events:none;
+}
+.card:hover{
+  transform:translateY(-7px);
+  border-color:rgba(124,92,255,.35);
+  box-shadow:0 30px 90px rgba(0,0,0,.5);
+}
+.card:hover::before{opacity:1}
+
+/* ---------- PREVIEW (Enhanced) ---------- */
+.preview{
+  position:relative;
+  height:clamp(210px,32vw,330px);
+  border-radius:var(--radius-sm);
+  overflow:hidden;
+  background:
+    linear-gradient(135deg,#0c0f15 0%,#131826 100%);
+  border:1px solid rgba(255,255,255,.06);
+  isolation:isolate;
+}
+
+/* shimmer loading state */
+.preview::before{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(110deg,transparent 30%,rgba(124,92,255,.12) 50%,transparent 70%);
+  background-size:200% 100%;
+  animation:shimmer 2s linear infinite;
+  z-index:1;
+  pointer-events:none;
+  transition:opacity .5s var(--ease);
+}
+.preview.is-loaded::before{opacity:0;animation:none}
+
+.preview iframe,
+.preview img{
+  width:100%;height:100%;
+  border:0;
+  background:#fff;
+  pointer-events:none;
+  object-fit:cover;
+  position:relative;
+  z-index:2;
+  opacity:0;
+  transition:transform .6s var(--ease-out),opacity .5s var(--ease);
+}
+.preview.is-loaded iframe,
+.preview.is-loaded img{opacity:1}
+
+.card:hover .preview img,
+.card:hover .preview iframe{transform:scale(1.04)}
+
+/* gradient fade at bottom */
+.preview::after{
+  content:"";
+  position:absolute;inset:0;
+  background:linear-gradient(to bottom,transparent 55%,rgba(8,10,15,.75));
+  pointer-events:none;
+  z-index:3;
+}
+
+/* project number badge */
+.preview__num{
+  position:absolute;top:12px;left:12px;z-index:5;
+  font-family:var(--mono);
+  font-size:10px;
+  letter-spacing:.2em;
+  color:rgba(255,255,255,.85);
+  padding:5px 10px;
+  border-radius:8px;
+  background:rgba(8,10,15,.72);
+  border:1px solid var(--line-2);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+}
+
+/* live indicator */
+.preview__live{
+  position:absolute;top:12px;right:12px;z-index:5;
+  display:inline-flex;align-items:center;gap:6px;
+  font-family:var(--mono);
+  font-size:9.5px;
+  letter-spacing:.14em;
+  color:#b8f5d6;
+  padding:5px 9px;
+  border-radius:8px;
+  background:rgba(8,20,15,.78);
+  border:1px solid rgba(85,230,165,.35);
+  backdrop-filter:blur(8px);
+  -webkit-backdrop-filter:blur(8px);
+  text-transform:uppercase;
+}
+.preview__live i{
+  width:6px;height:6px;border-radius:50%;
+  background:var(--mint);
+  box-shadow:0 0 8px rgba(85,230,165,.9);
+  animation:pulseDot 1.6s ease-in-out infinite;
+}
+
+/* hover open badge */
+.preview__open{
+  position:absolute;
+  top:50%;left:50%;
+  transform:translate(-50%,-50%) scale(.85);
+  z-index:6;
+  display:inline-flex;align-items:center;gap:8px;
+  padding:10px 18px;
+  border-radius:999px;
+  background:rgba(8,10,15,.85);
+  border:1px solid rgba(124,92,255,.5);
+  color:#fff;
+  font-size:12px;font-weight:700;
+  letter-spacing:.02em;
+  backdrop-filter:blur(10px);
+  -webkit-backdrop-filter:blur(10px);
+  opacity:0;
+  pointer-events:none;
+  transition:opacity .35s var(--ease),transform .35s var(--ease-out);
+  box-shadow:0 14px 40px rgba(124,92,255,.4);
+}
+.card:hover .preview__open{
+  opacity:1;
+  transform:translate(-50%,-50%) scale(1);
+}
+.preview__open svg{width:13px;height:13px}
+
+/* fallback for blocked embeds */
+.preview__fallback{
+  position:absolute;inset:0;
+  z-index:4;
+  display:none;
+  align-items:center;justify-content:center;flex-direction:column;gap:10px;
+  padding:24px;text-align:center;
+  background:linear-gradient(135deg,#0e1220,#151a2b);
+  color:var(--muted);
+}
+.preview__fallback.is-active{display:flex}
+.preview__fallback svg{width:38px;height:38px;opacity:.5}
+.preview__fallback span{font-size:12.5px;line-height:1.6;max-width:240px}
+.preview__fallback strong{color:#c9bcff;display:block;margin-bottom:4px;font-size:13px}
+
+/* ---------- CARD BODY ---------- */
+.card__body{
+  display:flex;flex-direction:column;flex:1;
+  padding:20px 14px 14px;
+}
+.card__title{
+  font-size:clamp(1.15rem,2.4vw,1.35rem);
+  font-weight:800;
+  letter-spacing:-.01em;
+}
+.card__desc{
+  color:var(--muted);
+  font-size:13.5px;
+  line-height:1.75;
+  margin:8px 0 16px;
+  flex:1;
+}
+.tags{display:flex;flex-wrap:wrap;gap:6px;margin-bottom:18px}
+.tag{
+  font-family:var(--mono);
+  font-size:10.5px;
+  letter-spacing:.06em;
+  color:#b9bfcc;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  padding:6px 10px;
+  border-radius:8px;
+  transition:border-color .25s var(--ease),color .25s var(--ease),background .25s var(--ease);
+}
+.card:hover .tag{
+  border-color:rgba(124,92,255,.3);
+  color:#e0e4f0;
+  background:rgba(124,92,255,.06);
+}
+.open{
+  display:inline-flex;align-items:center;gap:7px;
+  color:#fff;font-size:13px;font-weight:700;
+}
+.arrow{
+  display:inline-block;
+  transition:transform .28s var(--ease);
+}
+.card:hover .open .arrow{transform:translate(3px,-3px)}
+
+/* ---------- SKILLS ---------- */
+.skills{display:flex;flex-wrap:wrap;gap:10px}
+.skill{
+  position:relative;
+  padding:13px 18px;
+  border-radius:13px;
+  background:var(--surface);
+  border:1px solid var(--line);
+  font-size:13px;
+  font-weight:500;
+  color:#cfd3dc;
+  transition:transform .28s var(--ease),border-color .28s var(--ease),color .28s var(--ease),background .28s var(--ease),box-shadow .28s var(--ease);
+  cursor:default;
+}
+.skill::before{
+  content:"";
+  display:inline-block;
+  width:6px;height:6px;border-radius:50%;
+  background:var(--accent);
+  margin-right:9px;
+  vertical-align:middle;
+  box-shadow:0 0 10px rgba(124,92,255,.65);
+}
+.skill:hover{
+  transform:translateY(-3px);
+  border-color:rgba(124,92,255,.38);
+  color:#fff;
+  background:var(--surface-2);
+  box-shadow:0 14px 34px rgba(124,92,255,.18);
+}
+
+/* ---------- CTA ---------- */
+.cta{
+  position:relative;
+  text-align:center;
+  padding:clamp(50px,8vw,80px) clamp(24px,4vw,60px);
+  border-radius:28px;
+  border:1px solid var(--line);
+  background:
+    radial-gradient(70% 100% at 50% 0%,rgba(124,92,255,.16),transparent 60%),
+    linear-gradient(155deg,rgba(255,255,255,.05),rgba(255,255,255,.015));
+  overflow:hidden;
+}
+.cta::before{
+  content:"";
+  position:absolute;inset:0;
+  background-image:
+    linear-gradient(rgba(255,255,255,.04) 1px,transparent 1px),
+    linear-gradient(90deg,rgba(255,255,255,.04) 1px,transparent 1px);
+  background-size:44px 44px;
+  -webkit-mask-image:radial-gradient(circle at 50% 50%,#000,transparent 72%);
+  mask-image:radial-gradient(circle at 50% 50%,#000,transparent 72%);
+  pointer-events:none;
+}
+.cta > *{position:relative;z-index:1}
+.cta p{
+  color:var(--muted);
+  margin:14px auto 30px;
+  line-height:1.75;
+  max-width:520px;
+}
+.cta .hero__actions{margin-top:0;animation:none}
+
+/* ---------- FOOTER ---------- */
+.footer{
+  padding:40px 0 55px;
+  text-align:center;
+  color:#5e6574;
+  font-size:12px;
+  position:relative;
+  z-index:1;
+}
+.footer__social{
+  display:flex;justify-content:center;gap:12px;
+  margin-bottom:22px;
+}
+.social{
+  width:44px;height:44px;
+  border-radius:12px;
+  display:grid;place-items:center;
+  border:1px solid var(--line);
+  background:rgba(255,255,255,.025);
+  color:#9299aa;
+  transition:transform .35s var(--ease),background .35s var(--ease),border-color .35s var(--ease),color .35s var(--ease),box-shadow .35s var(--ease);
+}
+.social svg{width:20px;height:20px}
+.social:hover{transform:translateY(-4px);color:#fff}
+.social--wa:hover{
+  background:rgba(37,211,102,.15);
+  border-color:rgba(37,211,102,.5);
+  box-shadow:0 14px 34px rgba(37,211,102,.28);
+}
+.social--ig:hover{
+  background:linear-gradient(135deg,rgba(131,58,180,.22),rgba(253,29,29,.16),rgba(252,176,69,.16));
+  border-color:rgba(225,48,108,.5);
+  box-shadow:0 14px 34px rgba(225,48,108,.28);
+}
+
+/* ---------- REVEAL ---------- */
+.reveal{
+  opacity:0;
+  transform:translate3d(0,22px,0);
+  transition:opacity .7s var(--ease-out),transform .7s var(--ease-out);
+}
+.reveal.is-visible{opacity:1;transform:translate3d(0,0,0)}
+
+/* ---------- ANIMATIONS ---------- */
+@keyframes fadeUp{
+  from{opacity:0;transform:translate3d(0,16px,0)}
+  to{opacity:1;transform:translate3d(0,0,0)}
+}
+@keyframes shine{
+  0%,100%{background-position:0% 50%}
+  50%{background-position:100% 50%}
+}
+@keyframes bob{
+  0%,100%{transform:translate3d(0,0,0)}
+  50%{transform:translate3d(0,6px,0)}
+}
+@keyframes pulseRing{
+  0%{box-shadow:0 0 0 0 rgba(85,230,165,.55)}
+  70%{box-shadow:0 0 0 10px rgba(85,230,165,0)}
+  100%{box-shadow:0 0 0 0 rgba(85,230,165,0)}
+}
+@keyframes pulseDot{
+  0%,100%{opacity:1;transform:scale(1)}
+  50%{opacity:.5;transform:scale(.85)}
+}
+@keyframes shimmer{
+  0%{background-position:200% 0}
+  100%{background-position:-200% 0}
+}
+
+/* ---------- RTL ---------- */
+html[dir="rtl"] body{font-family:var(--arabic)}
+html[dir="rtl"] .section__head{flex-direction:row-reverse}
+html[dir="rtl"] .section__head p{text-align:left}
+html[dir="rtl"] .ad-label{left:auto;right:12px}
+html[dir="rtl"] .preview__num{left:auto;right:12px}
+html[dir="rtl"] .preview__live{right:auto;left:12px}
+html[dir="rtl"] .arrow{transform:scaleX(-1)}
+html[dir="rtl"] .open:hover .arrow,
+html[dir="rtl"] .btn:hover .arrow{transform:scaleX(-1) translateX(3px)}
+html[dir="rtl"] .skill::before{margin-right:0;margin-left:9px}
+
+/* ---------- RESPONSIVE ---------- */
+@media (max-width:900px){
+  .projects{grid-template-columns:1fr}
+  .nav__link{padding:8px 10px;font-size:12.5px}
+  .section__head{flex-direction:column;align-items:flex-start;gap:14px}
+  .section__head p{max-width:100%}
+}
+@media (max-width:640px){
+  .nav__links .nav__link{display:none}
+  .nav__links .nav__link:nth-child(3),
+  .nav__links .nav__link:nth-child(4){display:inline-block}
+  .nav{padding:10px 12px;border-radius:16px;gap:8px}
+  .nav__brand{font-size:1rem}
+  .logo-img{width:32px;height:32px;border-radius:9px}
+  .lang{padding:7px 10px;font-size:11px}
+  .lang .lang__text{display:none}
+  .hero{padding:120px 0 80px}
+  h1{letter-spacing:-.03em}
+  .btn{min-height:46px;flex:1;min-width:140px}
+  .preview{height:clamp(180px,55vw,240px)}
+  .card{border-radius:20px;padding:8px}
+  .card__body{padding:16px 10px 10px}
+  .ad-banner img{max-height:100px}
+  .preview__open{padding:9px 14px;font-size:11px}
+}
+@media (max-width:400px){
+  h1{font-size:2.3rem}
+  .btn{font-size:13px;padding:12px 16px;min-width:120px}
+  .cta{padding:44px 18px}
+}
+
+/* ---------- A11Y ---------- */
+:focus-visible{
+  outline:2px solid var(--accent);
+  outline-offset:3px;
+  border-radius:8px;
+}
+@media (prefers-reduced-motion:reduce){
+  html{scroll-behavior:auto}
+  *,*::before,*::after{
+    animation-duration:.01ms !important;
+    transition-duration:.01ms !important;
+  }
+  .reveal{opacity:1;transform:none}
+}
+@media (hover:none),(pointer:coarse){
+  .card:hover,
+  .btn:hover,
+  .skill:hover{transform:none}
+  body::before{opacity:.10}
+}
+</style>
+</head>
+
+<body>
+
+<div class="progress" id="progress" aria-hidden="true"></div>
+
+<!-- ============ NAV ============ -->
+<nav class="nav" id="nav">
+  <div class="nav__left">
+    <a href="#" class="nav__brand" aria-label="Home">
+      <img class="logo-img" src="images/logo.png" alt="AH logo"
+           onerror="this.style.display='none';this.nextElementSibling.style.display='inline-flex'">
+      <span style="display:none">AH<span>.</span></span>
+    </a>
+    <a class="nav__brand" href="#">
+      <b>AH</b><span>.</span>
+    </a>
+  </div>
+
+  <div class="nav__links">
+    <a class="nav__link" href="#work"   data-i18n="nav.work">Work</a>
+    <a class="nav__link" href="#lab"    data-i18n="nav.lab">Lab</a>
+    <a class="nav__link" href="#skills" data-i18n="nav.skills">Skills</a>
+    <a class="nav__link" href="#contact" data-i18n="nav.contact">Contact</a>
+
+    <button class="lang" id="langToggle" aria-label="Toggle language">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <circle cx="12" cy="12" r="10"/>
+        <line x1="2" y1="12" x2="22" y2="12"/>
+        <path d="M12 2a15.3 15.3 0 0 1 4 10 15.3 15.3 0 0 1-4 10 15.3 15.3 0 0 1-4-10 15.3 15.3 0 0 1 4-10z"/>
+      </svg>
+      <span class="lang__text" id="langLabel">عربي</span>
+    </button>
+  </div>
+</nav>
+
+<!-- ============ HERO ============ -->
+<header class="hero">
+  <div class="container hero__content">
+    <span class="badge">
+      <i></i>
+      <span data-i18n="hero.badge">Available for new projects</span>
+    </span>
+
+    <h1>
+      <span data-i18n="hero.title1">Building the web</span><br>
+      <span class="gradient" data-i18n="hero.title2">with purpose.</span>
+    </h1>
+
+    <p data-i18n="hero.desc">
+      Web Developer focused on clean, responsive and modern websites
+      with smooth experiences and lightweight performance.
+    </p>
+
+    <div class="hero__actions">
+      <a class="btn btn--primary" href="#work" data-i18n="hero.btn1">View my work</a>
+      <a class="btn btn--ghost" href="#contact" data-i18n="hero.btn2">Let's talk</a>
+    </div>
+  </div>
+
+  <div class="scroll-cue">
+    <span data-i18n="hero.scroll">Scroll</span>
+    <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+      <path d="M12 5v14M6 13l6 6 6-6"/>
+    </svg>
+  </div>
+</header>
+
+<!-- ============ AD BANNER ============ -->
+<div class="ad-banner" id="adBanner">
+  <span class="ad-label" data-i18n="ad.label">Ad</span>
+  <a class="ad-link" href="images/ad.jpg" target="_blank" rel="noopener">
+    <img src="images/ad.jpg" alt="Advertisement"
+         onerror="this.style.display='none';this.parentElement.nextElementSibling.style.display='flex'">
+  </a>
+  <div class="ad-placeholder" style="display:none">
+    <span>📢</span>
+    <span data-i18n="ad.placeholder">Your advertisement here — replace <strong>images/ad.jpg</strong></span>
+  </div>
+</div>
+
+<main>
+
+<!-- ============ WORK ============ -->
+<section class="section" id="work">
+  <div class="container">
+    <div class="section__head reveal">
+      <div>
+        <div class="kicker" data-i18n="work.kicker">Selected Work</div>
+        <h2 data-i18n="work.title">Client projects.</h2>
+      </div>
+      <p data-i18n="work.desc">Real projects built for real clients — with real requirements and deadlines.</p>
+    </div>
+
+    <div class="projects" id="clientProjects">
+
+      <!-- 01 · Med-Lab (LIVE external) -->
+      <a class="card reveal"
+         href="https://medlabeg.vercel.app/"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Med-Lab website">
+        <div class="preview" data-live-src="https://medlabeg.vercel.app/">
+          <span class="preview__num">01 / MED-LAB</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Live site</strong>
+              Preview blocked by the site. Click to open it in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">Med-Lab</div>
+          <div class="card__desc" data-i18n="medlab.desc">
+            Modern medical laboratory website with services, appointment booking and result access.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag" data-i18n="tag.responsive">Responsive</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ LAB ============ -->
+<section class="section" id="lab">
+  <div class="container">
+    <div class="section__head reveal">
+      <div>
+        <div class="kicker" data-i18n="lab.kicker">Lab &amp; Experiments</div>
+        <h2 data-i18n="lab.title">Things I built for fun.</h2>
+      </div>
+      <p data-i18n="lab.desc">Concept designs and personal projects — where I explore new ideas and sharpen my craft.</p>
+    </div>
+
+    <div class="projects" id="labProjects">
+
+      <a class="card reveal"
+         href="my-projects/Lumière_Restaurant.html"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Lumière restaurant website">
+        <div class="preview" data-live-src="my-projects/Lumière_Restaurant.html">
+          <span class="preview__num">01 / LUMIÈRE</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">Lumière</div>
+          <div class="card__desc" data-i18n="lab.lumiere.desc">
+            Fine dining restaurant website with menu, chef profile, and reservation call-to-action.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">SVG</span>
+            <span class="tag" data-i18n="tag.responsive">Responsive</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card reveal"
+         href="my-projects/Nova_Dental.html"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Nova Dental website">
+        <div class="preview" data-live-src="my-projects/Nova_Dental.html">
+          <span class="preview__num">02 / NOVA DENTAL</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">Nova Dental</div>
+          <div class="card__desc" data-i18n="lab.nova.desc">
+            Modern dental clinic website with services, doctor profiles, and an instant booking form.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag" data-i18n="tag.responsive">Responsive</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card reveal"
+         href="my-projects/PulseFit_Gym.html"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open PulseFit gym website">
+        <div class="preview" data-live-src="my-projects/PulseFit_Gym.html">
+          <span class="preview__num">03 / PULSEFIT</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">PulseFit Gym</div>
+          <div class="card__desc" data-i18n="lab.pulsefit.desc">
+            Elite training club landing page with features, programs, and a strong conversion CTA.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">SVG</span>
+            <span class="tag" data-i18n="tag.responsive">Responsive</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card reveal"
+         href="my-projects/Birthday_Surprise.html"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Birthday Surprise page">
+        <div class="preview" data-live-src="my-projects/Birthday_Surprise.html">
+          <span class="preview__num">04 / BIRTHDAY</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">Birthday Surprise</div>
+          <div class="card__desc" data-i18n="lab.birthday.desc">
+            Interactive birthday card with confetti, wishes, and a wrapped gift that reveals a note.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">Canvas</span>
+            <span class="tag">JavaScript</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card reveal"
+         href="my-projects/gift-box.html"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Gift Box page">
+        <div class="preview" data-live-src="my-projects/gift-box.html">
+          <span class="preview__num">05 / GIFT BOX</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">Gift Box</div>
+          <div class="card__desc" data-i18n="lab.giftbox.desc">
+            Six little gift boxes with hidden surprises, plus a random gift roll for a moment of joy.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">SVG</span>
+            <span class="tag">JavaScript</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card reveal"
+         href="my-projects/LoveLink.html"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Love Notes page">
+        <div class="preview" data-live-src="my-projects/LoveLink.html">
+          <span class="preview__num">06 / LOVE NOTES</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">Love Notes</div>
+          <div class="card__desc" data-i18n="lab.lovenotes.desc">
+            A curated gallery of flip cards — handpicked love notes you can read and copy in one tap.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">SVG</span>
+            <span class="tag">JavaScript</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+      <a class="card reveal"
+         href="my-projects/Speed_Medical.html"
+         target="_blank" rel="noopener noreferrer"
+         aria-label="Open Speed Medical store">
+        <div class="preview" data-live-src="my-projects/Speed_Medical.html">
+          <span class="preview__num">07 / SPEED MEDICAL</span>
+          <span class="preview__live"><i></i>Live</span>
+          <span class="preview__open">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2.4" stroke-linecap="round" stroke-linejoin="round">
+              <path d="M7 17 17 7M9 7h8v8"/>
+            </svg>
+            Open
+          </span>
+          <div class="preview__fallback">
+            <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round">
+              <rect x="3" y="4" width="18" height="16" rx="3"/>
+              <path d="M3 10h18M8 4v16"/>
+            </svg>
+            <span>
+              <strong>Preview unavailable</strong>
+              Click to open the project in a new tab.
+            </span>
+          </div>
+        </div>
+        <div class="card__body">
+          <div class="card__title">Speed Medical</div>
+          <div class="card__desc" data-i18n="lab.speedmedical.desc">
+            Bilingual medical supplies e-commerce demo with cart, reviews, imported-only tax and a simulated checkout.
+          </div>
+          <div class="tags">
+            <span class="tag">HTML</span>
+            <span class="tag">CSS</span>
+            <span class="tag">JavaScript</span>
+            <span class="tag">LocalStorage</span>
+          </div>
+          <span class="open">
+            <span data-i18n="card.view">View project</span>
+            <span class="arrow">↗</span>
+          </span>
+        </div>
+      </a>
+
+    </div>
+  </div>
+</section>
+
+<div class="divider"></div>
+
+<!-- ============ SKILLS ============ -->
+<section class="section" id="skills">
+  <div class="container">
+    <div class="section__head reveal">
+      <div>
+        <div class="kicker" data-i18n="skills.kicker">Stack</div>
+        <h2 data-i18n="skills.title">What I work with.</h2>
+      </div>
+    </div>
+    <div class="skills reveal">
+      <div class="skill">HTML</div>
+      <div class="skill">CSS</div>
+      <div class="skill">JavaScript</div>
+      <div class="skill">SQL</div>
+      <div class="skill">Supabase</div>
+      <div class="skill" data-i18n="skill.responsive">Responsive Design</div>
+    </div>
+  </div>
+</section>
+
+<!-- ============ CONTACT ============ -->
+<section class="section" id="contact">
+  <div class="container">
+    <div class="cta reveal">
+      <div class="kicker" data-i18n="contact.kicker">Have a project?</div>
+      <h2 data-i18n="contact.title">Let's build something.</h2>
+      <p data-i18n="contact.desc">
+        Need a website for your business, project or idea?
+        Send me a message and let's talk about it.
+      </p>
+      <div class="hero__actions">
+        <a class="btn btn--primary" href="https://wa.me/201070293453" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+            <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+          </svg>
+          <span>WhatsApp</span>
+          <span class="arrow">↗</span>
+        </a>
+        <a class="btn btn--ghost" href="https://www.instagram.com/a_hussein_15?stkn=MWhhdzQ5MGo4OHNncw==" target="_blank" rel="noopener">
+          <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+            <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+            <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+            <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+          </svg>
+          <span>Instagram</span>
+          <span class="arrow">↗</span>
+        </a>
+      </div>
+    </div>
+  </div>
+</section>
+
+</main>
+
+<footer class="footer">
+  <div class="footer__social">
+    <a href="https://wa.me/201070293453" target="_blank" rel="noopener" aria-label="WhatsApp" class="social social--wa">
+      <svg viewBox="0 0 24 24" fill="currentColor" aria-hidden="true">
+        <path d="M17.472 14.382c-.297-.149-1.758-.867-2.03-.967-.273-.099-.471-.148-.67.15-.197.297-.767.966-.94 1.164-.173.199-.347.223-.644.075-.297-.15-1.255-.463-2.39-1.475-.883-.788-1.48-1.761-1.653-2.059-.173-.297-.018-.458.13-.606.134-.133.298-.347.446-.52.149-.174.198-.298.298-.497.099-.198.05-.371-.025-.52-.075-.149-.669-1.612-.916-2.207-.242-.579-.487-.5-.669-.51a12.8 12.8 0 0 0-.57-.01c-.198 0-.52.074-.792.372-.272.297-1.04 1.016-1.04 2.479 0 1.462 1.065 2.875 1.213 3.074.149.198 2.096 3.2 5.077 4.487.709.306 1.262.489 1.694.625.712.227 1.36.195 1.871.118.571-.085 1.758-.719 2.006-1.413.248-.694.248-1.289.173-1.413-.074-.124-.272-.198-.57-.347m-5.421 7.403h-.004a9.87 9.87 0 0 1-5.031-1.378l-.361-.214-3.741.982.998-3.648-.235-.374a9.86 9.86 0 0 1-1.51-5.26c.001-5.45 4.436-9.884 9.888-9.884 2.64 0 5.122 1.03 6.988 2.898a9.825 9.825 0 0 1 2.893 6.994c-.003 5.45-4.437 9.884-9.885 9.884m8.413-18.297A11.815 11.815 0 0 0 12.05 0C5.495 0 .16 5.335.157 11.892c0 2.096.547 4.142 1.588 5.945L.057 24l6.305-1.654a11.882 11.882 0 0 0 5.683 1.448h.005c6.554 0 11.89-5.335 11.893-11.893a11.821 11.821 0 0 0-3.48-8.413Z"/>
+      </svg>
+    </a>
+    <a href="https://www.instagram.com/a_hussein_15?stkn=MWhhdzQ5MGo4OHNncw==" target="_blank" rel="noopener" aria-label="Instagram" class="social social--ig">
+      <svg viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round" aria-hidden="true">
+        <rect x="2" y="2" width="20" height="20" rx="5" ry="5"/>
+        <path d="M16 11.37A4 4 0 1 1 12.63 8 4 4 0 0 1 16 11.37z"/>
+        <line x1="17.5" y1="6.5" x2="17.51" y2="6.5"/>
+      </svg>
+    </a>
+  </div>
+  <div class="footer__text">
+    <span data-i18n="footer.text">© 2026 Ahmed Hussein · Web Developer</span>
+  </div>
+</footer>
+
+<script>
+(function () {
+  "use strict";
+
+  const $  = (sel, ctx = document) => ctx.querySelector(sel);
+  const $$ = (sel, ctx = document) => Array.from(ctx.querySelectorAll(sel));
+
+  /* ============================================================
+     NAV SHRINK
+     ============================================================ */
+  const nav = $("#nav");
+  const onScroll = () => nav.classList.toggle("is-scrolled", window.scrollY > 30);
+  onScroll();
+  window.addEventListener("scroll", onScroll, { passive: true });
+
+  /* ============================================================
+     READING PROGRESS
+     ============================================================ */
+  const progress = $("#progress");
+  const updateProgress = () => {
+    const h = document.documentElement;
+    const max = h.scrollHeight - h.clientHeight;
+    const pct = max > 0 ? (h.scrollTop || document.body.scrollTop) / max : 0;
+    progress.style.width = (pct * 100).toFixed(2) + "%";
+  };
+  updateProgress();
+  window.addEventListener("scroll", updateProgress, { passive: true });
+  window.addEventListener("resize", updateProgress);
+
+  /* ============================================================
+     REVEAL ON SCROLL
+     ============================================================ */
+  const reveals = $$(".reveal");
+  if ("IntersectionObserver" in window) {
+    const io = new IntersectionObserver(
+      (entries) => {
+        entries.forEach((entry) => {
+          if (!entry.isIntersecting) return;
+          const siblings = Array.from(
+            entry.target.parentElement?.querySelectorAll(".reveal") || []
+          );
+          const i = Math.max(0, siblings.indexOf(entry.target));
+          entry.target.style.transitionDelay = (i % 4) * 80 + "ms";
+          entry.target.classList.add("is-visible");
+          io.unobserve(entry.target);
+        });
+      },
+      { threshold: 0.12, rootMargin: "0px 0px -8% 0px" }
+    );
+    reveals.forEach((el) => io.observe(el));
+  } else {
+    reveals.forEach((el) => el.classList.add("is-visible"));
+  }
+
+  /* ============================================================
+     LAZY IFRAME PREVIEWS
+     - Loads preview on first hover / tap / keyboard focus
+     - Falls back to a friendly message if blocked or slow
+     ============================================================ */
+  const LOAD_TIMEOUT = 4500; // ms before showing fallback
+
+  function loadPreview(previewEl) {
+    if (previewEl.dataset.loaded === "1") return;
+    const src = previewEl.dataset.liveSrc;
+    if (!src) return;
+
+    previewEl.dataset.loaded = "1";
+
+    const iframe = document.createElement("iframe");
+    iframe.src = src;
+    iframe.title = "Live preview";
+    iframe.loading = "lazy";
+    iframe.tabIndex = -1;
+    iframe.setAttribute("aria-hidden", "true");
+
+    let loaded = false;
+    const failTimer = setTimeout(() => {
+      if (loaded) return;
+      showFallback(previewEl);
+    }, LOAD_TIMEOUT);
+
+    iframe.addEventListener("load", () => {
+      loaded = true;
+      clearTimeout(failTimer);
+      // Cross-origin: we can't read content, so we just trust it loaded.
+      previewEl.classList.add("is-loaded");
+    });
+
+    iframe.addEventListener("error", () => {
+      clearTimeout(failTimer);
+      showFallback(previewEl);
+    });
+
+    // Append after the badges but before fallback (fallback z-index handles layering)
+    previewEl.appendChild(iframe);
+  }
+
+  function showFallback(previewEl) {
+    previewEl.classList.add("is-loaded");
+    const fb = previewEl.querySelector(".preview__fallback");
+    if (fb) fb.classList.add("is-active");
+  }
+
+  $$(".preview[data-live-src]").forEach((previewEl) => {
+    const card = previewEl.closest(".card");
+    if (!card) return;
+
+    // Load on hover
+    card.addEventListener("mouseenter", () => loadPreview(previewEl), { once: true });
+    // Load on keyboard focus
+    card.addEventListener("focusin",    () => loadPreview(previewEl), { once: true });
+    // Load on touch start
+    card.addEventListener("touchstart", () => loadPreview(previewEl), { once: true, passive: true });
+    // Also load when card enters viewport (fallback)
+    if ("IntersectionObserver" in window) {
+      const vio = new IntersectionObserver((entries) => {
+        entries.forEach((entry) => {
+          if (entry.isIntersecting) {
+            // small delay so it doesn't fight with page-load
+            setTimeout(() => loadPreview(previewEl), 600);
+            vio.disconnect();
+          }
+        });
+      }, { threshold: 0.2 });
+      vio.observe(card);
+    } else {
+      loadPreview(previewEl);
+    }
+  });
+
+  /* ============================================================
+     TRANSLATIONS
+     ============================================================ */
+  const translations = {
+    en: {
+      "nav.work": "Work",
+      "nav.lab": "Lab",
+      "nav.skills": "Skills",
+      "nav.contact": "Contact",
+
+      "hero.badge": "Available for new projects",
+      "hero.title1": "Building the web",
+      "hero.title2": "with purpose.",
+      "hero.desc": "Web Developer focused on clean, responsive and modern websites with smooth experiences and lightweight performance.",
+      "hero.btn1": "View my work",
+      "hero.btn2": "Let's talk",
+      "hero.scroll": "Scroll",
+
+      "ad.label": "Ad",
+      "ad.placeholder": "Your advertisement here — replace images/ad.jpg",
+
+      "work.kicker": "Selected Work",
+      "work.title": "Client projects.",
+      "work.desc": "Real projects built for real clients — with real requirements and deadlines.",
+      "medlab.desc": "Modern medical laboratory website with services, appointment booking and result access.",
+      "tag.responsive": "Responsive",
+      "card.view": "View project",
+
+      "lab.kicker": "Lab & Experiments",
+      "lab.title": "Things I built for fun.",
+      "lab.desc": "Concept designs and personal projects — where I explore new ideas and sharpen my craft.",
+
+      "lab.lumiere.desc": "Fine dining restaurant website with menu, chef profile, and reservation call-to-action.",
+      "lab.nova.desc": "Modern dental clinic website with services, doctor profiles, and an instant booking form.",
+      "lab.pulsefit.desc": "Elite training club landing page with features, programs, and a strong conversion CTA.",
+      "lab.birthday.desc": "Interactive birthday card with confetti, wishes, and a wrapped gift that reveals a note.",
+      "lab.giftbox.desc": "Six little gift boxes with hidden surprises, plus a random gift roll for a moment of joy.",
+      "lab.lovenotes.desc": "A curated gallery of flip cards — handpicked love notes you can read and copy in one tap.",
+      "lab.speedmedical.desc": "A bilingual medical supplies e-commerce demo with cart, reviews, imported-only tax and a simulated checkout.",
+
+      "skills.kicker": "Stack",
+      "skills.title": "What I work with.",
+      "skill.responsive": "Responsive Design",
+
+      "contact.kicker": "Have a project?",
+      "contact.title": "Let's build something.",
+      "contact.desc": "Need a website for your business, project or idea? Send me a message and let's talk about it.",
+
+      "footer.text": "© 2026 Ahmed Hussein · Web Developer"
+    },
+    ar: {
+      "nav.work": "أعمالي",
+      "nav.lab": "المختبر",
+      "nav.skills": "المهارات",
+      "nav.contact": "تواصل",
+
+      "hero.badge": "متاح لمشاريع جديدة",
+      "hero.title1": "أبني الويب",
+      "hero.title2": "بهدف واضح.",
+      "hero.desc": "مطوّر ويب متخصص في بناء مواقع نظيفة ومتجاوبة وعصرية، بتجربة سلسة وأداء خفيف.",
+      "hero.btn1": "شاهد أعمالي",
+      "hero.btn2": "لنتحدث",
+      "hero.scroll": "اسحب للأسفل",
+
+      "ad.label": "إعلان",
+      "ad.placeholder": "إعلانك هنا — استبدل images/ad.jpg",
+
+      "work.kicker": "أعمال مختارة",
+      "work.title": "مشاريع العملاء.",
+      "work.desc": "مشاريع حقيقية لعملاء حقيقيين — بمتطلبات ومواعيد حقيقية.",
+      "medlab.desc": "موقع مختبر طبي حديث يعرض الخدمات وحجز المواعيد والوصول للنتائج.",
+      "tag.responsive": "متجاوب",
+      "card.view": "عرض المشروع",
+
+      "lab.kicker": "المختبر والتجارب",
+      "lab.title": "أشياء بنيتها للمتعة.",
+      "lab.desc": "تصاميم مفاهيمية ومشاريع شخصية — أستكشف فيها أفكار جديدة وأصقل مهاراتي.",
+
+      "lab.lumiere.desc": "موقع مطعم فاخر يعرض المنيو، نبذة عن الشيف، ودعوة مباشرة للحجز.",
+      "lab.nova.desc": "موقع عيادة أسنان حديث يعرض الخدمات، الأطباء، ونموذج حجز فوري.",
+      "lab.pulsefit.desc": "صفحة هبوط لنادي رياضي نخبوي تعرض المميزات والبرامج ودعوة قوية للانضمام.",
+      "lab.birthday.desc": "بطاقة عيد ميلاد تفاعلية مع كونفيتي، تمنيات، وهدية مبطّنة برسالة مخفية.",
+      "lab.giftbox.desc": "ستة صناديق هدايا صغيرة بها مفاجآت، وزر اختيار هدية عشوائية للحظ.",
+      "lab.lovenotes.desc": "مجموعة مختارة من كروت رسائل حب قابلة للقلب، تقرأها وتنسخها بضغطة واحدة.",
+      "lab.speedmedical.desc": "متجر تجريبي ثنائي اللغة للمستلزمات الطبية بسلة وتقييمات وضريبة على المستورد فقط ودفع محاكى.",
+
+      "skills.kicker": "التقنيات",
+      "skills.title": "ما أعمل به.",
+      "skill.responsive": "تصميم متجاوب",
+
+      "contact.kicker": "عندك مشروع؟",
+      "contact.title": "لنبنِ شيئاً معاً.",
+      "contact.desc": "محتاج موقع لعملك أو مشروعك أو فكرتك؟ ابعتلي رسالة ولنتحدث.",
+
+      "footer.text": "© 2026 أحمد حسين · مطوّر ويب"
+    }
+  };
+
+  let currentLang = "en";
+
+  function setLanguage(lang) {
+    currentLang = lang;
+    document.documentElement.lang = lang;
+    document.documentElement.dir = (lang === "ar") ? "rtl" : "ltr";
+
+    $$("[data-i18n]").forEach((el) => {
+      const key = el.getAttribute("data-i18n");
+      const val = translations[lang]?.[key];
+      if (typeof val === "string") el.textContent = val;
+    });
+
+    const label = $("#langLabel");
+    if (label) label.textContent = (lang === "en") ? "عربي" : "English";
+
+    document.title = (lang === "ar")
+      ? "أحمد حسين — مطوّر ويب"
+      : "Ahmed Hussein — Web Developer";
+
+    try { localStorage.setItem("preferredLang", lang); } catch (e) {}
+  }
+
+  $("#langToggle").addEventListener("click", () => {
+    setLanguage(currentLang === "en" ? "ar" : "en");
+  });
+
+  (function initLang() {
+    let saved = null;
+    try { saved = localStorage.getItem("preferredLang"); } catch (e) {}
+    if (saved === "ar" || saved === "en") {
+      setLanguage(saved);
+    } else {
+      const browserLang = (navigator.language || "en").toLowerCase();
+      setLanguage(browserLang.startsWith("ar") ? "ar" : "en");
+    }
+  })();
+})();
+</script>
+</body>
+</html>
